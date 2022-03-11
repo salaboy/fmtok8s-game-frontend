@@ -7,13 +7,13 @@ spring:
   cloud:
     gateway:
       #filter: #https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-secureheaders-gatewayfilter-factory
-      filter:
-        secure-headers:
-          enabled: true
-      default-filters:
-        - SecureHeaders
-        - TokenRelay=
-        - RemoveRequestHeader=Cookie
+#      filter:
+#        secure-headers:
+#          enabled: true
+#      default-filters:
+#        - SecureHeaders
+#        - TokenRelay=
+#        - RemoveRequestHeader=Cookie
       httpclient:
         wiretap: true
       httpserver:
