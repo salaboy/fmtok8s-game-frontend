@@ -1,0 +1,81 @@
+spring:
+  profiles:
+    active:
+  application:
+    name:
+      fmtok8s-game-ui-service
+  cloud:
+    gateway:
+      #filter: #https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-secureheaders-gatewayfilter-factory
+      filter:
+        secure-headers:
+          enabled: true
+      default-filters:
+        - SecureHeaders
+        - TokenRelay=
+        - RemoveRequestHeader=Cookie
+      httpclient:
+        wiretap: true
+      httpserver:
+          wiretap: true
+      routes:
+      - id: game
+        uri: ${GAME_CONTROLLER_SERVICE:http://game-controller-service.default.svc.cluster.local}
+        predicates:
+          - Path=/game/**
+        filters:
+          - RewritePath=/game/(?<id>.*), /$\{id}
+      - id: broker
+        uri: ${K_SINK:http://broker-ingress.knative-eventing.svc.cluster.local}
+        predicates:
+          - Path=/broker/**
+        filters:
+          - RewritePath=${K_SINK_POST_FIX:/broker/, /default/default}
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          oidc:
+#            scope:
+#              - openid
+
+management:
+
+  endpoints:
+    web:
+      exposure:
+        include: health, gateway, info, prometheus, metrics, threaddump
+  endpoint:
+    loggers:
+      enabled: true
+    info:
+      enabled: true
+      show-details: always
+    gateway:
+      enabled: true
+      show-details: always
+    health:
+      probes:
+        enabled: true
+      enabled: true
+      show-details: always
+      group:
+        liveness:
+          include: livenessState
+          show-details: always
+        readiness:
+          include: readinessState
+          show-details: always
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: INFO
+    com:
+      salaboy:
+        conferences:
+          site: INFO

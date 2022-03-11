@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+target/
+.idea/
+yarn.lock
 # Log file
 *.log
 

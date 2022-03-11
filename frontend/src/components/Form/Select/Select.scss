@@ -1,0 +1,34 @@
+@import '../../../styles/_foundations.scss';
+.Select {
+  label {
+    display: block;
+    font-size: font-size(xs);
+    line-height: 1;
+    opacity: .75;
+    padding: 0;
+    margin: 0;
+  }
+  select {
+    border: 0;
+    margin-top: spacing(2);
+    border: 2px solid color(black);
+    display: block;
+    width: 100%;
+    font-family: font-family(display);
+    font-size: font-size(s);
+    padding: 0 spacing(4) ;
+    height: spacing(2, 7);
+    line-height: spacing(2, 7);
+    transition: transition();
+    &:focus {
+      border-bottom: 2px solid color(black);
+      outline: 0;
+      background-color: color(white);
+    }
+  }
+  &.--small {
+    max-width: 240px;
+  }
+
+  margin-bottom: spacing(4,3);
+}
