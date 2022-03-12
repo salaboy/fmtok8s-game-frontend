@@ -38,6 +38,7 @@ function Game() {
     }
 
     const [question, setQuestion] = useState("");
+    const [currentAnswer, setCurrentAnswer] = useState("");
 
     //scroll
     const {scroll} = useLocomotiveScroll();
@@ -71,6 +72,12 @@ function Game() {
 
     useInterval(() => {
         if (state.sessionID != "" && state.currentLevelStarted && !state.currentLevelCompleted) {
+            axios.get('level-' + state.currentLevelId + '/answerBySession/'+ state.sessionID).then(res => {
+                //console.log(res.data)
+                setCurrentAnswer(res.data)
+            }).catch(err => {
+                console.log(err)
+            });
             axios.get('/game/sessions/' + state.sessionID).then(res => {
                 console.log(" --- Game Session Data ---")
                 console.log(res.data)
@@ -82,9 +89,7 @@ function Game() {
                 console.log(err)
             });
         }
-        // else {
-        //     console.log("sessionId" + state.sessionID + " started? " + state.currentLevelStarted + " - completed?" + state.currentLevelCompleted )
-        // }
+
     }, delay);
 
     useEffect(() => {
@@ -144,7 +149,7 @@ function Game() {
     //Add listener for keys
     function handleEvents(event) {
         console.log(event.key);
-        if(event.key != 'null' && event.key != "Alt" && event.key !="Meta") {
+        if(event.key != 'null' && event.key != "Alt" && event.key !="Meta" && event.key !="Shift" && event.key != "Backspace") {
             const cloudEvent = new CloudEvent({
                 id: createMyGuid(),
                 type: "KeyPressedEvent",
@@ -221,7 +226,7 @@ function Game() {
                                             <h4>Completed: {String(state.currentLevelCompleted)}</h4>
                                             <h4>Question: {question}</h4>
                                             Answer: <input id="inputText"/>
-
+                                            <h4>Current Answer in the server: {currentAnswer}</h4>
                                         </div>
 
                                     )}
