@@ -15,7 +15,7 @@ spec:
             httpGet:
               path: /actuator/health
           ports:
-            - containerPort: 8082
+            - containerPort: 8080
               name: http1
               protocol: TCP
           readinessProbe:
