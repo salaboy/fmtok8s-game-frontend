@@ -18,12 +18,6 @@ module.exports = {
                 //k port-forward svc/broker-ingress -n knative-eventing 8081:80
                 target: 'http://localhost:8081/default',
             },
-            '/level-1/*': { // This is not needed in the gateway, as the gateway will run inside the cluster
-                // level-1 -> k apply -f config/
-                target: 'http://level-1.default.34.116.142.221.sslip.io',
-                pathRewrite: { "^/level-1": "" },
-                changeOrigin: true
-            },
         },
     },
     module: {

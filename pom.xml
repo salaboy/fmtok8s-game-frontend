@@ -64,7 +64,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -82,7 +86,17 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
     <build>
         <resources>
             <resource>
@@ -102,10 +116,11 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+<!--                        <outputDirectory>${basedir}/target/classes/static</outputDirectory>-->
+                            <outputDirectory>${basedir}/target/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>frontend/build</directory>
+                                    <directory>frontend/dist</directory>
                                 </resource>
                             </resources>
                         </configuration>

@@ -7,8 +7,8 @@ import cn from 'classnames';
 function BackOfficeNav({currentSubSection}) {
     const {currentSection} = useContext(AppContext);
 
-    let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
-    let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
+    // let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
+    // let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
 
     return (
         <div className={cn({
@@ -24,17 +24,17 @@ function BackOfficeNav({currentSubSection}) {
                         activeClassName='--active' to='/back-office/features' exact> Features
                     </NavLink>
                 </div>
-                {c4pEnabled && (
-                        <div>
-                            <NavLink activeClassName='--active' to='/back-office/proposals' exact> Proposals
-                            </NavLink>
-                        </div>
-                )}
-                {ticketsEnabled && (
-                    <div>
-                        <NavLink activeClassName='--active' to='/back-office/tickets' exact> Tickets Queue</NavLink>
-                    </div>
-                )}
+                {/*{c4pEnabled && (*/}
+                {/*        <div>*/}
+                {/*            <NavLink activeClassName='--active' to='/back-office/proposals' exact> Proposals*/}
+                {/*            </NavLink>*/}
+                {/*        </div>*/}
+                {/*)}*/}
+                {/*{ticketsEnabled && (*/}
+                {/*    <div>*/}
+                {/*        <NavLink activeClassName='--active' to='/back-office/tickets' exact> Tickets Queue</NavLink>*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </div>
         </div>
     );

@@ -1,0 +1,14 @@
+@import '../../styles/_foundations.scss';
+.Leaderboard {
+  padding-bottom: spacing(2,10);
+
+  .Leaderboard__List {
+    padding: spacing(2,10) 0;
+  }
+  .Leaderboard__Empty {
+    
+    span {
+      opacity: .5;
+    }
+  }
+}

@@ -5,6 +5,7 @@ export const gameStateReducer = (currentState, action) => {
         return {
             landed: true,
             sessionID: "",
+            nickname: "",
             currentLevelId: 0,
         }
     }
@@ -15,22 +16,11 @@ export const gameStateReducer = (currentState, action) => {
         return {
             landed: currentState.landed,
             sessionID: action.payload.gameSessionId,
-            currentLevelId: action.payload.levelId
+            currentLevelId: action.payload.levelId,
+            nickname: action.payload.nickname,
+            currentLevelStarted: false
         }
     }
-    if (action.type === 'levelCheckTriggered') {
-
-        console.log("ACTION levelCheckTriggered")
-        return {
-            landed: currentState.landed,
-            sessionID: currentState.sessionID,
-            currentLevelId: currentState.currentLevelId,
-            currentLevelStarted: currentState.currentLevelStarted,
-            currentLevelCompleted: currentState.currentLevelCompleted,
-            currentLevelExists: action.payload
-        }
-    }
-
 
 
     if (action.type === 'levelStartedTriggered') {
@@ -40,6 +30,7 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: currentState.sessionID,
             currentLevelId: currentState.currentLevelId,
             currentLevelExists: currentState.currentLevelExists,
+            nickname: currentState.nickname,
             currentLevelStarted: true
         }
     }
@@ -51,6 +42,7 @@ export const gameStateReducer = (currentState, action) => {
             landed: currentState.landed,
             sessionID: currentState.sessionID,
             currentLevelId: currentState.currentLevelId,
+            nickname: currentState.nickname,
             currentLevelExists: currentState.currentLevelExists,
             currentLevelStarted: currentState.currentLevelStarted,
             currentLevelCompleted: action.payload.completed,
@@ -64,36 +56,13 @@ export const gameStateReducer = (currentState, action) => {
         return {
             landed: currentState.landed,
             sessionID: currentState.sessionID,
+            nickname: currentState.nickname,
             currentLevelId: action.payload,
         }
     }
 
 
-    // if (action.type === 'reservationIdCreated') {
-    //
-    //     console.log("ACTION reservationIdCreated")
-    //
-    //     return {
-    //         landed: currentState.landed,
-    //         sessionID: currentState.sessionID,
-    //         reservationID: action.payload,
-    //         inQueue: currentState.inQueue,
-    //         outQueue: currentState.outQueue,
-    //         reservingTickets: currentState.reservingTickets,
-    //         checkingOut: currentState.checkingOut,
-    //
-    //     }
-    // }
-    // if (action.type === 'joinedQueue') {
-    //
-    //     console.log("ACTION joinedQueue")
-    //     return {
-    //         sessionID: currentState.sessionID,
-    //         reservationID: currentState.reservationID,
-    //         landed: false,
-    //         inQueue: true
-    //     }
-    // }
+
 
     return currentState
 }
