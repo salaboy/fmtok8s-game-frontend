@@ -22,12 +22,6 @@ spring:
       httpserver:
           wiretap: true
       routes:
-      - id: game
-        uri: ${GAME_CONTROLLER_SERVICE:http://game-controller.default.svc.cluster.local}
-        predicates:
-          - Path=/game/**
-        filters:
-          - RewritePath=/game/(?<id>.*), /$\{id}
       - id: broker
         uri: ${K_SINK:http://broker-ingress.knative-eventing.svc.cluster.local}
         predicates:

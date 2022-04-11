@@ -149,8 +149,8 @@ function Game() {
 
     const startLevel = () => {
         setLoading(true);
-        axios.post('/game/sessions/' + state.sessionID + '/start').then(res => {
-            //console.log(res.data)
+        axios.post('/game/' + state.sessionID + '/' + state.currentLevelId + '/start').then(res => {
+            console.log(res.data)
             dispatch({type: "levelStartedTriggered", payload: res.data})
             setLoading(false)
         }).catch(err => {

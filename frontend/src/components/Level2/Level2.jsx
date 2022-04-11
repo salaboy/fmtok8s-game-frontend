@@ -8,8 +8,7 @@ import Clock from "../Clock/Clock";
 function Level2({state, dispatch}) {
 
     const [question1Answer, setQuestion1Answer] = useState("")
-    const [question2Answer, setQuestion2Answer] = useState("")
-    const [question3Answer, setQuestion3Answer] = useState("")
+
 
     //Send answer to a specific question/level
     function sendAnswer() {
@@ -18,12 +17,9 @@ function Level2({state, dispatch}) {
 
         axios({
             method: "post",
-            url: '/game/levels/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
+            url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
             data: {
                 question1: question1Answer,
-                question2: question2Answer,
-                question3: question3Answer,
-                nickname: state.nickname,
             },
         }).then(res => {
             console.log("Answer response:")

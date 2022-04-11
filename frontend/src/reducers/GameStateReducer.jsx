@@ -15,9 +15,9 @@ export const gameStateReducer = (currentState, action) => {
         console.log("ACTION gameSessionIdCreated")
         return {
             landed: currentState.landed,
-            sessionID: action.payload.gameSessionId,
-            currentLevelId: action.payload.levelId,
-            nickname: action.payload.nickname,
+            sessionID: action.payload.SessionId,
+            currentLevelId: 1,
+            nickname: action.payload.Player,
             currentLevelStarted: false
         }
     }

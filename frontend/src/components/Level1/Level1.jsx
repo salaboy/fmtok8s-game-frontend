@@ -20,12 +20,11 @@ function Level1({state, dispatch}) {
 
         axios({
             method: "post",
-            url: '/game/levels/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
+            url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
             data: {
                 question1: question1Answer,
                 question2: question2Answer,
                 question3: question3Answer,
-                nickname: state.nickname,
             },
         }).then(res => {
             console.log("Answer response:")
