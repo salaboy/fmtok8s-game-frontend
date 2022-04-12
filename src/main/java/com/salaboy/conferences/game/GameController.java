@@ -48,7 +48,7 @@ public class GameController {
     @GetMapping("/leaderboard")
     public Leaderboard getLeaderboard() {
         ResponseEntity<Leaderboard> response = restTemplate.exchange(
-                "http://leaderboard.default.svc.cluster.local/", HttpMethod.GET, null,
+                "http://get-leaderboard.default.svc.cluster.local/", HttpMethod.GET, null,
                 Leaderboard.class);
 
         return response.getBody();
