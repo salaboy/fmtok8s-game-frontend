@@ -6,7 +6,7 @@ spring:
     static-path-pattern: "/**" # https://github.com/spring-cloud/spring-cloud-gateway/issues/1339
   application:
     name:
-      fmtok8s-game-ui-service
+      fmtok8s-game-frontend-service
   cloud:
     gateway:
       #filter: #https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-secureheaders-gatewayfilter-factory

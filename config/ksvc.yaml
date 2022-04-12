@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: game-ui
+  name: game-frontend
 spec:
   template:
     metadata:
@@ -9,7 +9,7 @@ spec:
         autoscaling.knative.dev/minScale: "1"
     spec:
       containers:
-        - image: salaboy/fmtok8s-game-ui:0.1.0
+        - image: salaboy/fmtok8s-game-frontend:0.1.0
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

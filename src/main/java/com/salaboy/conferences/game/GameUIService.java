@@ -152,7 +152,7 @@ class GameUIController {
 
     @GetMapping("info")
     public String infoWithVersion() {
-        return "{ \"name\" : \"User Interface\", \"version\" : \"" + version + "\", \"source\": \"https://github.com/salaboy/fmtok8s-game-ui/releases/tag/v" + version + "\" }";
+        return "{ \"name\" : \"User Interface\", \"version\" : \"" + version + "\", \"source\": \"https://github.com/salaboy/fmtok8s-game-frontend/releases/tag/v" + version + "\" }";
     }
 
     @Configuration

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.salaboy.conferences</groupId>
-    <artifactId>fmtok8s-game-ui</artifactId>
+    <artifactId>fmtok8s-game-frontend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>FMTOK8S :: Game UI</name>
-    <description>From Monolith to K8s :: Game UI</description>
+    <description>From Monolith to K8s :: Game Frontend</description>
 
     <properties>
         <java.version>11</java.version>

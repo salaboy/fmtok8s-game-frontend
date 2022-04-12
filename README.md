@@ -13,8 +13,8 @@ To build the docker image to deploy into a cluster you can run:
 (Before building the image make sure that `application.properties` have the property `spring.web.resources.static-locations` is set to `file:static/`)
 
 ```
-docker build -t salaboy/fmtok8s-game-ui:0.1.0 .
-docker push salaboy/fmtok8s-game-ui:0.1.0
+docker build -t salaboy/fmtok8s-game-frontend:0.1.0 .
+docker push salaboy/fmtok8s-game-frontend:0.1.0
 ```
 Replace `salaboy` with your docker hub user or your registry organization.
 
