@@ -3,17 +3,12 @@ package com.salaboy.conferences.game;
 import com.salaboy.conferences.game.model.Answers;
 import com.salaboy.conferences.game.model.Leaderboard;
 import com.salaboy.conferences.game.model.StartLevel;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @RestController()
 @RequestMapping("/game/")
@@ -62,13 +57,10 @@ public class GameController {
 
     @PostMapping(path = "/{sessionId}/level-{levelId}/answer")
     public String answer(@PathVariable() String sessionId, @PathVariable() String levelId, @RequestBody Answers answers) {
-        System.out.println("Answers received in the game controller for level:  " + levelId + "\n" + answers);
-
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Answers> request = new HttpEntity<>(answers, headers);
         answers.setSessionId(sessionId);
         ResponseEntity<String> response = restTemplate.postForEntity(
-//                "http://" + levelName + ".default.svc.cluster.local/",
                 "http://questions-" + levelId + ".default.svc.cluster.local/",
                 request,
                 String.class);
