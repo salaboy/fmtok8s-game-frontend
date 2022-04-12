@@ -15,6 +15,8 @@ public class SessionScore {
     private Date gameTime;
     @JsonProperty("LastLevel")
     private String lastLevel;
+    @JsonProperty("AccumulatedTimeInSeconds")
+    private long accumulatedTimeInSeconds;
 
     public SessionScore() {
     }
@@ -59,6 +61,14 @@ public class SessionScore {
         this.lastLevel = lastLevel;
     }
 
+    public long getAccumulatedTimeInSeconds() {
+        return accumulatedTimeInSeconds;
+    }
+
+    public void setAccumulatedTimeInSeconds(long accumulatedTimeInSeconds) {
+        this.accumulatedTimeInSeconds = accumulatedTimeInSeconds;
+    }
+
     @Override
     public String toString() {
         return "SessionScore{" +
@@ -67,6 +77,7 @@ public class SessionScore {
                 ", nickname='" + nickname + '\'' +
                 ", gameTime=" + gameTime +
                 ", lastLevel='" + lastLevel + '\'' +
+                ", accumulatedTimeInSeconds=" + accumulatedTimeInSeconds +
                 '}';
     }
 }

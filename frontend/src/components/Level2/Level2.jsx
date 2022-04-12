@@ -7,6 +7,9 @@ import Clock from "../Clock/Clock";
 
 function Level2({state, dispatch}) {
 
+    const [isActive, setIsActive] = useState(true);
+    const [isPaused, setIsPaused] = useState(false);
+
     const [question1Answer, setQuestion1Answer] = useState("")
 
 
@@ -14,7 +17,7 @@ function Level2({state, dispatch}) {
     function sendAnswer() {
         console.log("Sending answer: " + question1Answer + " to level id: " + state.currentLevelId)
 
-
+        setIsPaused(true)
         axios({
             method: "post",
             url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
@@ -39,7 +42,7 @@ function Level2({state, dispatch}) {
             ["Level2"]: true,
         })}>
             <h3> Welcome to Level 2</h3>
-            <h4> Time: <Clock/> </h4>
+            <h4> Time: <Clock isPaused={isPaused} isActive={isActive}/> </h4>
             <div>
                 <h4>Question 1:Is this a very difficult question? </h4><br/>
                 <h4>Answer:

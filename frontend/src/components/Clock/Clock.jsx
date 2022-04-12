@@ -3,10 +3,9 @@ import React, {useEffect, useState} from "react";
 import cn from 'classnames';
 import Timer from "./Timer"
 
-function Clock() {
+function Clock({isActive, isPaused}) {
 
-    const [isActive, setIsActive] = useState(true);
-    const [isPaused, setIsPaused] = useState(false);
+
     const [time, setTime] = useState(0);
 
     useEffect(() => {

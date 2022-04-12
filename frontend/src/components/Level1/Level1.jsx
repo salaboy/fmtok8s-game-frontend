@@ -7,6 +7,9 @@ import Clock from "../Clock/Clock";
 
 function Level1({state, dispatch}) {
 
+    const [isActive, setIsActive] = useState(true);
+    const [isPaused, setIsPaused] = useState(false);
+
     const [question1Answer, setQuestion1Answer] = useState("")
     const [question2Answer, setQuestion2Answer] = useState("")
     const [question3Answer, setQuestion3Answer] = useState("")
@@ -17,7 +20,7 @@ function Level1({state, dispatch}) {
         console.log("Sending answer: " + question1Answer + " to level id: " + state.currentLevelId)
 
         //@TODO: If we want to send the Clock data to the function: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
-
+        setIsPaused(true)
         axios({
             method: "post",
             url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
@@ -44,7 +47,7 @@ function Level1({state, dispatch}) {
             ["Level1"]: true,
         })}>
             <h3> Welcome to Level 1</h3>
-            <h4> Time: <Clock/> </h4>
+            <h4> Time: <Clock isActive={isActive} isPaused={isPaused}/> </h4>
             <div>
                 <h4>Question 1: What is the meaning of life? </h4>
                 <h4>Answer:  <input id="answer1" value={question1Answer}

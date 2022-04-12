@@ -5,7 +5,7 @@ import java.util.Date;
 public class StartLevel {
     private String sessionId;
     private String level;
-    private Date time;
+
     private String gameTimeId;
     private String type;
 
@@ -26,13 +26,6 @@ public class StartLevel {
         this.level = level;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 
     public String getGameTimeId() {
         return gameTimeId;
@@ -55,7 +48,6 @@ public class StartLevel {
         return "StartLevel{" +
                 "sessionId='" + sessionId + '\'' +
                 ", level='" + level + '\'' +
-                ", time=" + time +
                 ", gameTimeId='" + gameTimeId + '\'' +
                 ", type='" + type + '\'' +
                 '}';

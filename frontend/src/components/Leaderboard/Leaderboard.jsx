@@ -19,7 +19,8 @@ function Leaderboard({leaderboard}) {
                 Object.entries(leaderboard.Sessions).map(([key, sessionScore]) =>
                     <div key={key}>
                         <h4>Time: {formatDate(sessionScore.Time)} -> Player: {sessionScore.Nickname} ->
-                            Score: {sessionScore.AccumulatedScore} -> Last Level Played: {sessionScore.LastLevel} </h4>
+                            Score: {sessionScore.AccumulatedScore} -> Last Level Played: {sessionScore.LastLevel} ->
+                        Time Used: {new Date(sessionScore.AccumulatedTimeInSeconds).toISOString().substr(14, 5)}</h4>
                     </div>
                 )
             }
