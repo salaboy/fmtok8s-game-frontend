@@ -1,7 +1,7 @@
 ## There are two reasons why I added a Dockerfile here:
 ##  1) I need to copy more assets into specific locations for the container image to find static resources (I have the feeling that this can be done with a maven plugin)
 ##  2) For Feature flags in the UI I am using the startup.sh script which create a file based on the docker env variables present at startup time
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:17-jre
 ENV PORT 8080
 ENV CLASSPATH /opt/lib
 EXPOSE 8080
@@ -16,7 +16,6 @@ COPY startup.sh /opt/
 COPY target/*.jar /opt/app.jar
 COPY target/static/* /opt/static/
 COPY target/static/images/* /opt/static/images/
-
 
 WORKDIR /opt
 
