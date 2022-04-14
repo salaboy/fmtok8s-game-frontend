@@ -11,7 +11,7 @@
     <groupId>com.salaboy.conferences</groupId>
     <artifactId>fmtok8s-game-frontend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>FMTOK8S :: Game UI</name>
+    <name>FMTOK8S :: Game Frontend</name>
     <description>From Monolith to K8s :: Game Frontend</description>
 
     <properties>

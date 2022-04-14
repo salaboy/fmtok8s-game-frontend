@@ -61,7 +61,7 @@ public class GameController {
         HttpEntity<Answers> request = new HttpEntity<>(answers, headers);
         answers.setSessionId(sessionId);
         ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://questions-" + levelId + ".default.svc.cluster.local/",
+                "http://level-" + levelId + ".default.svc.cluster.local/",
                 request,
                 String.class);
         System.out.println("Level response: " + response.getBody());
