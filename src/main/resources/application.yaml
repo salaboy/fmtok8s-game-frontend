@@ -1,68 +1,22 @@
 spring:
-  web:
-    resources:
-      static-locations: "file:static/" #for dev file:./target/static/ for docker static/
-  webflux:
-    static-path-pattern: "/**" # https://github.com/spring-cloud/spring-cloud-gateway/issues/1339
   application:
     name:
       fmtok8s-game-frontend-service
-  cloud:
-    gateway:
-      #filter: #https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-secureheaders-gatewayfilter-factory
-#      filter:
-#        secure-headers:
-#          enabled: true
-#      default-filters:
-#        - SecureHeaders
-#        - TokenRelay=
-#        - RemoveRequestHeader=Cookie
-      httpclient:
-        wiretap: true
-      httpserver:
-          wiretap: true
-      routes:
-      - id: broker
-        uri: ${K_SINK:http://broker-ingress.knative-eventing.svc.cluster.local}
-        predicates:
-          - Path=/broker/**
-        filters:
-          - RewritePath=${K_SINK_POST_FIX:/broker/, /default/default}
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          oidc:
-#            scope:
-#              - openid
+  web:
+    resources:
+      static-locations: "file:static/" #for dev file:./target/static/ for docker static/
 
 management:
-
   endpoints:
     web:
       exposure:
-        include: health, gateway, info
+        include: health, info
   endpoint:
-    loggers:
-      enabled: true
-    info:
-      enabled: true
-      show-details: always
-    gateway:
-      enabled: true
-      show-details: always
     health:
+      enabled: true
       probes:
         enabled: true
-      enabled: true
       show-details: always
-      group:
-        liveness:
-          include: livenessState
-          show-details: always
-        readiness:
-          include: readinessState
-          show-details: always
 
 logging:
   level:
