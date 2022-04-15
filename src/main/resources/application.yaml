@@ -8,7 +8,10 @@ spring:
   web:
     resources:
       static-locations: "file:static/" #for dev file:./target/static/ for docker static/
-
+  rsocket:
+    server:
+      port: 9000
+      transport: websocket
 game:
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
   start-game-uri: http://start-game.default.svc.cluster.local

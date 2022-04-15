@@ -8,15 +8,19 @@ import Header from '../../components/Header/Header'
 import cn from 'classnames';
 import {CloudEvent, HTTP} from "cloudevents";
 import axios from "axios";
-import useEventListener from '../../hooks/useEventListener';
+import {
+    RSocketClient,
+    JsonSerializer,
+    IdentitySerializer
+} from 'rsocket-core';
+import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
-import useInterval from "../../hooks/useInterval";
+
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
-import Clock from "../../components/Clock/Clock";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -25,24 +29,6 @@ import Clock from "../../components/Clock/Clock";
 // 4) If the level is available enable the start level button
 // 5) wait for the state of the level change to completed
 // 6) Show move to next level button, move to 3, where first we need to check if the level exists or not
-
-// function loadRemoteComponent(url){
-//     return fetch(url)
-//         .then(res=>res.text())
-//         .then(source=>{
-//             var exports = {}
-//             function require(name){
-//                 if(name == 'react') return React
-//                 else throw `You can't use modules other than "react" in remote component.`
-//             }
-//             const transformedSource = Babel.transform(source, {
-//                 presets: ['react', 'es2015']
-//             }).code
-//             eval(transformedSource)
-//             return exports.__esModule ? exports.default : exports
-//         })
-// }
-//
 
 
 function Game() {
@@ -53,10 +39,12 @@ function Game() {
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     let [delay, setDelay] = useState(4000);
-
+    var rsocketClient
 
     const [nickname, setNickname] = useState("")
+    const [message, setMessage] = useState("")
 
+    let externalIP = window._env_.EXTERNAL_IP
 
     function handleDelayChange(e) {
         setDelay(Number(e.target.value));
@@ -82,7 +70,6 @@ function Game() {
     const pageAnimationComplete = e => {
     };
 
-    // useEventListener('keyup', handleEvents)
 
     function createMyGuid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -91,6 +78,59 @@ function Game() {
         });
     }
 
+    function rsocketConnect(){
+        // Creates an RSocket client based on the WebSocket network protocol
+        if(externalIP == ""){
+            externalIP = "localhost"
+        }
+        rsocketClient = new RSocketClient({
+            serializers: {
+                data: JsonSerializer,
+                metadata: IdentitySerializer
+            },
+            setup: {
+                keepAlive: 60000,
+                lifetime: 180000,
+                dataMimeType: 'application/json',
+                metadataMimeType: 'message/x.rsocket.routing.v0',
+            },
+            transport: new RSocketWebSocketClient({
+                url: 'ws://'+externalIP+':9000'
+            }),
+        });
+
+        // Open an RSocket connection to the server
+        rsocketClient.connect().subscribe({
+            onComplete: socket => {
+                socket
+                    .requestStream({
+                        metadata: route('infinite-stream')
+                    }).subscribe({
+                    onComplete: () => console.log('complete'),
+                    onError: error => {
+                        console.log("Connection has been closed due to: " + error);
+                    },
+                    onNext: payload => {
+                        console.log(payload);
+                       setMessage(message + "-> " + JSON.stringify(payload));
+                    },
+                    onSubscribe: subscription => {
+                        subscription.request(1000000);
+                    },
+                });
+            },
+            onError: error => {
+                console.log("RSocket connection refused due to: " + error);
+            },
+            onSubscribe: cancel => {
+                /* call cancel() to abort */
+            }
+        });
+    }
+
+    function route(value) {
+        return String.fromCharCode(value.length) + value;
+    }
 
     function newGame() {
         if (state.sessionID === "") {
@@ -101,50 +141,8 @@ function Game() {
                 console.log(err)
             });
         }
+
     }
-
-    //
-    // useInterval(() => {
-    //     if (state.sessionID != "" && state.currentLevelStarted && !state.currentLevelCompleted) {
-    //         // axios.get('/game/level-' + state.currentLevelId + '/answerBySession/'+ state.sessionID).then(res => {
-    //         //     //console.log(res.data)
-    //         //     setCurrentAnswer(res.data)
-    //         // }).catch(err => {
-    //         //     console.log(err)
-    //         // });
-    //         // axios.get('/game/sessions/' + state.sessionID).then(res => {
-    //         //     console.log(" --- Game Session Data ---")
-    //         //     console.log(res.data)
-    //         //     if (res.data.completed) {
-    //         //         dispatch({type: "levelCompletedTriggered", payload: res.data})
-    //         //     }
-    //         //
-    //         // }).catch(err => {
-    //         //     console.log(err)
-    //         // });
-    //     }
-    //
-    // }, delay);
-
-    // useEffect(() => {
-    //     if (state.sessionID === "") {
-    //         axios.post('/game/', nickname).then(res => {
-    //             console.log(res.data)
-    //             dispatch({type: "gameSessionIdCreated", payload: res.data})
-    //         }).catch(err => {
-    //             console.log(err)
-    //         });
-    //     }
-    //     // if(state.sessionID != "" && !state.currentLevelStarted && !state.currentLevelCompleted && !state.currentLevelExists){
-    //     //     checkLevel()
-    //     // }
-    //     // if(state.sessionID != "" && state.currentLevelStarted && state.currentLevelExists && !state.currentLevelCompleted){
-    //     //     // loadRemoteComponent('/game/levels/level-'+ state.currentLevelId + '/ui').then((LevelContent) => {
-    //     //     //     ReactDOM.render(<LevelContent state={state}/>, document.getElementById('levelContent'));
-    //     //     // })
-    //     // }
-    //
-    // }, [state])
 
 
     const startLevel = () => {
@@ -163,19 +161,6 @@ function Game() {
         dispatch({type: "nextLevelTriggered", payload: state.nextLevelId})
     }
 
-    // const checkLevel = () => {
-    //     // This needs to go to the game controller to check which level are available to not depend on having the level exposed outside the cluster.
-    //
-    //     console.log("Checking if current level "+state.currentLevelId + " exists")
-    //     axios.get('game/levels/level-' + state.currentLevelId).then(res => {
-    //         console.log(res.data)
-    //         dispatch({type: "levelCheckTriggered", payload: res.data})
-    //
-    //     }).catch(err => {
-    //         console.log(err)
-    //         dispatch({type: "levelCheckTriggered", payload: false})
-    //     });
-    // }
 
     function emitCloudEvent(button) {
         console.log("Button: " + button + " pressed! ")
@@ -210,41 +195,7 @@ function Game() {
 
     }
 
-    // //Add listener for keys
-    // function handleEvents(event) {
-    //     console.log(event.key);
-    //     if(event.key != 'null' && event.key != "Alt" && event.key !="Meta" && event.key !="Shift" && event.key != "Backspace") {
-    //         const cloudEvent = new CloudEvent({
-    //             id: createMyGuid(),
-    //             type: "KeyPressedEvent",
-    //             source: "website",
-    //             subject: "keypressed",
-    //             data: {
-    //                 key: String(event.key),
-    //                 position: String(event.target.selectionStart),
-    //                 timestamp: Date.now().toString(),
-    //                 sessionId: state.sessionID
-    //             },
-    //         });
-    //         console.log(" --- Cloud Event Data Sent ---")
-    //         console.log(cloudEvent.data)
-    //
-    //         const message = HTTP.binary(cloudEvent);
-    //         //console.log("Sending Post to func!")
-    //         // This needs to send to broker which needs to send to the right function level, based on the level which the user is
-    //         axios.post('/default', message.body, {headers: message.headers}).then(res => {
-    //             // console.log("Broker response")
-    //             // console.log(res.headers)
-    //             // console.log(res.data)
-    //
-    //         }).catch(err => {
-    //
-    //             console.log(err)
-    //             console.log(err.response.data.message)
-    //             console.log(err.response.data)
-    //         });
-    //     }
-    // }
+
 
     return (
         <motion.div
@@ -265,7 +216,9 @@ function Game() {
                 <section>
 
                     <h1>Play with us!</h1>
-
+                    <h3>Messages</h3>
+                    <h4>{message}</h4>
+                    <button onClick={rsocketConnect}>Rsocketing!</button>
                     {state.landed && (
                         <div>
                             {!state.sessionID && (
