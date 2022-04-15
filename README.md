@@ -10,7 +10,7 @@ mvn package
 ```
 
 To build the docker image to deploy into a cluster you can run:
-(Before building the image make sure that `application.properties` have the property `spring.web.resources.static-locations` is set to `file:static/`)
+(Before building the image make sure that `application.yaml` have the property `spring.web.resources.static-locations` is set to `file:static/`)
 
 ```
 docker build -t salaboy/fmtok8s-game-frontend:0.1.0 .

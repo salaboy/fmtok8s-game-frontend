@@ -1,71 +1,70 @@
 package com.salaboy.conferences.game;
 
+import com.salaboy.conferences.game.config.GameProperties;
 import com.salaboy.conferences.game.model.Answers;
 import com.salaboy.conferences.game.model.Leaderboard;
 import com.salaboy.conferences.game.model.StartLevel;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
-@RestController()
-@RequestMapping("/game/")
+import java.time.Duration;
+
+@RestController
+@RequestMapping("/game")
 public class GameController {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final GameProperties gameProperties;
+    private final WebClient webClient;
+
+    public GameController(GameProperties gameProperties, WebClient.Builder webClientBuilder) {
+        this.gameProperties = gameProperties;
+        this.webClient = webClientBuilder.build();
+    }
 
     @PostMapping("/{nickname}")
-    public String newGame(@PathVariable() String nickname) {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> request = new HttpEntity<>(nickname, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://start-game.default.svc.cluster.local/?nickname="+nickname,
-                request,
-                String.class);
-        return response.getBody();
-
-
+    public Mono<String> newGame(@PathVariable String nickname) {
+        return webClient
+                .post()
+                .uri(gameProperties.startGameUri() + "/?nickname="+nickname)
+                .bodyValue(nickname)
+                .retrieve()
+                .bodyToMono(String.class);
     }
 
     @PostMapping("/{sessionId}/{levelName}/start")
-    public String startLevel(@PathVariable() String sessionId, @PathVariable String levelName) {
-        HttpHeaders headers = new HttpHeaders();
+    public Mono<String> startLevel(@PathVariable String sessionId, @PathVariable String levelName) {
         StartLevel startLevel = new StartLevel();
         startLevel.setSessionId(sessionId);
         startLevel.setLevel(levelName);
 
-        HttpEntity<StartLevel> request = new HttpEntity<>(startLevel, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://start-level.default.svc.cluster.local/",
-                request,
-                String.class);
-        return response.getBody();
+        return webClient
+                .post()
+                .uri(gameProperties.startLevelUri())
+                .bodyValue(startLevel)
+                .retrieve()
+                .bodyToMono(String.class);
     }
 
-
     @GetMapping("/leaderboard")
-    public Leaderboard getLeaderboard() {
-        ResponseEntity<Leaderboard> response = restTemplate.exchange(
-                "http://get-leaderboard.default.svc.cluster.local/", HttpMethod.GET, null,
-                Leaderboard.class);
-
-        return response.getBody();
-
+    public Mono<Leaderboard> getLeaderboard() {
+        return webClient
+                .get()
+                .uri(gameProperties.leaderboardUri())
+                .retrieve()
+                .bodyToMono(Leaderboard.class);
     }
 
     @PostMapping(path = "/{sessionId}/level-{levelId}/answer")
-    public String answer(@PathVariable() String sessionId, @PathVariable() String levelId, @RequestBody Answers answers) {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Answers> request = new HttpEntity<>(answers, headers);
+    public Mono<String> answer(@PathVariable String sessionId, @PathVariable String levelId, @RequestBody Answers answers) {
         answers.setSessionId(sessionId);
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://level-" + levelId + ".default.svc.cluster.local/",
-                request,
-                String.class);
-        System.out.println("Level response: " + response.getBody());
-        return response.getBody();
+        return webClient
+                .post()
+                .uri("http://level-" + levelId + ".default.svc.cluster.local")
+                .bodyValue(answers)
+                .retrieve()
+                .bodyToMono(String.class)
+                .log();
     }
 
 }

@@ -1,14 +1,11 @@
 package com.salaboy.conferences.game.model;
 
-import java.util.Date;
-
 public class StartLevel {
     private String sessionId;
     private String level;
 
     private String gameTimeId;
     private String type;
-
 
     public String getSessionId() {
         return sessionId;
@@ -25,7 +22,6 @@ public class StartLevel {
     public void setLevel(String level) {
         this.level = level;
     }
-
 
     public String getGameTimeId() {
         return gameTimeId;

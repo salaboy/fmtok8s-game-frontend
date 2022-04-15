@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   application:
     name:
@@ -5,6 +8,11 @@ spring:
   web:
     resources:
       static-locations: "file:static/" #for dev file:./target/static/ for docker static/
+
+game:
+  leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
+  start-game-uri: http://start-game.default.svc.cluster.local
+  start-level-uri: http://start-level.default.svc.cluster.local
 
 management:
   endpoints:
