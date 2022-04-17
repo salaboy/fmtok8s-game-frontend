@@ -16,14 +16,7 @@ function Nav() {
           ["--backoffice"]: currentSection === "back-office",
         })}>
         <div className="Nav__container">
-          {currentSection !== "back-office" && (
-            <div className="Nav__main">
-
-              <span>
-                <NavLink activeClassName='--active' to='/game' exact> Game</NavLink>
-              </span>
-            </div>
-          )}
+        
           <div className="Nav__back-office">
             {currentSection !== "back-office" && (
               <span>

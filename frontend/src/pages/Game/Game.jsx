@@ -216,9 +216,7 @@ function Game() {
                 <section>
 
                     <h1>Play with us!</h1>
-                    <h3>Messages</h3>
-                    <h4>{message}</h4>
-                    <button onClick={rsocketConnect}>Rsocketing!</button>
+                  
                     {state.landed && (
                         <div>
                             {!state.sessionID && (

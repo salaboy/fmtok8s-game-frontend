@@ -2,6 +2,15 @@
 .Header {
   position: absolute;
   padding: spacing(2,12) spacing(2,20);
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    padding: spacing(2,4) spacing(2,4);
+    left: calc(50% - 54px);
+    .Header__logo {
+      img {
+        width: spacing(2, 9) !important;
+      }
+    }
+  }
   z-index: 100;
   .Header__logo {
     img {

@@ -2,6 +2,10 @@
 .Nav {
   position: fixed;
   top: spacing(2,12);
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    top: spacing(2,3);
+
+  }
   right: 0;
   z-index: 120;
   &.--backoffice {
