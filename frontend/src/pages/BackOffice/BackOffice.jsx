@@ -11,18 +11,81 @@ import {useParams} from "react-router-dom";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
 import axios from "axios";
-
+import {
+    RSocketClient,
+    JsonSerializer,
+    IdentitySerializer
+} from 'rsocket-core';
+import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 function BackOffice() {
     const {currentSection, setCurrentSection} = useContext(AppContext);
     let {subSection} = useParams();
     //scroll
     const {scroll} = useLocomotiveScroll();
+    var rsocketClient
+    const [message, setMessage] = useState("")
+    let externalIP = window._env_.EXTERNAL_IP
 
     // let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
     // let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
     //
     // const TicketsFeature = React.useMemo( () => lazy(() => import('../../components/TicketsQueue/TicketsQueue')), []);
+
+
+    function route(value) {
+        return String.fromCharCode(value.length) + value;
+    }
+
+    function rsocketConnect(){
+        // Creates an RSocket client based on the WebSocket network protocol
+        if(externalIP == ""){
+            externalIP = "localhost"
+        }
+        rsocketClient = new RSocketClient({
+            serializers: {
+                data: JsonSerializer,
+                metadata: IdentitySerializer
+            },
+            setup: {
+                keepAlive: 60000,
+                lifetime: 180000,
+                dataMimeType: 'application/json',
+                metadataMimeType: 'message/x.rsocket.routing.v0',
+            },
+            transport: new RSocketWebSocketClient({
+                url: 'ws://'+externalIP+':9000'
+            }),
+        });
+
+        // Open an RSocket connection to the server
+        rsocketClient.connect().subscribe({
+            onComplete: socket => {
+                socket
+                    .requestStream({
+                        metadata: route('infinite-stream')
+                    }).subscribe({
+                    onComplete: () => console.log('complete'),
+                    onError: error => {
+                        console.log("Connection has been closed due to: " + error);
+                    },
+                    onNext: payload => {
+                        console.log(payload);
+                        setMessage(message + "-> " + JSON.stringify(payload));
+                    },
+                    onSubscribe: subscription => {
+                        subscription.request(1000000);
+                    },
+                });
+            },
+            onError: error => {
+                console.log("RSocket connection refused due to: " + error);
+            },
+            onSubscribe: cancel => {
+                /* call cancel() to abort */
+            }
+        });
+    }
 
 
     useEffect(() => {
@@ -87,8 +150,10 @@ function BackOffice() {
                                     <Leaderboard leaderboard={leaderboard}></Leaderboard>
                                 ))}
                             </div>
-                      
 
+                        <h3>Messages</h3>
+                        <h4>{message}</h4>
+                        <button onClick={rsocketConnect}>Rsocketing!</button>
 
 
                     </div>

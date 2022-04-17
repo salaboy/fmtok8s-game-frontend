@@ -8,12 +8,7 @@ import Header from '../../components/Header/Header'
 import cn from 'classnames';
 import {CloudEvent, HTTP} from "cloudevents";
 import axios from "axios";
-import {
-    RSocketClient,
-    JsonSerializer,
-    IdentitySerializer
-} from 'rsocket-core';
-import RSocketWebSocketClient from 'rsocket-websocket-client';
+
 
 import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
@@ -40,12 +35,10 @@ function Game() {
     const [loading, setLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     let [delay, setDelay] = useState(4000);
-    var rsocketClient
 
     const [nickname, setNickname] = useState("")
-    const [message, setMessage] = useState("")
 
-    let externalIP = window._env_.EXTERNAL_IP
+
 
     function handleDelayChange(e) {
         setDelay(Number(e.target.value));
@@ -79,59 +72,8 @@ function Game() {
         });
     }
 
-    function rsocketConnect(){
-        // Creates an RSocket client based on the WebSocket network protocol
-        if(externalIP == ""){
-            externalIP = "localhost"
-        }
-        rsocketClient = new RSocketClient({
-            serializers: {
-                data: JsonSerializer,
-                metadata: IdentitySerializer
-            },
-            setup: {
-                keepAlive: 60000,
-                lifetime: 180000,
-                dataMimeType: 'application/json',
-                metadataMimeType: 'message/x.rsocket.routing.v0',
-            },
-            transport: new RSocketWebSocketClient({
-                url: 'ws://'+externalIP+':9000'
-            }),
-        });
 
-        // Open an RSocket connection to the server
-        rsocketClient.connect().subscribe({
-            onComplete: socket => {
-                socket
-                    .requestStream({
-                        metadata: route('infinite-stream')
-                    }).subscribe({
-                    onComplete: () => console.log('complete'),
-                    onError: error => {
-                        console.log("Connection has been closed due to: " + error);
-                    },
-                    onNext: payload => {
-                        console.log(payload);
-                       setMessage(message + "-> " + JSON.stringify(payload));
-                    },
-                    onSubscribe: subscription => {
-                        subscription.request(1000000);
-                    },
-                });
-            },
-            onError: error => {
-                console.log("RSocket connection refused due to: " + error);
-            },
-            onSubscribe: cancel => {
-                /* call cancel() to abort */
-            }
-        });
-    }
 
-    function route(value) {
-        return String.fromCharCode(value.length) + value;
-    }
 
     function newGame() {
         if (state.sessionID === "") {
@@ -268,6 +210,8 @@ function Game() {
                                                         disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                             </>
                                         )}
+
+
 
                                 </div>
                             )}
