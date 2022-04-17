@@ -6,6 +6,30 @@
     margin-top:0;
     padding-top:  spacing(2,2);
   }
+  .Questionnaire {
+    text-align: left;
+    .Question {
+      padding: spacing(2,2) 0;
+      .Question__Number {
+        font-size: font-size(s);
+        font-family: font-family(display);
+        background-color: color(violet, pale);
+        display: inline-block;
+        width: spacing(2,5);
+        height: spacing(2,5);
+        line-height: spacing(2,5);
+        color: color(black);
+        border-radius: spacing(2,3);
+        text-align: center;
+
+      }
+      .Question__Body {
+        font-size: font-size();
+        font-family: font-family(display);
+        font-weight: 600;
+      }
+    }
+  }
 }
 //Tablet
 @media only screen and (max-width: breakpoint(tabletHD)) {

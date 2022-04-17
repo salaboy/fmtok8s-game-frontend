@@ -52,19 +52,27 @@ function Level1({state, dispatch}) {
             <Clock isActive={isActive} isPaused={isPaused}/>
             <h2>Level 1</h2>
 
-            <div>
-                <h4>Question 1: What is the meaning of life? </h4>
-                <h4>Answer:  <input id="answer1" value={question1Answer}
-                           onChange={e => setQuestion1Answer(e.target.value)}/>
-                </h4>
-                <h4>Question 2: What is the meaning of life+? </h4>
-                <h4>Answer:  <input id="answer2" value={question2Answer}
-                           onChange={e => setQuestion2Answer(e.target.value)}/>
-                </h4>
-                <h4>Question 3: What is the meaning of life++? </h4>
-                <h4>Answer:  <input id="answer3" value={question3Answer}
-                           onChange={e => setQuestion3Answer(e.target.value)}/>
-                </h4>
+            <div className="Questionnaire">
+                <div className="Question">
+                  <div className="Question__Number">1</div>
+                  <div className="Question__Body">What is the meaning of life?</div>
+
+                  <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
+                </div>
+
+                <div className="Question">
+                  <div className="Question__Number">2</div>
+                  <div className="Question__Body">What is the meaning of life +?</div>
+
+                  <TextField placeholder="Write your answer" name="answer2" value={question2Answer} changeHandler={e => setQuestion2Answer(e.target.value)}></TextField>
+                </div>
+                <div className="Question">
+                  <div className="Question__Number">3</div>
+                  <div className="Question__Body">What is the meaning of life ++?</div>
+
+                  <TextField placeholder="Write your answer" name="answer3" value={question3Answer} changeHandler={e => setQuestion3Answer(e.target.value)}></TextField>
+                </div>
+            
                 <Button main clickHandler={sendAnswer}>Send</Button>
             </div>
 
