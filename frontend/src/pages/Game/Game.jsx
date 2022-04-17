@@ -249,24 +249,24 @@ function Game() {
                                             </div>
                                         )}
                                         {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (
-                                            <div>
+                                            <>
 
                                                 <Level1 state={state} dispatch={dispatch}/>
-                                            </div>
+                                            </>
                                         )}
                                         {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 2 && (
-                                            <div>
+                                            <>
 
                                                 <Level2 state={state} dispatch={dispatch}/>
-                                            </div>
+                                            </>
                                         )}
 
                                         {state.currentLevelCompleted && (
-                                            <div>
+                                            <>
                                                 Congratulations you completed the level!
                                                 <Button main clickHandler={moveToNextLevel}
                                                         disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                            </div>
+                                            </>
                                         )}
 
                                 </div>

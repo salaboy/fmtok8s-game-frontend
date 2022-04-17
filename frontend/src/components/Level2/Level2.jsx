@@ -39,9 +39,9 @@ function Level2({state, dispatch}) {
 
     return (
         <div className={cn({
-            ["Level2"]: true,
+            ["Level"]: true,
         })}>
-            <h3> Welcome to Level 2</h3>
+            <h3>Level 2</h3>
             <h4> Time: <Clock isPaused={isPaused} isActive={isActive}/> </h4>
             <div>
                 <h4>Question 1:Is this a very difficult question? </h4><br/>
@@ -58,4 +58,3 @@ function Level2({state, dispatch}) {
 }
 
 export default Level2;
-

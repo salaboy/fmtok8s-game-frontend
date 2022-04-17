@@ -27,7 +27,7 @@ function Nav() {
             )}
             {currentSection === "back-office" && (
               <span>
-                <NavLink activeClassName='--active' to='/' exact> Back to Site </NavLink>
+                <NavLink activeClassName='--active' to='/' exact> {'<-'} </NavLink>
               </span>
             )}
           </div>

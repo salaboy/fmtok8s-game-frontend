@@ -1,0 +1,15 @@
+@import '../_foundations.scss';
+//Levels
+.Level {
+  position: relative;
+  h2 {
+    margin-top:0;
+    padding-top:  spacing(2,2);
+  }
+}
+//Tablet
+@media only screen and (max-width: breakpoint(tabletHD)) {
+}
+//Mobile
+@media only screen and (max-width: breakpoint(mobileHD)) {
+}

@@ -3,6 +3,9 @@ import React, {useState} from "react";
 import cn from 'classnames';
 import axios from "axios";
 import Clock from "../Clock/Clock";
+import Button from "../../components/Button/Button";
+import TextField from "../../components/Form/TextField/TextField";
+
 
 
 function Level1({state, dispatch}) {
@@ -44,10 +47,11 @@ function Level1({state, dispatch}) {
 
     return (
         <div className={cn({
-            ["Level1"]: true,
+            ["Level"]: true,
         })}>
-            <h3> Welcome to Level 1</h3>
-            <h4> Time: <Clock isActive={isActive} isPaused={isPaused}/> </h4>
+            <Clock isActive={isActive} isPaused={isPaused}/>
+            <h2>Level 1</h2>
+
             <div>
                 <h4>Question 1: What is the meaning of life? </h4>
                 <h4>Answer:  <input id="answer1" value={question1Answer}
@@ -61,7 +65,7 @@ function Level1({state, dispatch}) {
                 <h4>Answer:  <input id="answer3" value={question3Answer}
                            onChange={e => setQuestion3Answer(e.target.value)}/>
                 </h4>
-                <button onClick={sendAnswer}>Send</button>
+                <Button main clickHandler={sendAnswer}>Send</Button>
             </div>
 
         </div>
@@ -70,4 +74,3 @@ function Level1({state, dispatch}) {
 }
 
 export default Level1;
-
