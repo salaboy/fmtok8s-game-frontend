@@ -12,6 +12,7 @@ function Level1({state, dispatch}) {
 
     const [isActive, setIsActive] = useState(true);
     const [isPaused, setIsPaused] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [question1Answer, setQuestion1Answer] = useState("")
     const [question2Answer, setQuestion2Answer] = useState("")
@@ -20,6 +21,10 @@ function Level1({state, dispatch}) {
 
     //Send answer to a specific question/level
     function sendAnswer() {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         console.log("Sending answer: " + question1Answer + " to level id: " + state.currentLevelId)
 
         //@TODO: If we want to send the Clock data to the function: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
@@ -37,6 +42,7 @@ function Level1({state, dispatch}) {
             console.log(res.headers)
             console.log(res.data)
             dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
+            setLoading(false);
         }).catch(err => {
 
             console.log(err)
@@ -73,7 +79,7 @@ function Level1({state, dispatch}) {
                   <TextField placeholder="Write your answer" name="answer3" value={question3Answer} changeHandler={e => setQuestion3Answer(e.target.value)}></TextField>
                 </div>
             
-                <Button main clickHandler={sendAnswer}>Send</Button>
+                <Button main clickHandler={sendAnswer} disabled={loading}>{loading ? 'Sending...' : 'Send'}</Button>
             </div>
 
         </div>

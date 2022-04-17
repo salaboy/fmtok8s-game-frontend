@@ -76,11 +76,16 @@ function Game() {
 
 
     function newGame() {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         if (state.sessionID === "") {
             axios.post('/game/' + nickname).then(res => {
                 console.log(res.data)
                 dispatch({type: "gameSessionIdCreated", payload: res.data})
                 setUser(nickname);
+                setLoading(false)
             }).catch(err => {
                 console.log(err)
             });
@@ -90,6 +95,9 @@ function Game() {
 
 
     const startLevel = () => {
+        if (loading) {
+            return;
+        }
         setLoading(true);
         axios.post('/game/' + state.sessionID + '/level-' + state.currentLevelId + '/start').then(res => {
             console.log(res.data)
@@ -168,7 +176,7 @@ function Game() {
 
                                     <TextField label={"Enter your nickname:"} changeHandler={(e) => setNickname(e.target.value)}></TextField>
 
-                                    <Button clickHandler={newGame}>Let's Play</Button>
+                                    <Button clickHandler={newGame} disabled={loading} >{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
                                 </div>
                             )}
                             {state.sessionID && (

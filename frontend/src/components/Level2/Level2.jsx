@@ -13,10 +13,14 @@ function Level2({state, dispatch}) {
     const [isPaused, setIsPaused] = useState(false);
 
     const [question1Answer, setQuestion1Answer] = useState("")
-
+    const [loading, setLoading] = useState(false);
 
     //Send answer to a specific question/level
     function sendAnswer() {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
         console.log("Sending answer: " + question1Answer + " to level id: " + state.currentLevelId)
 
         setIsPaused(true)
@@ -31,6 +35,7 @@ function Level2({state, dispatch}) {
             console.log(res.headers)
             console.log(res.data)
             dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
+            setLoading(false);
         }).catch(err => {
 
             console.log(err)
@@ -54,7 +59,7 @@ function Level2({state, dispatch}) {
                   <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
                 </div>
 
-                <Button main clickHandler={sendAnswer}>Send</Button>
+                <Button main clickHandler={sendAnswer} disabled={loading}>{loading ? 'Sending...' : 'Send'}</Button>
             </div>
 
         </div>
