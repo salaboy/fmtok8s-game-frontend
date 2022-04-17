@@ -22,7 +22,7 @@
     }
   }
   .Nav__container {
-    display: flex;
+    width: 100vw;
     .Nav__main{
       padding: 0 spacing(6);
       background-color: color(black);
@@ -42,6 +42,30 @@
       height: spacing(2,10);
       border-radius: spacing(2,5) 0 0 spacing(2,5);
       transition: transition();
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .Nav__user{
+      padding: 0;
+      background-color: color(blue);
+      color: color(black);
+      font-weight: 600;
+      height: spacing(2,10);
+      width: spacing(2,10);
+      border-radius: spacing(2,5);
+      transition: transition();
+      position: absolute;
+      top: 0;
+      left: spacing(2,2);
+      line-height: spacing(2,10);
+      text-align: center;
+      font-family: font-family(display);
+      text-transform: uppercase;
+      border: 2px solid color(black);
+
+
     }
 
   }

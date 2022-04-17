@@ -33,7 +33,7 @@ import Level2 from "../../components/Level2/Level2";
 
 
 function Game() {
-    const {currentSection, setCurrentSection} = useContext(AppContext);
+    const {currentSection, setCurrentSection, setUser, user} = useContext(AppContext);
 
     const {gameState} = useContext(GameContext)
     const [state, dispatch] = useReducer(gameStateReducer, gameState)
@@ -138,6 +138,7 @@ function Game() {
             axios.post('/game/' + nickname).then(res => {
                 console.log(res.data)
                 dispatch({type: "gameSessionIdCreated", payload: res.data})
+                setUser(nickname);
             }).catch(err => {
                 console.log(err)
             });
@@ -222,7 +223,7 @@ function Game() {
                         <div>
                             {!state.sessionID && (
                                 <div className="Card">
-                                    
+
                                     <TextField label={"Enter your nickname:"} changeHandler={(e) => setNickname(e.target.value)}></TextField>
 
                                     <Button clickHandler={newGame}>Let's Play</Button>
@@ -230,16 +231,21 @@ function Game() {
                             )}
                             {state.sessionID && (
                                 <div className="Card">
-                                    <h4>SessionId: {state.sessionID} </h4>
-                                    <h4>Player: {state.nickname} </h4>
-                                    <h4>Level: {state.currentLevelId}</h4>
+                                    {/*<h4>SessionId: {state.sessionID} </h4>*/}
+                                    {!state.currentLevelStarted && (
+                                      <>
+                                      <h4>Welcome <strong> {state.nickname} </strong> </h4>
+                                      <br/>
+                                      </>
+                                    )}
+
 
 
 
                                         {!state.currentLevelStarted && (
                                             <div>
                                                 <Button main clickHandler={startLevel}
-                                                        disabled={loading}>{loading ? 'Loading...' : 'Start Level'}</Button>
+                                                        disabled={loading}>{loading ? 'Loading...' : 'Start Level ' + state.currentLevelId}</Button>
                                             </div>
                                         )}
                                         {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (

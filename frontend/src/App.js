@@ -15,6 +15,7 @@ function App() {
 
     //contexts
     const [currentSection, setCurrentSection] = useState("home");
+    const [user, setUser] = useState(null);
     //
     return (
 
@@ -22,6 +23,8 @@ function App() {
         <AppContext.Provider value={{
             setCurrentSection: setCurrentSection,
             currentSection: currentSection,
+            user: user,
+            setUser: setUser
         }}>
             <LocomotiveScrollProvider
                 options={{
