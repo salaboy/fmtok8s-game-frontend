@@ -7,6 +7,7 @@ module.exports = {
         extensions: ['.js', '.jsx'],
     },
     devServer: {
+        historyApiFallback: true,
         proxy: {
             '/game': {
                 //fmtok8s-game-controller mvn spring-boot:start

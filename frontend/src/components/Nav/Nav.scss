@@ -49,7 +49,7 @@
 
     .Nav__user{
       padding: 0;
-      background-color: color(violet);
+      background-color: color(violet, pale);
       color: color(black);
       font-weight: 600;
       height: spacing(2,10);
@@ -59,11 +59,11 @@
       position: absolute;
       top: 0;
       right: spacing(2,10);
-      line-height: spacing(2,9.5);
+      line-height: spacing(2,9);
       text-align: center;
       font-family: font-family(display);
       text-transform: uppercase;
-      border: 2px solid color(black);
+      border: 4px solid color(black);
 
 
     }
