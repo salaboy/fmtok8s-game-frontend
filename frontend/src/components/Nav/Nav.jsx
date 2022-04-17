@@ -5,7 +5,7 @@ import AppContext from '../../contexts/AppContext';
 import cn from 'classnames';
 
 function Nav() {
-  const {  currentSection } = useContext(AppContext);
+  const {  currentSection, user } = useContext(AppContext);
 
     // let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
     // let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
@@ -16,13 +16,8 @@ function Nav() {
           ["--backoffice"]: currentSection === "back-office",
         })}>
         <div className="Nav__container">
-          {currentSection !== "back-office" && (
-            <div className="Nav__main">
-
-              <span>
-                <NavLink activeClassName='--active' to='/game' exact> Game</NavLink>
-              </span>
-            </div>
+          {user && (
+            <div className="Nav__user">{user.charAt(0)}</div>
           )}
           <div className="Nav__back-office">
             {currentSection !== "back-office" && (
@@ -32,7 +27,7 @@ function Nav() {
             )}
             {currentSection === "back-office" && (
               <span>
-                <NavLink activeClassName='--active' to='/' exact> Back to Site </NavLink>
+                <NavLink activeClassName='--active' to='/' exact> {'<-'} </NavLink>
               </span>
             )}
           </div>

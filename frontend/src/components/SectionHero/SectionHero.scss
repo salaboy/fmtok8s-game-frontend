@@ -2,7 +2,22 @@
 .SectionHero {
   padding-top: spacing(2,30);
 
-
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    padding-top: spacing(2,20);
+    section {
+        .SectionHero__title {
+          min-height: spacing(2, 10) !important;
+          h1 {
+            max-width: 100% !important;
+            text-align: center;
+          }
+          h2 {
+            max-width: 100%;
+            text-align: center;
+          }
+        }
+      }
+  }
 
   section {
 

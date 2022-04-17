@@ -76,30 +76,19 @@ function BackOffice() {
             })}
             >
                 <Header/>
-                <SectionHero title="Welcome Conference Organizers"/>
-                <section className="back-office__Layout">
+                <SectionHero title="Leaderboard"/>
+                <section >
 
-                    <div className="back-office__Layout__Nav">
-                        <BackOfficeNav currentSubSection={subSection}/>
-                    </div>
-                    <div className="back-office__Layout__Content">
-                        {(subSection === "features" || subSection === undefined) && (
+
+                    <div >
+
                             <div>
-
-                                <h2>Leaderboard</h2>
                                 {leaderboard && leaderboard.Sessions && ((
                                     <Leaderboard leaderboard={leaderboard}></Leaderboard>
                                 ))}
                             </div>
-                        )}
-                        {/*{(subSection === "proposals" && c4pEnabled) &&*/}
-                        {/*  <>*/}
-                        {/*    <h2>Proposals to Review </h2>*/}
-                        {/*    <Suspense fallback='<div>Loading...</div>'>*/}
-                        {/*      <ProposalsFeature></ProposalsFeature>*/}
-                        {/*    </Suspense>*/}
-                        {/*  </>*/}
-                        {/*}*/}
+                      
+
 
 
                     </div>

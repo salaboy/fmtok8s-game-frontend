@@ -18,6 +18,7 @@ import RSocketWebSocketClient from 'rsocket-websocket-client';
 import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
+import TextField from "../../components/Form/TextField/TextField";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -32,7 +33,7 @@ import Level2 from "../../components/Level2/Level2";
 
 
 function Game() {
-    const {currentSection, setCurrentSection} = useContext(AppContext);
+    const {currentSection, setCurrentSection, setUser, user} = useContext(AppContext);
 
     const {gameState} = useContext(GameContext)
     const [state, dispatch] = useReducer(gameStateReducer, gameState)
@@ -137,6 +138,7 @@ function Game() {
             axios.post('/game/' + nickname).then(res => {
                 console.log(res.data)
                 dispatch({type: "gameSessionIdCreated", payload: res.data})
+                setUser(nickname);
             }).catch(err => {
                 console.log(err)
             });
@@ -216,50 +218,55 @@ function Game() {
                 <section>
 
                     <h1>Play with us!</h1>
-                    <h3>Messages</h3>
-                    <h4>{message}</h4>
-                    <button onClick={rsocketConnect}>Rsocketing!</button>
+
                     {state.landed && (
                         <div>
                             {!state.sessionID && (
-                                <div>
-                                    <h4>Enter your nickname:</h4> <input onChange={(e) => setNickname(e.target.value)}/><br/>
-                                    <button onClick={newGame}>Let's Play</button>
+                                <div className="Card">
+
+                                    <TextField label={"Enter your nickname:"} changeHandler={(e) => setNickname(e.target.value)}></TextField>
+
+                                    <Button clickHandler={newGame}>Let's Play</Button>
                                 </div>
                             )}
                             {state.sessionID && (
-                                <div>
-                                    <h4>SessionId: {state.sessionID} </h4>
-                                    <h4>Player: {state.nickname} </h4>
-                                    <h4>Level: {state.currentLevelId}</h4>
+                                <div className="Card">
+                                    {/*<h4>SessionId: {state.sessionID} </h4>*/}
+                                    {!state.currentLevelStarted && (
+                                      <>
+                                      <h4>Welcome <strong> {state.nickname} </strong> </h4>
+                                      <br/>
+                                      </>
+                                    )}
+
 
 
 
                                         {!state.currentLevelStarted && (
                                             <div>
                                                 <Button main clickHandler={startLevel}
-                                                        disabled={loading}>{loading ? 'Loading...' : 'Start Level'}</Button>
+                                                        disabled={loading}>{loading ? 'Loading...' : 'Start Level ' + state.currentLevelId}</Button>
                                             </div>
                                         )}
                                         {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (
-                                            <div>
+                                            <>
 
                                                 <Level1 state={state} dispatch={dispatch}/>
-                                            </div>
+                                            </>
                                         )}
                                         {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 2 && (
-                                            <div>
+                                            <>
 
                                                 <Level2 state={state} dispatch={dispatch}/>
-                                            </div>
+                                            </>
                                         )}
 
                                         {state.currentLevelCompleted && (
-                                            <div>
+                                            <>
                                                 Congratulations you completed the level!
                                                 <Button main clickHandler={moveToNextLevel}
                                                         disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                            </div>
+                                            </>
                                         )}
 
                                 </div>

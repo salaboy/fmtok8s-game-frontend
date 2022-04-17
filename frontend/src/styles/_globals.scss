@@ -19,10 +19,22 @@ body, html {
   &.dark {
     background-color: color(black);
   }
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+
+  height: auto;
+
+
+  }
 }
 
 section {
   padding: spacing(2,16) spacing(2,20);
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+
+  padding: spacing(2,3) spacing(2,2);
+
+
+  }
 
 }
 .page {
@@ -37,16 +49,42 @@ section {
   grid-gap:6em;
 }
 
+.Card {
+  background-color: color(white, light);
+  border-radius: spacing(2,4);
+  padding: spacing(2,7) spacing(2,3);
+  display: inline-block;
+  position: relative;
+  border: 1px solid color(white, light);
+  width: 480px;
+  max-width: 100%;
+
+  box-shadow:
+   inset 0  (0 - spacing(2,3)) spacing(2,12) spacing(2,2) transparentize(color(violet),.85) ,
+     0  (0 - spacing(2,3)) spacing(2,8) (0 - spacing(2,3)) transparentize(color(black),.85),
+    0  spacing(2,2) spacing(2,5) spacing(2,2) transparentize(color(white),.5);
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    display: block;
+  }
+}
 
 
 .App {
   color: color(black);
   background-color: color(white);
+  background: linear-gradient(15deg, color(violet) 0%, color(blue,pale) 70%);
   transition: transition();
+  box-shadow:  inset 0  (0 - spacing(2,3)) 50vw 0 transparentize(color(white),.6);
   position: absolute;
   top: 0;left: 0;
   width: 100vw;
-  height: 100vh;
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+
+    height: auto;
+    min-height: 100vh;
+    text-align: center;
+
+  }
 
   main {
     z-index: 50;
@@ -77,3 +115,4 @@ section {
 @import 'globals/_headings.scss';
 @import 'globals/_paragraphs.scss';
 @import 'globals/_form_layout.scss';
+@import 'globals/_levels.scss';

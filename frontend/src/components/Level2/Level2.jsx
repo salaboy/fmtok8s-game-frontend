@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import cn from 'classnames';
 import axios from "axios";
 import Clock from "../Clock/Clock";
+import Button from "../../components/Button/Button";
+import TextField from "../../components/Form/TextField/TextField";
 
 
 function Level2({state, dispatch}) {
@@ -39,17 +41,20 @@ function Level2({state, dispatch}) {
 
     return (
         <div className={cn({
-            ["Level2"]: true,
+            ["Level"]: true,
         })}>
-            <h3> Welcome to Level 2</h3>
-            <h4> Time: <Clock isPaused={isPaused} isActive={isActive}/> </h4>
-            <div>
-                <h4>Question 1:Is this a very difficult question? </h4><br/>
-                <h4>Answer:
-                <input id="answer1" value={question1Answer}
-                       onChange={e => setQuestion1Answer(e.target.value)}/>
-                </h4>
-                <button onClick={sendAnswer}>Send</button>
+            <Clock isActive={isActive} isPaused={isPaused}/>
+            <h2>Level 2</h2>
+
+            <div className="Questionnaire">
+                <div className="Question">
+                  <div className="Question__Number">1</div>
+                  <div className="Question__Body">Is this a very difficult question?</div>
+
+                  <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
+                </div>
+
+                <Button main clickHandler={sendAnswer}>Send</Button>
             </div>
 
         </div>
@@ -58,4 +63,3 @@ function Level2({state, dispatch}) {
 }
 
 export default Level2;
-

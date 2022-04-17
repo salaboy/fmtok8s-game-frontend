@@ -4,7 +4,7 @@ $basicFontSize: 22px;
 //TYPE
 $font-family-map: (
   base: #{'Inter', sans-serif},
-  display: #{'Space Grotesk', sans-serif},
+  display: #{'Excon', sans-serif},
   mono: #{'Space Mono', monospace}
 );
 
@@ -25,16 +25,18 @@ $line-height-map: (
 
 $heading-font-size-map: (
   h1: rem(90px),
-  h2: rem(72px),
+  h2: rem(44px),
   h3: rem(28px),
+  h4: rem(16px),
   mainH1: rem(140px),
 
 );
 
 $heading-line-height-map: (
   h1: rem(96px),
-  h2: rem(72px),
+  h2: rem(48px),
   h3: rem(32px),
+  h4: rem(24px),
   mainH1: rem(144px)
 
 );
