@@ -108,6 +108,25 @@ h3,
   }
 }
 
+h4,
+.h4 {
+  font-size: heading-font-size(h4);
+  line-height: heading-line-height(h4);
+  margin: heading-line-height(h4) 0 heading-line-height(h4) / 2;
+  font-weight: 500;
+  max-width: 720px;
+  font-family: font-family(base);
+  &:first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  //Mobile
+  @media only screen and (max-width: breakpoint(tabletSD)) {
+
+  }
+}
+
 
 
 .hanging-punctuation {

@@ -18,6 +18,7 @@ import RSocketWebSocketClient from 'rsocket-websocket-client';
 import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
+import TextField from "../../components/Form/TextField/TextField";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -216,17 +217,19 @@ function Game() {
                 <section>
 
                     <h1>Play with us!</h1>
-                  
+
                     {state.landed && (
                         <div>
                             {!state.sessionID && (
-                                <div>
-                                    <h4>Enter your nickname:</h4> <input onChange={(e) => setNickname(e.target.value)}/><br/>
-                                    <button onClick={newGame}>Let's Play</button>
+                                <div className="Card">
+                                    
+                                    <TextField label={"Enter your nickname:"} changeHandler={(e) => setNickname(e.target.value)}></TextField>
+
+                                    <Button clickHandler={newGame}>Let's Play</Button>
                                 </div>
                             )}
                             {state.sessionID && (
-                                <div>
+                                <div className="Card">
                                     <h4>SessionId: {state.sessionID} </h4>
                                     <h4>Player: {state.nickname} </h4>
                                     <h4>Level: {state.currentLevelId}</h4>

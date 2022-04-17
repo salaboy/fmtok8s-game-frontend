@@ -10,20 +10,22 @@
   }
   input {
     border: 0;
+
     margin-top: spacing(2);
-    border: 2px solid color(black);
+    border-bottom: 4px dotted color(black);
     display: block;
     width: 100%;
     font-family: font-family(display);
-    font-size: font-size(s);
+    font-size: font-size();
     padding: 0 spacing(4) ;
-    height: spacing(2, 7);
-    line-height: spacing(2, 7);
+    height: spacing(2, 8);
+    line-height: spacing(2, 8);
     transition: transition();
+    background-color: transparent;
     &:focus {
-      border-bottom: 2px solid color(black);
+      border-bottom: 4px dotted color(violet);
       outline: 0;
-      background-color: color(white);
+
     }
   }
   &.--number {
