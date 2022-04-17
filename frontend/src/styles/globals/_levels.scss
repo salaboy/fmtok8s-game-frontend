@@ -11,7 +11,7 @@
     .Question {
       padding: spacing(2,2) 0;
       .Question__Number {
-        font-size: font-size(s);
+        font-size: font-size(xs);
         font-family: font-family(display);
         background-color: color(violet, pale);
         display: inline-block;
@@ -21,11 +21,14 @@
         color: color(black);
         border-radius: spacing(2,3);
         text-align: center;
+        position: relative;
+        top: - spacing(1);
+        margin-right: spacing(2);
 
       }
       .Question__Body {
-        font-size: font-size();
-        font-family: font-family(display);
+        font-size: font-size(s);
+        font-family: font-family(base);
         font-weight: 600;
       }
     }

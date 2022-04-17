@@ -53,8 +53,8 @@ function Level2({state, dispatch}) {
 
             <div className="Questionnaire">
                 <div className="Question">
-                  <div className="Question__Number">1</div>
-                  <div className="Question__Body">Is this a very difficult question?</div>
+
+                  <div className="Question__Body"> <div className="Question__Number">1</div>Is this a very difficult question?</div>
 
                   <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
                 </div>
