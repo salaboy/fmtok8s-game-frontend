@@ -3,7 +3,7 @@ import React from "react";
 import Element from '../../components/Element/Element'
 import cn from 'classnames';
 
-function SectionHero({title, small, center}) {
+function SectionHero({title, small, center, children}) {
 
     var titleElement;
     if(small){
@@ -29,7 +29,9 @@ function SectionHero({title, small, center}) {
         <section>
           <div className="SectionHero__title">
               {titleElement}
+              <Element inline>{children}</Element>
           </div>
+
 
         </section>
       </div>

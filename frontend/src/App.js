@@ -16,6 +16,7 @@ function App() {
     //contexts
     const [currentSection, setCurrentSection] = useState("home");
     const [user, setUser] = useState(null);
+    const [gameState, setGameState] = useState("active");
     //
     return (
 
@@ -24,7 +25,9 @@ function App() {
             setCurrentSection: setCurrentSection,
             currentSection: currentSection,
             user: user,
-            setUser: setUser
+            setUser: setUser,
+            gameState: gameState,
+            setGameState: setGameState
         }}>
             <LocomotiveScrollProvider
                 options={{
