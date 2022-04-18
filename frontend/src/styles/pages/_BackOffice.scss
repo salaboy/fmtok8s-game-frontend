@@ -1,7 +1,11 @@
 @import '../_foundations.scss';
 .back-office {
-  background-color: color(black);
+  background: linear-gradient(180deg, color(black) 0px, color(black) 100vh);
+  transition: transition();
   color: color(white);
+  &.back-office--freeze {
+    background: linear-gradient(180deg, color(red) 0px, color(black) 100vh);
+  }
   a {
     color: color(red);
   }

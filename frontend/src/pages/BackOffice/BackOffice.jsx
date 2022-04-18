@@ -5,6 +5,7 @@ import AppContext from '../../contexts/AppContext';
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import cn from 'classnames';
+import Button from "../../components/Button/Button";
 import SectionHero from '../../components/SectionHero/SectionHero'
 import BackOfficeNav from "../../components/BackOfficeNav/BackOfficeNav";
 import {useParams} from "react-router-dom";
@@ -19,7 +20,7 @@ import {
 import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 function BackOffice() {
-    const {currentSection, setCurrentSection} = useContext(AppContext);
+    const {currentSection, setCurrentSection, gameState, setGameState} = useContext(AppContext);
     let {subSection} = useParams();
     //scroll
     const {scroll} = useLocomotiveScroll();
@@ -124,6 +125,14 @@ function BackOffice() {
     }, delay);
 
 
+    function freeze() {
+      setGameState("freeze")
+    }
+    function restart() {
+      setGameState("active")
+    }
+
+
     return (
         <motion.div
             exit="exit"
@@ -135,11 +144,19 @@ function BackOffice() {
         >
             <div className={cn({
                 ["page"]: true,
-                ["back-office"]: true
+                ["back-office"]: true,
+                ["back-office--freeze"]: gameState != "active"
             })}
             >
                 <Header/>
-                <SectionHero title="Leaderboard"/>
+                <SectionHero title="Leaderboard" center>
+                  {gameState === "active" && (
+                    <Button main clickHandler={freeze}> Freeze</Button>
+                  )}
+                  {gameState === "freeze" && (
+                    <Button  clickHandler={restart}> Restart</Button>
+                  )}
+                </SectionHero>
                 <section >
 
 

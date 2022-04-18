@@ -60,25 +60,28 @@ function Level1({state, dispatch}) {
 
             <div className="Questionnaire">
                 <div className="Question">
-                  <div className="Question__Number">1</div>
-                  <div className="Question__Body">What is the meaning of life?</div>
+
+                  <div className="Question__Body"> <div className="Question__Number">1</div> What is the meaning of life?</div>
 
                   <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
                 </div>
 
                 <div className="Question">
-                  <div className="Question__Number">2</div>
-                  <div className="Question__Body">What is the meaning of life +?</div>
+
+                  <div className="Question__Body">
+                    <div className="Question__Number">2</div>
+                    What is the meaning of life +?
+                  </div>
 
                   <TextField placeholder="Write your answer" name="answer2" value={question2Answer} changeHandler={e => setQuestion2Answer(e.target.value)}></TextField>
                 </div>
                 <div className="Question">
-                  <div className="Question__Number">3</div>
-                  <div className="Question__Body">What is the meaning of life ++?</div>
+
+                  <div className="Question__Body"><div className="Question__Number">3</div> What is the meaning of life ++?</div>
 
                   <TextField placeholder="Write your answer" name="answer3" value={question3Answer} changeHandler={e => setQuestion3Answer(e.target.value)}></TextField>
                 </div>
-            
+
                 <Button main clickHandler={sendAnswer} disabled={loading}>{loading ? 'Sending...' : 'Send'}</Button>
             </div>
 

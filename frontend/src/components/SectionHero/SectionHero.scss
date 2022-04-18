@@ -51,4 +51,15 @@
       }
     }
   }
+  &.--center {
+    section {
+
+      .SectionHero__title {
+        text-align: center;
+        h1 {
+          margin: 0 auto;
+        }
+      }
+    }
+  }
 }

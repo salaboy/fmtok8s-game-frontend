@@ -3,63 +3,212 @@
   padding-bottom: spacing(2,10);
 
   .Leaderboard__List {
-    padding: 0;
+    padding: 0 15vw;
     position: relative;
-    .Leaderboard__Item-Container {
-      position: absolute;
-      transition: transition();
-      width: 100%;
-      &.Leaderboard__Item-Container--first {
-        .Leaderboard__Item {
-          .Leaderboard__Item__Score {
-            color: color(violet);
+    display: flex;
+    @media only screen and (max-width: breakpoint(tabletHD)) {
+      padding: 0 0vw;
+
+    }
+    .Leaderboard__Positions{
+      min-width: spacing(2, 15);
+      text-align: right;
+      @media only screen and (max-width: breakpoint(tabletHD)) {
+        min-width: spacing(2, 6);
+
+      }
+      .Leaderboard__Position {
+        padding-right: spacing(2,2);
+        height: 100px;
+        font-family: font-family(display);
+        @media only screen and (max-width: breakpoint(tabletHD)) {
+          padding-right: spacing(2);
+
+        }
+        span {
+          background-color: color(black);
+          display: inline-block;
+          width: spacing(2,8);
+          height: spacing(2,8);
+          line-height: spacing(2,8);
+          text-align: center;
+          border-radius: spacing(2,4);
+          opacity: .5;
+          @media only screen and (max-width: breakpoint(tabletHD)) {
+            width: spacing(2,6);
+            height: spacing(2,6);
+            line-height: spacing(2,6);
+
+          }
+        }
+        &.Leaderboard__Position--first {
+          span {
+            background-color: color(yellow);
+            color: color(black);
+            transform: scale(1.5);
+            transform-origin: top right;
+            font-weight: 600;
+            opacity: 1;
+          }
+        }
+        &.Leaderboard__Position--second {
+          span {
+            background-color: color(orange);
+            color: color(black);
+            transform: scale(1.25);
+            transform-origin: top right;
+            font-weight: 600;
+            opacity: 1;
+          }
+        }
+        &.Leaderboard__Position--third {
+          span {
+            background-color: color(red);
+            color: color(black);
+            transform: scale(1.1);
+            transform-origin: top right;
+            font-weight: 600;
+            opacity: 1;
           }
         }
       }
-      .Leaderboard__Item {
-        background-color: color(white, light);
-        border-radius: spacing(2,4);
-        padding: spacing(2,2);
+    }
 
-        position: relative;
-        border: 1px solid color(white, light);
-
+    .Leaderboard__Players {
+      position: relative;
+      width: 100%;
+      .Leaderboard__Item-Container {
+        position: absolute;
+        transition: transition();
+        padding-right: spacing(2, 10);
         width: 100%;
-        height: 58px;
-        overflow: hidden;
-        color: color(black);
+        @media only screen and (max-width: breakpoint(tabletHD)) {
+          padding-right: 0;
 
-        box-shadow:
-         inset 0  (0 - spacing(2,3)) spacing(2,12) spacing(2,2) transparentize(color(violet),.85) ,
-           0  (0 - spacing(2,3)) spacing(2,8) (0 - spacing(2,3)) transparentize(color(black),.85),
-          0  spacing(2,2) spacing(2,5) spacing(2,2) transparentize(color(white),.9);
-        margin-bottom: spacing(2);
-        font-size: font-size(s);
-
-        .Leaderboard__Item__Player {
-          font-family: font-family(display);
-          position: absolute;
-          top: spacing(2);
-          left: spacing(2,4);
         }
-        .Leaderboard__Item__Meta {
+        &.Leaderboard__Item-Container--first {
+          .Leaderboard__Item {
+            .Leaderboard__Item__Score {
+              font-size: heading-font-size(h2);
+              color: color(yellow);
+            }
+            .Leaderboard__Item__Player {
+              font-size: heading-font-size(h2);
+              color: color(yellow);
+              font-weight: 600;
+            }
+            .Leaderboard__Item__Meta {
+              top: spacing(2,8);
+              color: color(yellow);
+            }
+            .Leaderboard__Item__Level {
+                color: color(yellow);
+            }
+            .Leaderboard__Item__Time {
 
-          position: absolute;
-          top: spacing(2,4);
-          font-size: font-size(xs);
-          left: spacing(2,4);
-          opacity: .6;
+              color: color(yellow);
+              span {
+                border-color: color(yellow);
+              }
+            }
+          }
         }
-        .Leaderboard__Item__Score {
-          font-family: font-family(display);
-          font-size: heading-font-size(h3);
-          color: color(black);
-          position: absolute;
-          top: spacing(2,2);
-          font-weight: 600;
-          right: spacing(2,4);
-        }
+        &.Leaderboard__Item-Container--second, &.Leaderboard__Item-Container--third  {
+          .Leaderboard__Item__Player {
+            font-weight: 600;
+            font-size: heading-font-size(h2) !important;
+          }
 
+          .Leaderboard__Item__Score {
+
+            font-size: heading-font-size(h2) !important;
+          }
+          .Leaderboard__Item__Meta {
+            top: spacing(2,8) !important;
+
+          }
+        }
+        &.Leaderboard__Item-Container--topten{
+          .Leaderboard__Item__Player {
+
+            font-size: heading-font-size(h3) !important;
+          }
+        }
+        .Leaderboard__Item {
+
+          padding: spacing(2,2);
+          position: relative;
+          display: flex;
+
+
+          height: 98px;
+          overflow: hidden;
+          color: color(white);
+          font-size: font-size(s);
+
+          .Leaderboard__Item__Player {
+            font-family: font-family(display);
+            white-space: nowrap;
+            font-size: heading-font-size(h4);
+            width: 100%;
+            text-align: left;
+            @media only screen and (max-width: breakpoint(tabletHD)) {
+              font-size: heading-font-size(h4) !important;
+
+            }
+
+          }
+          .Leaderboard__Item__Meta {
+
+            position: absolute;
+            top: spacing(2,7);
+            font-size: font-size(xs);
+            left: spacing(2,2);
+            opacity: .6;
+            @media only screen and (max-width: breakpoint(tabletHD)) {
+              display: none;
+            }
+          }
+          .Leaderboard__Item__Score {
+            font-family: font-family(display);
+            font-size: heading-font-size(h3);
+            color: color(white);
+            min-width: spacing(2,20);
+            text-align: right;
+
+            font-weight: 600;
+            @media only screen and (max-width: breakpoint(tabletHD)) {
+              min-width: spacing(2,10);
+              font-size: heading-font-size(h3) !important;
+            }
+
+          }
+          .Leaderboard__Item__Time {
+            font-family: font-family(mono);
+            white-space: nowrap;
+
+            font-size: heading-font-size(h4);
+            text-align: right;
+            span {
+              border: 1px solid color(white);
+              display: inline-block;
+              border-radius: spacing(2,4);
+              padding: 0 spacing(2,2);
+            }
+          }
+          .Leaderboard__Item__Level {
+            font-family: font-family(display);
+            white-space: nowrap;
+            text-align: right;
+            font-size: heading-font-size(h4);
+            padding-right: spacing(2,4);
+            @media only screen and (max-width: breakpoint(tabletHD)) {
+              display: none;
+
+            }
+          }
+
+        }
       }
     }
 
