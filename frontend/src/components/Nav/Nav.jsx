@@ -16,7 +16,7 @@ function Nav() {
           ["--backoffice"]: currentSection === "back-office",
         })}>
         <div className="Nav__container">
-          {user && (
+          {user && currentSection !== "back-office" && (
             <div className="Nav__user">{user.charAt(0)}</div>
           )}
           <div className="Nav__back-office">

@@ -12,7 +12,7 @@ function Leaderboard({leaderboard}) {
     }
 
     const listStyle = {
-      height:  leaderboard.Sessions.length * 60 + "px"
+      height:  leaderboard.Sessions.length * 100 + "px"
     }
 
     return (
@@ -20,36 +20,63 @@ function Leaderboard({leaderboard}) {
             ["Leaderboard"]: true,
         })}>
           <div className="Leaderboard__List" style={listStyle}>
+                <div className="Leaderboard__Positions" style={listStyle}>
+                {
+                    Object.entries(leaderboard.Sessions).map(([key, sessionScore]) => {
 
-            {
-                Object.entries(leaderboard.Sessions).map(([key, sessionScore]) => {
+                      return (
+                        <div  className={cn({
+                            ["Leaderboard__Position"]: true,
+                            ["Leaderboard__Position--first"]: key == 0,
+                            ["Leaderboard__Position--second"]: key == 1,
+                            ["Leaderboard__Position--third"]: key == 2,
+                        })}
 
-                  const itemStyle = {
-                    top:  key * 60 + "px"
+                        >
+                            <span>{parseInt(key) + 1 }</span>
+                        </div>
+
+                    )}
+                )
+              }
+                </div>
+                <div className="Leaderboard__Players" style={listStyle}>
+
+                    {
+                        Object.entries(leaderboard.Sessions).map(([key, sessionScore]) => {
+
+                          const itemStyle = {
+                            top:  key * 100 + "px"
+                          }
+
+                          return (
+                            <div  className={cn({
+                                ["Leaderboard__Item-Container"]: true,
+                                ["Leaderboard__Item-Container--first"]: key == 0,
+                                ["Leaderboard__Item-Container--second"]: key == 1,
+                                ["Leaderboard__Item-Container--third"]: key == 2,
+                                ["Leaderboard__Item-Container--topten"]: key < 10 && key > 2,
+                            })}
+
+                            style={itemStyle}>
+
+                              <Element key={key} customClass={"Leaderboard__Item"} >
+                                  <div className="Leaderboard__Item__Player">{sessionScore.Nickname}</div>
+                                  <div className="Leaderboard__Item__Level">{sessionScore.LastLevel}</div>
+                                  <div className="Leaderboard__Item__Time"><span>{new Date(sessionScore.AccumulatedTimeInSeconds).toISOString().substr(14, 5)}</span></div>
+                                  <div className="Leaderboard__Item__Score">{sessionScore.AccumulatedScore}</div>
+                                  <div className="Leaderboard__Item__Meta">{formatDate(sessionScore.Time)}  </div>
+
+
+
+
+                              </Element>
+                            </div>
+
+                        )}
+                    )
                   }
-
-                  return (
-                    <div  className={cn({
-                        ["Leaderboard__Item-Container"]: true,
-                        ["Leaderboard__Item-Container--first"]: key == 0,
-                    })}
-
-                    style={itemStyle}>
-
-                      <Element key={key} customClass={"Leaderboard__Item"} >
-                          <div className="Leaderboard__Item__Player">{sessionScore.Nickname}</div>
-                          <div className="Leaderboard__Item__Score">{sessionScore.AccumulatedScore}</div>
-                          <div className="Leaderboard__Item__Meta">{formatDate(sessionScore.Time)}. <strong> Level: </strong> {sessionScore.LastLevel}. <strong>Time</strong> {new Date(sessionScore.AccumulatedTimeInSeconds).toISOString().substr(14, 5)} </div>
-
-
-
-
-                      </Element>
-                    </div>
-
-                )}
-            )
-          }
+                  </div>
 
             </div>
 

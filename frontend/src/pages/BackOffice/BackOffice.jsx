@@ -139,7 +139,7 @@ function BackOffice() {
             })}
             >
                 <Header/>
-                <SectionHero title="Leaderboard"/>
+                <SectionHero title="Leaderboard" center/>
                 <section >
 
 
