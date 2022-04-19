@@ -13,6 +13,7 @@ spring:
       port: 9000
       transport: websocket
 game:
+  index-page-path: "file:static/index.html"
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
   start-game-uri: http://start-game.default.svc.cluster.local
   start-level-uri: http://start-level.default.svc.cluster.local
