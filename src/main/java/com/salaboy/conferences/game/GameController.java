@@ -1,22 +1,17 @@
 package com.salaboy.conferences.game;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salaboy.conferences.game.config.GameProperties;
 import com.salaboy.conferences.game.model.Answers;
 import com.salaboy.conferences.game.model.Leaderboard;
 import com.salaboy.conferences.game.model.StartLevel;
-import io.cloudevents.CloudEvent;
-import io.cloudevents.core.builder.CloudEventBuilder;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.time.Duration;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/game")

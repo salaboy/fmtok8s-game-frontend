@@ -25,7 +25,7 @@ public class WebEndpoints {
     }
 
     private Object getIndexPage() {
-        var indexPage = new ClassPathResource("/static/index.html");
+        var indexPage = new ClassPathResource("file:static/index.html");
         if (!indexPage.exists()) {
             // This should only happen when running the app locally in development mode.
             return "The 'index.html' page doesn't exist.";
