@@ -46,6 +46,7 @@ public class GameUIServiceTests {
 
 	@DynamicPropertySource
 	static void backingServiceProperties(DynamicPropertyRegistry registry) {
+		registry.add("spring.rsocket.server.port", () -> 0);
 		registry.add("game.leaderboard-uri", () -> mockWebServer.url("/").uri().toString());
 		registry.add("game.start-game-uri", () -> mockWebServer.url("/").uri().toString());
 		registry.add("game.start-level-uri", () -> mockWebServer.url("/").uri().toString());

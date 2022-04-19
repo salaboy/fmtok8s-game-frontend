@@ -1,12 +1,15 @@
 # FMTOK8S :: GAME User Interface
+
 Simple Game User Interface using a React Application inside a Spring Boot application. 
 
 ## Build
 
+First, make sure you have Java 17 installed.
+
 To build the application you can use: 
 
 ```
-mvn package
+./mvnw package
 ```
 
 To build the docker image to deploy into a cluster you can run:
@@ -18,7 +21,7 @@ docker push salaboy/fmtok8s-game-frontend:0.1.0
 ```
 Replace `salaboy` with your docker hub user or your registry organization.
 
-Unfortunately `mvn spring-boot:build-image` goal cannot be used as I do need a custom `Dockerfile`. check the first comments in the `Dockerfile` file.
+Unfortunately `./mvnw spring-boot:build-image` goal cannot be used as I do need a custom `Dockerfile`. check the first comments in the `Dockerfile` file.
 
 ## Run locally
 
