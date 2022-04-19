@@ -1,5 +1,6 @@
 package com.salaboy.conferences.game.web;
 
+import com.salaboy.conferences.game.config.GameProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,12 @@ public class WebEndpoints {
 
     private static final Logger log = LoggerFactory.getLogger(WebEndpoints.class);
 
+    private final GameProperties gameProperties;
+
+    public WebEndpoints(GameProperties gameProperties) {
+        this.gameProperties = gameProperties;
+    }
+
     @Bean
     public RouterFunction<ServerResponse> indexRouter() {
         return route()
@@ -25,7 +32,7 @@ public class WebEndpoints {
     }
 
     private Object getIndexPage() {
-        var indexPage = new ClassPathResource("file:static/index.html");
+        var indexPage = new ClassPathResource(gameProperties.indexPagePath());
         if (!indexPage.exists()) {
             // This should only happen when running the app locally in development mode.
             return "The 'index.html' page doesn't exist.";

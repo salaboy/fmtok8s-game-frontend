@@ -6,6 +6,7 @@ import java.net.URI;
 
 @ConfigurationProperties(prefix = "game")
 public record GameProperties(
+        String indexPagePath,
         URI startGameUri,
         URI startLevelUri,
         URI leaderboardUri
