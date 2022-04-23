@@ -2,49 +2,48 @@ import "./Level1.scss";
 import React, {useState} from "react";
 import cn from 'classnames';
 import axios from "axios";
-import Clock from "../Clock/Clock";
 import Button from "../../components/Button/Button";
-import TextField from "../../components/Form/TextField/TextField";
-
+import {CountdownCircleTimer} from "react-countdown-circle-timer";
 
 
 function Level1({state, dispatch}) {
-
-    const [isActive, setIsActive] = useState(true);
-    const [isPaused, setIsPaused] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [isSent, setIsSent] = useState(false);
 
-    const [question1Answer, setQuestion1Answer] = useState("")
-    const [question2Answer, setQuestion2Answer] = useState("")
-    const [question3Answer, setQuestion3Answer] = useState("")
 
+    const [remainingTime, setRemainingTime] = useState(0)
+    const [score, setScore] = useState()
+
+    function nextLevel(){
+        dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
+    }
 
     //Send answer to a specific question/level
-    function sendAnswer() {
+    function sendAnswer(optionA, optionB, optionC, optionD) {
         if (loading) {
             return;
         }
+        console.log("Sending answers: [" + optionA + ", " + optionB + ", " + optionC + ", " + optionD + " ] with remaining time: " + remainingTime + "'s to level id: " + state.currentLevelId)
         setLoading(true);
-        console.log("Sending answer: " + question1Answer + " to level id: " + state.currentLevelId)
-
-        //@TODO: If we want to send the Clock data to the function: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
-        setIsPaused(true)
+        setIsSent(true)
         axios({
             method: "post",
             url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
             data: {
-                question1: question1Answer,
-                question2: question2Answer,
-                question3: question3Answer,
+                sessionId: state.sessionID,
+                optionA: optionA,
+                optionB: optionB,
+                optionC: optionC,
+                optionD: optionD,
+                remainingTime: remainingTime,
             },
         }).then(res => {
             console.log("Answer response:")
             console.log(res.headers)
             console.log(res.data)
-            dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
+            setScore(res.data)
             setLoading(false);
         }).catch(err => {
-
             console.log(err)
             console.log(err.response.data.message)
             console.log(err.response.data)
@@ -55,35 +54,38 @@ function Level1({state, dispatch}) {
         <div className={cn({
             ["Level"]: true,
         })}>
-            <Clock isActive={isActive} isPaused={isPaused}/>
             <h2>Level 1</h2>
-
-            <div className="Questionnaire">
-                <div className="Question">
-
-                  <div className="Question__Body"> <div className="Question__Number">1</div> What is the meaning of life?</div>
-
-                  <TextField placeholder="Write your answer" name="answer1" value={question1Answer} changeHandler={e => setQuestion1Answer(e.target.value)}></TextField>
+            {score && (
+                <div className="Scores">
+                    Your Score for this level is: {score.LevelScore}
+                    <Button main clickHandler={nextLevel}>Play Next Level</Button>
                 </div>
 
-                <div className="Question">
+            )}
+            {!isSent && (
+                <div className="Questionnaire">
+                    <CountdownCircleTimer
+                        onComplete={sendAnswer}
+                        onUpdate={remainingTime => setRemainingTime(remainingTime)}
+                        isPlaying={!isSent}
+                        duration={10}
+                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                        colorsTime={[7, 5, 2, 0]}>
+                        {({remainingTime}) => remainingTime}
+                    </CountdownCircleTimer>
+                    <div className="Question">
+                        <div className="Question__Body">
+                            <div className="Question__Number">1</div>
+                            Which OSS project do you like the most?
+                        </div>
+                        <Button clickHandler={e => sendAnswer(true, false, false, false)}>OptionA: Knative</Button><br/>
+                        <Button clickHandler={e => sendAnswer(false, true, false, false)}>OptionB: Tekton</Button><br/>
+                        <Button clickHandler={e => sendAnswer(false, false, true, false)}>OptionC: Crossplane</Button><br/>
+                        <Button clickHandler={e => sendAnswer(false, false, false, true)}>OptionD: Other</Button><br/>
+                    </div>
 
-                  <div className="Question__Body">
-                    <div className="Question__Number">2</div>
-                    What is the meaning of life +?
-                  </div>
-
-                  <TextField placeholder="Write your answer" name="answer2" value={question2Answer} changeHandler={e => setQuestion2Answer(e.target.value)}></TextField>
                 </div>
-                <div className="Question">
-
-                  <div className="Question__Body"><div className="Question__Number">3</div> What is the meaning of life ++?</div>
-
-                  <TextField placeholder="Write your answer" name="answer3" value={question3Answer} changeHandler={e => setQuestion3Answer(e.target.value)}></TextField>
-                </div>
-
-                <Button main clickHandler={sendAnswer} disabled={loading}>{loading ? 'Sending...' : 'Send'}</Button>
-            </div>
+            )}
 
         </div>
     );

@@ -3,6 +3,7 @@ package com.salaboy.conferences.game;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.salaboy.conferences.game.config.GameProperties;
 import com.salaboy.conferences.game.model.Answers;
+import com.salaboy.conferences.game.model.GameScore;
 import com.salaboy.conferences.game.model.Leaderboard;
 import com.salaboy.conferences.game.model.StartLevel;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -65,14 +66,13 @@ public class GameController {
     }
 
     @PostMapping(path = "/{sessionId}/level-{levelId}/answer")
-    public Mono<String> answer(@PathVariable String sessionId, @PathVariable String levelId, @RequestBody Answers answers) {
-        answers.setSessionId(sessionId);
+    public Mono<GameScore> answer(@PathVariable String sessionId, @PathVariable String levelId, @RequestBody Answers answers) {
         return webClient
                 .post()
                 .uri("http://level-" + levelId + ".default.svc.cluster.local")
                 .bodyValue(answers)
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(GameScore.class)
                 .log();
     }
 

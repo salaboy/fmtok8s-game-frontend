@@ -1,0 +1,14 @@
+@import '../../styles/_foundations.scss';
+.Level3 {
+  padding-bottom: spacing(2,10);
+
+  .Level3__List {
+    padding: spacing(2,10) 0;
+  }
+  .Level3__Empty {
+    
+    span {
+      opacity: .5;
+    }
+  }
+}

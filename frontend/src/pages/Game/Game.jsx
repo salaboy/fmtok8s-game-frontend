@@ -17,6 +17,7 @@ import TextField from "../../components/Form/TextField/TextField";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
+import Level3 from "../../components/Level3/Level3";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -208,6 +209,13 @@ function Game() {
                                             <>
 
                                                 <Level2 state={state} dispatch={dispatch}/>
+                                            </>
+                                        )}
+
+                                        {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 3 && (
+                                            <>
+
+                                                <Level3 state={state} dispatch={dispatch}/>
                                             </>
                                         )}
 
