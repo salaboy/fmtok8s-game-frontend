@@ -36,7 +36,7 @@ function Level3({state, dispatch}) {
             url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
             data: {
                 sessionId: state.sessionID,
-                optionA: counter,
+                counter: counter,
             },
         }).then(res => {
             console.log("Answer response:")

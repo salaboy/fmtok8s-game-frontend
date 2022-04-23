@@ -63,12 +63,7 @@ function Leaderboard({leaderboard}) {
                               <Element key={key} customClass={"Leaderboard__Item"} >
                                   <div className="Leaderboard__Item__Player">{sessionScore.Nickname}</div>
                                   <div className="Leaderboard__Item__Level">{sessionScore.LastLevel}</div>
-                                  <div className="Leaderboard__Item__Time"><span>{new Date(sessionScore.AccumulatedTimeInSeconds).toISOString().substr(14, 5)}</span></div>
                                   <div className="Leaderboard__Item__Score">{sessionScore.AccumulatedScore}</div>
-                                  <div className="Leaderboard__Item__Meta">{formatDate(sessionScore.Time)}  </div>
-
-
-
 
                               </Element>
                             </div>
