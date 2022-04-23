@@ -165,7 +165,7 @@ function Game() {
                 ["game"]: true
             })}
             >
-                <Header/>
+
                 <section>
 
                     <h1>Play with us!</h1>
@@ -185,7 +185,7 @@ function Game() {
                                     {/*<h4>SessionId: {state.sessionID} </h4>*/}
                                     {!state.currentLevelStarted && (
                                       <>
-                                      <h4>Welcome <strong> {state.nickname} </strong> </h4>
+                                      <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
                                       <br/>
                                       </>
                                     )}

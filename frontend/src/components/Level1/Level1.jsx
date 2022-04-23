@@ -56,32 +56,40 @@ function Level1({state, dispatch}) {
         })}>
             <h2>Level 1</h2>
             {score && (
+              <>
                 <div className="Scores">
-                    Your Score for this level is: {score.LevelScore}
-                    <Button main clickHandler={nextLevel}>Play Next Level</Button>
+                    Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
                 </div>
-
+                <Button main clickHandler={nextLevel}>Play Next Level</Button>
+              </>
             )}
             {!isSent && (
                 <div className="Questionnaire">
-                    <CountdownCircleTimer
-                        onComplete={sendAnswer}
-                        onUpdate={remainingTime => setRemainingTime(remainingTime)}
-                        isPlaying={!isSent}
-                        duration={10}
-                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                        colorsTime={[7, 5, 2, 0]}>
-                        {({remainingTime}) => remainingTime}
-                    </CountdownCircleTimer>
+                    <div className="Timer">
+                      <CountdownCircleTimer
+                          onComplete={sendAnswer}
+                          onUpdate={remainingTime => setRemainingTime(remainingTime)}
+                          isPlaying={!isSent}
+                          duration={10}
+                          colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
+                          colorsTime={[7, 5, 2, 0]}
+                          size={60}
+                          >
+                          {({remainingTime}) => remainingTime}
+                      </CountdownCircleTimer>
+                    </div>
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">1</div>
                             Which OSS project do you like the most?
                         </div>
-                        <Button clickHandler={e => sendAnswer(true, false, false, false)}>OptionA: Knative</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, true, false, false)}>OptionB: Tekton</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, false, true, false)}>OptionC: Crossplane</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, false, false, true)}>OptionD: Other</Button><br/>
+                        <div className="Answer">
+                        <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Knative</Button>
+                        <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Tekton</Button>
+                        <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Crossplane</Button>
+                        <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Other</Button>
+                        </div>
+
                     </div>
 
                 </div>

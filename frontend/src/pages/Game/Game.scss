@@ -4,3 +4,9 @@
     margin-bottom: spacing(4,2);
   }
 }
+
+.page.game {
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    padding-top: spacing(2,10);
+  }
+}

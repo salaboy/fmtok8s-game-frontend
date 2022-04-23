@@ -5,9 +5,43 @@
   h2 {
     margin-top:0;
     padding-top:  spacing(2,2);
+    text-align: left;
+  }
+  .Scores {
+    padding:  spacing(2,2) 0 spacing(2,6);
+    font-size: font-size(s);
+    .ScoreNumber {
+      display: inline-block;
+      background-color: color(yellow);
+      width: spacing(2,6);
+      height: spacing(2,6);
+      border-radius: spacing(2,3);
+      font-family: font-family(display);
+      font-size: font-size(s);
+      text-align: center;
+      line-height: spacing(2,6);
+      font-weight: bold;
+
+    }
+  }
+  .GameOver {
+      padding:  spacing(2,6) 0 spacing(2,2);
+      text-align: center;
+      background-color: color(white);
+      h3 {
+        margin: 0;
+        font-weight: bold;
+      }
   }
   .Questionnaire {
     text-align: left;
+    .Timer {
+      position: absolute;
+      top: 0 - spacing(2,4);
+      right: 0;
+      font-family: font-family(display);
+      font-size: font-size(s);
+    }
     .Question {
       padding: spacing(2,2) 0;
       .Question__Number {
@@ -30,6 +64,23 @@
         font-size: font-size(s);
         font-family: font-family(base);
         font-weight: 600;
+      }
+    }
+    .Answer {
+      padding: spacing(2,4) 0 0;
+
+      .Counter {
+        vertical-align: top;
+        display: inline-block;
+        padding: 0 spacing(2,3);
+
+        height: spacing(2,10);
+        background-color: color(violet, pale);
+        line-height: spacing(2,10);
+        font-family: font-family(display);
+        border-radius: spacing(2,5);
+        text-align: center;
+
       }
     }
   }
