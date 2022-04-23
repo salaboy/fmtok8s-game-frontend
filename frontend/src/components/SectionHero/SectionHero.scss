@@ -1,6 +1,6 @@
 @import '../../styles/_foundations.scss';
 .SectionHero {
-  padding-top: spacing(2,30);
+  padding-top: spacing(2,15);
 
   @media only screen and (max-width: breakpoint(tabletHD)) {
     padding-top: spacing(2,20);
@@ -10,6 +10,7 @@
           h1 {
             max-width: 100% !important;
             text-align: center;
+            margin-bottom: spacing(2,2);
           }
           h2 {
             max-width: 100%;

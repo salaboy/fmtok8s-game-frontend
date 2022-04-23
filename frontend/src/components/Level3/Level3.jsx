@@ -58,32 +58,47 @@ function Level3({state, dispatch}) {
         })}>
             <h2>Level 3</h2>
             {score && (
-                <div className="Scores">
+                <>
+                  <div className="Scores">
 
-                    Your Score for this level is: {score.LevelScore}
-                    {/*<Button main clickHandler={nextLevel}>Play Next Level</Button>
-                    */}
-                    Game Completed!
-                </div>
+                      Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
+                      {/*<Button main clickHandler={nextLevel}>Play Next Level</Button>
+                      */}
+
+                  </div>
+                  <div className="GameOver">
+                    <h4>Congratulations</h4>
+                    <h3>Game Completed!</h3>
+                  </div>
+                </>
 
             )}
             {!isSent && (
                 <div className="Questionnaire">
-                    <CountdownCircleTimer
-                        onComplete={sendAnswer}
-                        isPlaying
-                        duration={10}
-                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                        colorsTime={[7, 5, 2, 0]}>
-                        {({remainingTime}) => remainingTime}
-                    </CountdownCircleTimer>
+                <div className="Timer">
+                  <CountdownCircleTimer
+                      onComplete={sendAnswer}
+
+                      isPlaying={!isSent}
+                      duration={10}
+                      colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
+                      colorsTime={[7, 5, 2, 0]}
+                      size={60}
+                      >
+                      {({remainingTime}) => remainingTime}
+                  </CountdownCircleTimer>
+                </div>
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">1</div>
                             How many times can you click the following button in 10 seconds?
                         </div>
-                        <Button main clickHandler={clickMe}>Click Me!</Button>
-                        <h4>{counter}</h4>
+                        <div className="Answer">
+                          <Button inline clickHandler={clickMe}>Click Me!</Button>
+                          <div className="Counter">{counter}</div>
+                        </div>
+
+
 
                     </div>
                 </div>

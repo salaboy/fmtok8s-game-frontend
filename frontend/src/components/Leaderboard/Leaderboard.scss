@@ -134,6 +134,27 @@
             font-size: heading-font-size(h3) !important;
           }
         }
+        &.Leaderboard__Item-Container--selected{
+          .Leaderboard__Item__Player {
+            
+            position: relative;
+            &:after {
+              content: "Your Score";
+              display: inline-block;
+              margin: 0 spacing(2);
+              background-color: color(yellow);
+              color: color(black);
+              text-transform: uppercase;
+              font-size: font-size(xs);
+              font-family: font-family();
+              line-height: 1;
+              padding: spacing(2);
+              border-radius: spacing(2);
+              vertical-align: top;
+            }
+
+          }
+        }
         .Leaderboard__Item {
 
           padding: spacing(2,2);

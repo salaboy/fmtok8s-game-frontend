@@ -33,19 +33,33 @@
 
      &:hover {
        opacity: 1 !important;
-       background-color: color(violet, pale);
-       color: color(black);
+       background-color: color(violet);
+       color: color(white);
+     }
+     &:active {
+       opacity: 1 !important;
+       background-color: color(violet);
+       color: color(white);
      }
      span {
        position: relative;
        z-index: 10;
+
+       &.option {
+
+         opacity: .75;
+         font-weight: normal;
+         padding: 0 spacing(2) 0 0;
+
+       }
+
      }
 
    }
 
    &.--inline {
      display: inline-block;
-     margin-right: spacing(2);
+     margin-right: spacing(2,1.5);
    }
    &.--main {
      .__container, a{
@@ -111,10 +125,12 @@
    }
 
    &.--small {
+     border-radius: spacing(2,2);
       .__container, a{
-       padding: (spacing(1) - 1) spacing(2);
-       font-size: font-size(s);
-       line-height: line-height(s);
+       padding: 0 spacing(2,3);
+       line-height: spacing(2, 8);
+       height: spacing(2, 8);
+       border-radius: spacing(2,2);
      }
    }
 

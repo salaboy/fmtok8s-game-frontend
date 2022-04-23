@@ -61,32 +61,40 @@ function Level2({state, dispatch}) {
         })}>
             <h2>Level 2</h2>
             {score && (
+              <>
                 <div className="Scores">
-                    Your Score for this level is: {score.LevelScore}
-                    <Button main clickHandler={nextLevel}>Play Next Level</Button>
-                </div>
+                    Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
 
+                </div>
+                <Button main clickHandler={nextLevel}>Play Next Level</Button>
+              </>
             )}
             {!isSent && (
                 <div className="Questionnaire">
-                    <CountdownCircleTimer
-                        onComplete={sendAnswer}
-                        onUpdate={remainingTime => setRemainingTime(remainingTime)}
-                        isPlaying={!isSent}
-                        duration={10}
-                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                        colorsTime={[7, 5, 2, 0]}>
-                        {({remainingTime}) => remainingTime}
-                    </CountdownCircleTimer>
+                <div className="Timer">
+                  <CountdownCircleTimer
+                      onComplete={sendAnswer}
+                      onUpdate={remainingTime => setRemainingTime(remainingTime)}
+                      isPlaying={!isSent}
+                      duration={10}
+                      colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
+                      colorsTime={[7, 5, 2, 0]}
+                      size={60}
+                      >
+                      {({remainingTime}) => remainingTime}
+                  </CountdownCircleTimer>
+                </div>
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">1</div>
                             Insert HERE Generic Question?
                         </div>
-                        <Button clickHandler={e => sendAnswer(true, false, false, false)}>OptionA: Answer A</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, true, false, false)}>OptionB: Answer B</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, false, true, false)}>OptionC: Answer C</Button><br/>
-                        <Button clickHandler={e => sendAnswer(false, false, false, true)}>OptionD: Other</Button><br/>
+                        <div className="Answer">
+                          <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Answer A</Button>
+                          <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Answer B</Button>
+                          <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Answer C</Button>
+                          <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Other</Button>
+                        </div>
                     </div>
 
 

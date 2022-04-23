@@ -148,7 +148,7 @@ function BackOffice() {
                 ["back-office--freeze"]: gameState != "active"
             })}
             >
-                <Header/>
+                
                 <SectionHero title="Leaderboard" center>
                   {gameState === "active" && (
                     <Button main clickHandler={freeze}> Freeze</Button>

@@ -30,10 +30,11 @@ function Leaderboard({leaderboard}) {
                             ["Leaderboard__Position--first"]: key == 0,
                             ["Leaderboard__Position--second"]: key == 1,
                             ["Leaderboard__Position--third"]: key == 2,
+                            ["Leaderboard__Position--selected"]: sessionScore.Selected == true
                         })}
 
                         >
-                            <span>{parseInt(key) + 1 }</span>
+                            <span>{parseInt(key) + 1 } </span>
                         </div>
 
                     )}
@@ -56,6 +57,7 @@ function Leaderboard({leaderboard}) {
                                 ["Leaderboard__Item-Container--second"]: key == 1,
                                 ["Leaderboard__Item-Container--third"]: key == 2,
                                 ["Leaderboard__Item-Container--topten"]: key < 10 && key > 2,
+                                ["Leaderboard__Item-Container--selected"]: sessionScore.Selected == true
                             })}
 
                             style={itemStyle}>
