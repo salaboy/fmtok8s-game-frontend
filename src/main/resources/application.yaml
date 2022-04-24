@@ -12,6 +12,8 @@ spring:
     server:
       port: 9000
       transport: websocket
+      mapping-path: /ws/
+
 game:
   index-page-path: "file:static/index.html"
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
@@ -33,12 +35,12 @@ management:
 logging:
   level:
     reactor:
-      netty: INFO
+      netty: info
     org:
       springframework:
         cloud:
-          gateway: INFO
+          gateway: info
     com:
       salaboy:
         conferences:
-          site: INFO
+          site: info
