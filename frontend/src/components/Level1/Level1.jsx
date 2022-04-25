@@ -4,7 +4,7 @@ import cn from 'classnames';
 import axios from "axios";
 import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 function Level1({state, dispatch}) {
     const [loading, setLoading] = useState(false);
@@ -55,7 +55,14 @@ function Level1({state, dispatch}) {
             ["Level"]: true,
         })}>
             <h2>Level 1</h2>
-            {score && (
+            {isSent && !score && (
+                <>
+                    <div className="Scores">
+                        <PacmanLoader loading={loading} size={50}/>
+                    </div>
+                </>
+            )}
+            {isSent && score && (
               <>
                 <div className="Scores">
                     Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>

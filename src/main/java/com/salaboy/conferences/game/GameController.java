@@ -12,6 +12,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Duration;
 
 @RestController
@@ -57,10 +59,16 @@ public class GameController {
     }
 
     @GetMapping("/leaderboard")
-    public Mono<Leaderboard> getLeaderboard() {
+    public Mono<Leaderboard> getLeaderboard(@RequestParam(required = false) String nickname) throws URISyntaxException {
+        URI uri = gameProperties.leaderboardUri();
+        if (nickname != null && !nickname.isBlank()) {
+            uri = new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(),
+                    "nickname=" + nickname, uri.getFragment());
+        }
+        System.out.println("URI to be called: " + uri.toString());
         return webClient
                 .get()
-                .uri(gameProperties.leaderboardUri())
+                .uri(uri)
                 .retrieve()
                 .bodyToMono(Leaderboard.class);
     }

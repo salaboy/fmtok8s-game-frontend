@@ -2,10 +2,9 @@ import "./Level2.scss";
 import React, {useState} from "react";
 import cn from 'classnames';
 import axios from "axios";
-import Clock from "../Clock/Clock";
 import Button from "../../components/Button/Button";
-import TextField from "../../components/Form/TextField/TextField";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 
 function Level2({state, dispatch}) {
@@ -17,7 +16,7 @@ function Level2({state, dispatch}) {
 
     const [score, setScore] = useState()
 
-    function nextLevel(){
+    function nextLevel() {
         dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
     }
 
@@ -60,40 +59,51 @@ function Level2({state, dispatch}) {
             ["Level"]: true,
         })}>
             <h2>Level 2</h2>
-            {score && (
-              <>
-                <div className="Scores">
-                    Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
+            {isSent && !score && (
+                <>
+                    <div className="Scores">
+                        <PacmanLoader loading={loading} size={50}/>
+                    </div>
+                </>
+            )}
+            {isSent && score && (
+                <>
+                    <div className="Scores">
+                        Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
 
-                </div>
-                <Button main clickHandler={nextLevel}>Play Next Level</Button>
-              </>
+                    </div>
+                    <Button main clickHandler={nextLevel}>Play Next Level</Button>
+                </>
             )}
             {!isSent && (
                 <div className="Questionnaire">
-                <div className="Timer">
-                  <CountdownCircleTimer
-                      onComplete={sendAnswer}
-                      onUpdate={remainingTime => setRemainingTime(remainingTime)}
-                      isPlaying={!isSent}
-                      duration={10}
-                      colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
-                      colorsTime={[7, 5, 2, 0]}
-                      size={60}
-                      >
-                      {({remainingTime}) => remainingTime}
-                  </CountdownCircleTimer>
-                </div>
+                    <div className="Timer">
+                        <CountdownCircleTimer
+                            onComplete={sendAnswer}
+                            onUpdate={remainingTime => setRemainingTime(remainingTime)}
+                            isPlaying={!isSent}
+                            duration={10}
+                            colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
+                            colorsTime={[7, 5, 2, 0]}
+                            size={60}
+                        >
+                            {({remainingTime}) => remainingTime}
+                        </CountdownCircleTimer>
+                    </div>
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">1</div>
                             Insert HERE Generic Question?
                         </div>
                         <div className="Answer">
-                          <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Answer A</Button>
-                          <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Answer B</Button>
-                          <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Answer C</Button>
-                          <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Other</Button>
+                            <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span
+                                className="option">A.</span> Answer A</Button>
+                            <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span
+                                className="option">B.</span> Answer B</Button>
+                            <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span
+                                className="option">C.</span> Answer C</Button>
+                            <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span
+                                className="option">D.</span> Other</Button>
                         </div>
                     </div>
 

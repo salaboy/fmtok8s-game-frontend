@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useContext, useRef} from "react";
-import {Switch, Route, useLocation, useHistory} from "react-router-dom";
+import React, {useState, useRef} from "react";
+import {Switch, Route, useLocation} from "react-router-dom";
 import {LocomotiveScrollProvider} from 'react-locomotive-scroll';
 import {AnimatePresence} from "framer-motion";
 import Game from './pages/Game/Game';
@@ -11,7 +11,6 @@ import cn from 'classnames';
 function App() {
     const location = useLocation();
     const containerRef = useRef(null);
-
 
     //contexts
     const [currentSection, setCurrentSection] = useState("home");
@@ -48,10 +47,10 @@ function App() {
                                 <Route path="/" exact>
                                     <Game/>
                                 </Route>
-                                <Route path="/back-office/:subSection" >
+                                <Route path="/back-office/:nickname">
                                     <BackOffice/>
                                 </Route>
-                                <Route path="/back-office" exact >
+                                <Route path="/back-office" exact>
                                     <BackOffice/>
                                 </Route>
 

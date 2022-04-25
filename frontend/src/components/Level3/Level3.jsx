@@ -6,6 +6,8 @@ import Clock from "../Clock/Clock";
 import Button from "../../components/Button/Button";
 
 import {CountdownCircleTimer} from 'react-countdown-circle-timer'
+import {Link} from "react-router-dom";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 
 function Level3({state, dispatch}) {
@@ -57,7 +59,14 @@ function Level3({state, dispatch}) {
             ["Level"]: true,
         })}>
             <h2>Level 3</h2>
-            {score && (
+            {isSent && !score && (
+                <>
+                    <div className="Scores">
+                        <PacmanLoader loading={loading} size={50}/>
+                    </div>
+                </>
+            )}
+            {isSent && score && (
                 <>
                   <div className="Scores">
 
@@ -68,7 +77,8 @@ function Level3({state, dispatch}) {
                   </div>
                   <div className="GameOver">
                     <h4>Congratulations</h4>
-                    <h3>Game Completed!</h3>
+                      <h3>Game Completed! </h3>
+                      <Link to={`back-office/${state.nickname}`}>Check the leaderboard.</Link>
                   </div>
                 </>
 

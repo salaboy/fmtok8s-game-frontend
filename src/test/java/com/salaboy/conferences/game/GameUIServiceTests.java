@@ -99,9 +99,8 @@ public class GameUIServiceTests {
 				UUID.randomUUID().toString(),
 				"394",
 				"thomas",
-				Date.from(Instant.now()),
 				"level-713",
-				3000
+				false
 		);
 		var expectedLeaderboard = new Leaderboard(List.of(sessionScore));
 

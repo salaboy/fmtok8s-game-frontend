@@ -1,13 +1,11 @@
-import React, {useEffect, useContext, Suspense, lazy, useState} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import {motion} from "framer-motion"
 import {useLocomotiveScroll} from 'react-locomotive-scroll';
 import AppContext from '../../contexts/AppContext';
-import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import cn from 'classnames';
 import Button from "../../components/Button/Button";
 import SectionHero from '../../components/SectionHero/SectionHero'
-import BackOfficeNav from "../../components/BackOfficeNav/BackOfficeNav";
 import {useParams} from "react-router-dom";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
@@ -21,7 +19,7 @@ import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 function BackOffice() {
     const {currentSection, setCurrentSection, gameState, setGameState} = useContext(AppContext);
-    let {subSection} = useParams();
+    let {nickname} = useParams();
     //scroll
     const {scroll} = useLocomotiveScroll();
     var rsocketClient
@@ -94,9 +92,6 @@ function BackOffice() {
         if (scroll) {
             scroll.destroy();
             scroll.init();
-            if (subSection) {
-                scroll.scrollTo(".back-office__Layout", {duration: 0, disableLerp: true})
-            }
         }
     }, [scroll]);
 
@@ -115,7 +110,12 @@ function BackOffice() {
     const [leaderboard, setLeaderboard] = useState([]);
 
     useInterval(() => {
-        axios.get('/game/leaderboard/').then(res => {
+        let url = '/game/leaderboard/'
+        if(nickname !== ""){
+            url = url + "?nickname=" + nickname
+        }
+        console.log("URL for leaderboard is: " + url)
+        axios.get(url).then(res => {
             console.log(" --- Leaderboard ---")
             console.log(res.data)
             setLeaderboard(res.data);
