@@ -61,9 +61,9 @@ function Level2({state, dispatch}) {
             <h2>Level 2</h2>
             {isSent && !score && (
                 <>
-                    <div className="Scores">
-                        <PacmanLoader loading={loading} size={50}/>
-                    </div>
+                <div className="Loader">
+                    <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
+                </div>
                 </>
             )}
             {isSent && score && (
@@ -96,13 +96,13 @@ function Level2({state, dispatch}) {
                             Insert HERE Generic Question?
                         </div>
                         <div className="Answer">
-                            <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span
+                            <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span
                                 className="option">A.</span> Answer A</Button>
-                            <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span
+                            <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span
                                 className="option">B.</span> Answer B</Button>
-                            <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span
+                            <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span
                                 className="option">C.</span> Answer C</Button>
-                            <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span
+                            <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span
                                 className="option">D.</span> Other</Button>
                         </div>
                     </div>
