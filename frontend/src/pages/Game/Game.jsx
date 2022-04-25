@@ -18,6 +18,7 @@ import TextField from "../../components/Form/TextField/TextField";
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
 import Level3 from "../../components/Level3/Level3";
+import Level4 from "../../components/Level4/Level4";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -38,7 +39,6 @@ function Game() {
     let [delay, setDelay] = useState(4000);
 
     const [nickname, setNickname] = useState("")
-
 
 
     function handleDelayChange(e) {
@@ -72,8 +72,6 @@ function Game() {
             return v.toString(16);
         });
     }
-
-
 
 
     function newGame() {
@@ -149,7 +147,6 @@ function Game() {
     }
 
 
-
     return (
         <motion.div
             exit="exit"
@@ -175,58 +172,64 @@ function Game() {
                             {!state.sessionID && (
                                 <div className="Card">
 
-                                    <TextField label={"Enter your nickname:"} changeHandler={(e) => setNickname(e.target.value)}></TextField>
+                                    <TextField label={"Enter your nickname:"}
+                                               changeHandler={(e) => setNickname(e.target.value)}></TextField>
 
-                                    <Button clickHandler={newGame} disabled={loading} >{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
+                                    <Button clickHandler={newGame}
+                                            disabled={loading}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
                                 </div>
                             )}
                             {state.sessionID && (
                                 <div className="Card">
                                     {/*<h4>SessionId: {state.sessionID} </h4>*/}
                                     {!state.currentLevelStarted && (
-                                      <>
-                                      <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
-                                      <br/>
-                                      </>
+                                        <>
+                                            <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
+                                            <br/>
+                                        </>
                                     )}
 
 
+                                    {!state.currentLevelStarted && (
+                                        <div>
+                                            <Button main clickHandler={startLevel}
+                                                    disabled={loading}>{loading ? 'Loading...' : 'Start Level ' + state.currentLevelId}</Button>
+                                        </div>
+                                    )}
+                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (
+                                        <>
 
+                                            <Level1 state={state} dispatch={dispatch}/>
+                                        </>
+                                    )}
+                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 2 && (
+                                        <>
 
-                                        {!state.currentLevelStarted && (
-                                            <div>
-                                                <Button main clickHandler={startLevel}
-                                                        disabled={loading}>{loading ? 'Loading...' : 'Start Level ' + state.currentLevelId}</Button>
-                                            </div>
-                                        )}
-                                        {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (
-                                            <>
+                                            <Level2 state={state} dispatch={dispatch}/>
+                                        </>
+                                    )}
 
-                                                <Level1 state={state} dispatch={dispatch}/>
-                                            </>
-                                        )}
-                                        {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 2 && (
-                                            <>
+                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 3 && (
+                                        <>
 
-                                                <Level2 state={state} dispatch={dispatch}/>
-                                            </>
-                                        )}
+                                            <Level3 state={state} dispatch={dispatch}/>
+                                        </>
+                                    )}
 
-                                        {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 3 && (
-                                            <>
+                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 4 && (
+                                        <>
 
-                                                <Level3 state={state} dispatch={dispatch}/>
-                                            </>
-                                        )}
+                                            <Level4 state={state} dispatch={dispatch}/>
+                                        </>
+                                    )}
 
-                                        {state.currentLevelCompleted && (
-                                            <>
-                                                Congratulations you completed the level!
-                                                <Button main clickHandler={moveToNextLevel}
-                                                        disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                            </>
-                                        )}
-
+                                    {state.currentLevelCompleted && (
+                                        <>
+                                            Congratulations you completed the level!
+                                            <Button main clickHandler={moveToNextLevel}
+                                                    disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
+                                        </>
+                                    )}
 
 
                                 </div>

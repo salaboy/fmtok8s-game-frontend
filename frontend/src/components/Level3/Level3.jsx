@@ -71,16 +71,11 @@ function Level3({state, dispatch}) {
                   <div className="Scores">
 
                       Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
-                      {/*<Button main clickHandler={nextLevel}>Play Next Level</Button>
-                      */}
+
 
                   </div>
-                  <div className="GameOver">
-                    <h4>Congratulations</h4>
-                      <h3>Game Completed! </h3>
-                      <br/>
-                      <Button small link={`back-office/${state.nickname}`}>Check the leaderboard</Button>
-                  </div>
+                  <Button main clickHandler={nextLevel}>Play Next Level</Button>
+
                 </>
 
             )}
