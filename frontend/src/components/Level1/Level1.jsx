@@ -57,8 +57,8 @@ function Level1({state, dispatch}) {
             <h2>Level 1</h2>
             {isSent && !score && (
                 <>
-                    <div className="Scores">
-                        <PacmanLoader loading={loading} size={50}/>
+                    <div className="Loader">
+                        <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
                     </div>
                 </>
             )}
@@ -91,10 +91,10 @@ function Level1({state, dispatch}) {
                             Which OSS project do you like the most?
                         </div>
                         <div className="Answer">
-                        <Button small inline clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Knative</Button>
-                        <Button small inline clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Tekton</Button>
-                        <Button small inline clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Crossplane</Button>
-                        <Button small inline clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Other</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Knative</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Tekton</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Crossplane</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Other</Button>
                         </div>
 
                     </div>

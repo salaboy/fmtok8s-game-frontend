@@ -61,9 +61,9 @@ function Level3({state, dispatch}) {
             <h2>Level 3</h2>
             {isSent && !score && (
                 <>
-                    <div className="Scores">
-                        <PacmanLoader loading={loading} size={50}/>
-                    </div>
+                <div className="Loader">
+                    <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
+                </div>
                 </>
             )}
             {isSent && score && (
@@ -78,7 +78,8 @@ function Level3({state, dispatch}) {
                   <div className="GameOver">
                     <h4>Congratulations</h4>
                       <h3>Game Completed! </h3>
-                      <Link to={`back-office/${state.nickname}`}>Check the leaderboard.</Link>
+                      <br/>
+                      <Button small link={`back-office/${state.nickname}`}>Check the leaderboard</Button>
                   </div>
                 </>
 

@@ -61,6 +61,13 @@
      display: inline-block;
      margin-right: spacing(2,1.5);
    }
+   &.--block {
+     display: block;
+     margin-bottom: spacing(2);
+     .__container, a{
+       display: block;
+     }
+   }
    &.--main {
      .__container, a{
        background-color: color(green);
