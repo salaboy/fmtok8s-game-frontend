@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 
 import java.net.URI;
-import java.sql.Date;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.Random;
 import java.util.UUID;
 
@@ -44,9 +41,8 @@ public class EventController {
                                 "game-" + index,
                                 String.valueOf(new Random().nextInt(100)),
                                 "iorek" + index,
-                                Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)),
                                 String.valueOf(new Random().nextInt(10)),
-                                121
+                                true
                         )))
                         .build())
                 .log();

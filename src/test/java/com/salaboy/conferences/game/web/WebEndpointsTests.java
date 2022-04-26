@@ -1,6 +1,7 @@
 package com.salaboy.conferences.game.web;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -16,11 +17,12 @@ class WebEndpointsTests {
     @Autowired
     private WebTestClient webTestClient;
 
-    @Test
-    void whenBackOfficeThenReturnIndexPage() {
+    @ParameterizedTest
+    @ValueSource(strings = {"/back-office", "/back-office/thomas"})
+    void whenBackOfficeThenReturnIndexPage(String endpoint) {
         webTestClient
                 .get()
-                .uri("/back-office")
+                .uri(endpoint)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.TEXT_HTML)

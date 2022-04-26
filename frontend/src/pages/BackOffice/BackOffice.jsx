@@ -24,23 +24,13 @@ function BackOffice() {
     const {scroll} = useLocomotiveScroll();
     var rsocketClient
     const [score, setScore] = useState("")
-    let externalIP = window._env_.EXTERNAL_IP
-
-    // let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
-    // let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
-    //
-    // const TicketsFeature = React.useMemo( () => lazy(() => import('../../components/TicketsQueue/TicketsQueue')), []);
-
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
     }
 
-    function rsocketConnect(){
-        // Creates an RSocket client based on the WebSocket network protocol
-        if (externalIP === "") {
-            externalIP = "localhost:9000"
-        }
+    function rsocketConnect() {
+        let host = location.host;
         rsocketClient = new RSocketClient({
             serializers: {
                 data: JsonSerializer,
@@ -53,7 +43,7 @@ function BackOffice() {
                 metadataMimeType: 'message/x.rsocket.routing.v0',
             },
             transport: new RSocketWebSocketClient({
-                url: 'ws://'+externalIP+'/ws/'
+                url: 'ws://' + host +'/ws/'
             }),
         });
 

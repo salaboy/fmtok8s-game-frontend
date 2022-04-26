@@ -28,7 +28,7 @@ public class WebEndpoints {
         return route()
                 .GET("/back-office", request ->
                     ServerResponse.ok().contentType(MediaType.TEXT_HTML).bodyValue(getIndexPage()))
-                .GET("/back-office/**", request ->
+                .GET("/back-office/{username}", request ->
                         ServerResponse.ok().contentType(MediaType.TEXT_HTML).bodyValue(getIndexPage()))
                 .build();
     }

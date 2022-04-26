@@ -10,7 +10,6 @@ spring:
       static-locations: "file:static/" #for dev file:./target/static/ for docker static/
   rsocket:
     server:
-      port: 9000
       transport: websocket
       mapping-path: /ws/
 
