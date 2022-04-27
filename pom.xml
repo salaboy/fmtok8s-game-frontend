@@ -15,6 +15,7 @@
     <description>From Monolith to K8s :: Game Frontend</description>
 
     <properties>
+        <cloudevents.version>2.3.0</cloudevents.version>
         <java.version>17</java.version>
         <node.version>v16.6.1</node.version>
         <yarn.version>v1.22.10</yarn.version>
@@ -46,6 +47,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cloudevents</groupId>
+            <artifactId>cloudevents-spring</artifactId>
+            <version>${cloudevents.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cloudevents</groupId>
+            <artifactId>cloudevents-json-jackson</artifactId>
+            <version>${cloudevents.version}</version>
         </dependency>
 
         <dependency>

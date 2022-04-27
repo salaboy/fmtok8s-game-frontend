@@ -1,0 +1,7 @@
+spring:
+  rsocket:
+    server:
+      port: 0
+
+game:
+  index-page-path: /static/index.html

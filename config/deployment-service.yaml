@@ -12,11 +12,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
-      name: http
-    - protocol: TCP
-      port: 9000
-      targetPort: 9000
-      name: rsocket
 
 ---
 
@@ -45,7 +40,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-            - containerPort: 9000
 
 ---
 # This is needed for GKE to work and don't close the websocket connection

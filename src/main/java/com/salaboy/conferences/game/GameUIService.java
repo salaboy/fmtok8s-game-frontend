@@ -12,10 +12,4 @@ public class GameUIService {
         SpringApplication.run(GameUIService.class, args);
     }
 
-
-
 }
-
-
-
-

@@ -23,24 +23,14 @@ function BackOffice() {
     //scroll
     const {scroll} = useLocomotiveScroll();
     var rsocketClient
-    const [message, setMessage] = useState("")
-    let externalIP = window._env_.EXTERNAL_IP
-
-    // let ticketsEnabled = window._env_.FEATURE_TICKETS_ENABLED
-    // let c4pEnabled = window._env_.FEATURE_C4P_ENABLED
-    //
-    // const TicketsFeature = React.useMemo( () => lazy(() => import('../../components/TicketsQueue/TicketsQueue')), []);
-
+    const [score, setScore] = useState("")
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
     }
 
-    function rsocketConnect(){
-        // Creates an RSocket client based on the WebSocket network protocol
-        if(externalIP == ""){
-            externalIP = "localhost"
-        }
+    function rsocketConnect() {
+        let host = location.host;
         rsocketClient = new RSocketClient({
             serializers: {
                 data: JsonSerializer,
@@ -53,7 +43,7 @@ function BackOffice() {
                 metadataMimeType: 'message/x.rsocket.routing.v0',
             },
             transport: new RSocketWebSocketClient({
-                url: 'ws://'+externalIP+':9000'
+                url: 'ws://' + host +'/ws/'
             }),
         });
 
@@ -62,7 +52,7 @@ function BackOffice() {
             onComplete: socket => {
                 socket
                     .requestStream({
-                        metadata: route('infinite-stream')
+                        metadata: route('session-scores')
                     }).subscribe({
                     onComplete: () => console.log('complete'),
                     onError: error => {
@@ -70,7 +60,8 @@ function BackOffice() {
                     },
                     onNext: payload => {
                         console.log(payload);
-                        setMessage(message + "-> " + JSON.stringify(payload));
+                        let cloudEvent = payload.data;
+                        setScore(score + "-> " + JSON.stringify(cloudEvent.data));
                     },
                     onSubscribe: subscription => {
                         subscription.request(1000000);
@@ -168,9 +159,9 @@ function BackOffice() {
                                 ))}
                             </div>
 
-                        <h3>Messages</h3>
-                        <h4>{message}</h4>
-                        <button onClick={rsocketConnect}>Rsocketing!</button>
+                        <h3>Score Events</h3>
+                        <h4>{score}</h4>
+                        <button onClick={rsocketConnect}>Listen to score events</button>
 
 
                     </div>
