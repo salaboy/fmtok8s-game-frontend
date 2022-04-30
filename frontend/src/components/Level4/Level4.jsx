@@ -56,8 +56,8 @@ function Level4({state, dispatch}) {
             <h2>Level 4</h2>
             {isSent && !score && (
                 <>
-                    <div className="Scores">
-                        <PacmanLoader loading={loading} size={50}/>
+                    <div className="Loader">
+                        <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
                     </div>
                 </>
             )}
@@ -91,7 +91,8 @@ function Level4({state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">1</div>
-                            <h3>Enter the following passcode: "1234567890998877665544332211" Hurry!</h3>
+                            <h3>Enter the following passcode. Hurry!</h3>
+                            <h3>"1234567890998877665544332211"</h3>
                         </div>
                         <div className="Answer">
                             <TextField onPaste={(e)=>{

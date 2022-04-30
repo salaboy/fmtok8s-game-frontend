@@ -1,15 +1,13 @@
 import "./Game.scss";
-import React, {useEffect, useState, useContext, useRef, useReducer} from "react";
-import ReactDOM from "react-dom";
+import React, {useEffect, useState, useContext, useReducer} from "react";
 import {motion} from "framer-motion"
 import {useLocomotiveScroll} from 'react-locomotive-scroll';
 import AppContext from '../../contexts/AppContext';
-import Header from '../../components/Header/Header'
 import cn from 'classnames';
 import {CloudEvent, HTTP} from "cloudevents";
 import axios from "axios";
 
-
+import dockerNames from "docker-names"
 import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
@@ -79,6 +77,9 @@ function Game() {
             return;
         }
         setLoading(true);
+        if (nickname === "") {
+            console.log("nickname cannot be empty")
+        }
         if (state.sessionID === "") {
             axios.post('/game/' + nickname).then(res => {
                 console.log(res.data)
@@ -110,6 +111,11 @@ function Game() {
     const moveToNextLevel = () => {
         console.log("Checking if next level is available: " + state.nextLevelId)
         dispatch({type: "nextLevelTriggered", payload: state.nextLevelId})
+    }
+
+
+    function generatePlayerName() {
+        setNickname(dockerNames.getRandomName(true))
     }
 
 
@@ -146,6 +152,9 @@ function Game() {
 
     }
 
+    function notNickname() {
+        return nickname == "";
+    }
 
     return (
         <motion.div
@@ -172,11 +181,12 @@ function Game() {
                             {!state.sessionID && (
                                 <div className="Card">
 
-                                    <TextField label={"Enter your nickname:"}
-                                               changeHandler={(e) => setNickname(e.target.value)}></TextField>
-
+                                    <TextField inputProps={
+                                        {readOnly: true,}
+                                    } label={"Enter your nickname:"} value={nickname}></TextField>
+                                    <Button clickHandler={generatePlayerName}>Generate Player Name</Button>
                                     <Button clickHandler={newGame}
-                                            disabled={loading}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
+                                            disabled={loading || notNickname()}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
                                 </div>
                             )}
                             {state.sessionID && (

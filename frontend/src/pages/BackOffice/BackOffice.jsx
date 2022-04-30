@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
 import axios from "axios";
+import confetti from "canvas-confetti"
 import {
     RSocketClient,
     JsonSerializer,
@@ -62,6 +63,7 @@ function BackOffice() {
                         console.log(payload);
                         let cloudEvent = payload.data;
                         setScore(score + "-> " + JSON.stringify(cloudEvent.data));
+                        confetti();
                     },
                     onSubscribe: subscription => {
                         subscription.request(1000000);
@@ -123,6 +125,9 @@ function BackOffice() {
       setGameState("active")
     }
 
+    function confettiNow(){
+        confetti()
+    }
 
     return (
         <motion.div

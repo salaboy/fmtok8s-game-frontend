@@ -30,6 +30,8 @@
     "rsocket-websocket-client": "^0.0.27",
     "react-countdown-circle-timer": "3.0.9",
     "react-spinners": "0.11.0",
+    "docker-names": "1.2.1",
+    "canvas-confetti":"1.5.1",
     "rxjs": "~7.5.0"
   },
   "scripts": {
