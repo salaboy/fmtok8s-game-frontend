@@ -20,12 +20,12 @@ import java.util.Random;
 import java.util.UUID;
 
 @Controller
-public class ScoreController {
+public class SessionScoreController {
 
     private static final Logger log = LoggerFactory.getLogger(GameController.class);
     private final ObjectMapper objectMapper;
 
-    public ScoreController(ObjectMapper objectMapper) {
+    public SessionScoreController(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

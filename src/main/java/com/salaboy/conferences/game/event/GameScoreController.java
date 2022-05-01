@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("cloudevents")
-public class CloudEventController {
+@RequestMapping("gamescores")
+public class GameScoreController {
 
-    private static final Logger log = LoggerFactory.getLogger(CloudEventController.class);
+    private static final Logger log = LoggerFactory.getLogger(GameScoreController.class);
 
     @PostMapping
     void addEvent(@RequestBody CloudEvent cloudEvent) {
