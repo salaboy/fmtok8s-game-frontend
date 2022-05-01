@@ -8,7 +8,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import TextField from "../Form/TextField/TextField";
 import {Link} from "react-router-dom";
 
-function Level4({state, dispatch}) {
+function Level4({levelName, functionName, state, dispatch}) {
     const [loading, setLoading] = useState(false);
     const [isSent, setIsSent] = useState(false);
 
@@ -30,7 +30,7 @@ function Level4({state, dispatch}) {
         setIsSent(true)
         axios({
             method: "post",
-            url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
+            url: '/game/' + functionName + '/answer',
             data: {
                 sessionId: state.sessionID,
                 textual: passcode,
@@ -53,7 +53,7 @@ function Level4({state, dispatch}) {
         <div className={cn({
             ["Level"]: true,
         })}>
-            <h2>Level 4</h2>
+            <h2>{levelName}</h2>
             {isSent && !score && (
                 <>
                     <div className="Loader">
@@ -65,12 +65,9 @@ function Level4({state, dispatch}) {
                 <>
                     <div className="Scores">
                         Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
+                        <Button main clickHandler={nextLevel}>Play Next Level</Button>
                     </div>
-                    <div className="GameOver">
-                        <h4>Congratulations</h4>
-                        <h3>Game Completed! </h3>
-                        <Link to={`back-office/${state.nickname}`}>Check the leaderboard.</Link>
-                    </div>
+
                 </>
             )}
             {!isSent && (

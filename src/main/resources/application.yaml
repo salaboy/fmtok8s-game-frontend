@@ -18,7 +18,13 @@ game:
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
   start-game-uri: http://start-game.default.svc.cluster.local
   start-level-uri: http://start-level.default.svc.cluster.local
-
+  levels-and-functions:
+    "Start": ""
+    "Level1": "level-1"
+    "Level2": "level-2"
+    "Level3": "level-3"
+    "Level4": "level-4"
+    "End": ""
 management:
   endpoints:
     web:

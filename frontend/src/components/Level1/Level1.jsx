@@ -6,7 +6,7 @@ import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
-function Level1({state, dispatch}) {
+function Level1({levelName, functionName, state, dispatch}) {
     const [loading, setLoading] = useState(false);
     const [isSent, setIsSent] = useState(false);
 
@@ -28,7 +28,7 @@ function Level1({state, dispatch}) {
         setIsSent(true)
         axios({
             method: "post",
-            url: '/game/' + state.sessionID + '/level-' + state.currentLevelId + '/answer',
+            url: '/game/' + functionName + '/answer',
             data: {
                 sessionId: state.sessionID,
                 optionA: optionA,
@@ -54,7 +54,7 @@ function Level1({state, dispatch}) {
         <div className={cn({
             ["Level"]: true,
         })}>
-            <h2>Level 1</h2>
+            <h2>{levelName}</h2>
             {isSent && !score && (
                 <>
                     <div className="Loader">

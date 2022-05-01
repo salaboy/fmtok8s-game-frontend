@@ -7,6 +7,7 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: "",
             nickname: "",
             currentLevelId: 0,
+            currentLevelName: "Start"
         }
     }
 
@@ -46,7 +47,7 @@ export const gameStateReducer = (currentState, action) => {
             currentLevelExists: currentState.currentLevelExists,
             currentLevelStarted: currentState.currentLevelStarted,
             currentLevelCompleted: action.payload.completed,
-            nextLevelId:  action.payload.nextLevelId
+            nextLevelId: action.payload.nextLevelId
         }
     }
 
@@ -60,8 +61,6 @@ export const gameStateReducer = (currentState, action) => {
             currentLevelId: action.payload,
         }
     }
-
-
 
 
     return currentState

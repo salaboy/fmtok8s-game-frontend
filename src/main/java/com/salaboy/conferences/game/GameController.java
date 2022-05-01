@@ -1,16 +1,14 @@
 package com.salaboy.conferences.game;
 
 import com.salaboy.conferences.game.config.GameProperties;
-import com.salaboy.conferences.game.model.Answers;
-import com.salaboy.conferences.game.model.GameScore;
-import com.salaboy.conferences.game.model.Leaderboard;
-import com.salaboy.conferences.game.model.StartLevel;
+import com.salaboy.conferences.game.model.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/game")
@@ -48,6 +46,11 @@ public class GameController {
                 .bodyToMono(String.class);
     }
 
+    @GetMapping("/config")
+    public Mono<LevelsConfig> getConfiguredLevels() {
+        return Mono.just(new LevelsConfig(gameProperties.levelsAndFunctions()));
+    }
+
     @GetMapping("/leaderboard")
     public Mono<Leaderboard> getLeaderboard(@RequestParam(required = false) String nickname) throws URISyntaxException {
         URI uri = gameProperties.leaderboardUri();
@@ -63,11 +66,11 @@ public class GameController {
                 .bodyToMono(Leaderboard.class);
     }
 
-    @PostMapping(path = "/{sessionId}/level-{levelId}/answer")
-    public Mono<GameScore> answer(@PathVariable String sessionId, @PathVariable String levelId, @RequestBody Answers answers) {
+    @PostMapping(path = "/{levelId}/answer")
+    public Mono<GameScore> answer(@PathVariable String levelId, @RequestBody Answers answers) {
         return webClient
                 .post()
-                .uri("http://level-" + levelId + ".default.svc.cluster.local")
+                .uri("http://" + levelId + ".default.svc.cluster.local")
                 .bodyValue(answers)
                 .retrieve()
                 .bodyToMono(GameScore.class)

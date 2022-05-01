@@ -17,6 +17,7 @@ import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
 import Level3 from "../../components/Level3/Level3";
 import Level4 from "../../components/Level4/Level4";
+import GameComplete from "../../components/GameComplete/GameComplete";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -37,7 +38,15 @@ function Game() {
     let [delay, setDelay] = useState(4000);
 
     const [nickname, setNickname] = useState("")
+    const [gameLevels, setGameLevels] = useState()
 
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["End", GameComplete]]);
+
+
+    function DynamicLevel(props) {
+        const SpecificLevel = levelsMap.get(props.level)
+        return <SpecificLevel levelName={props.level} functionName={gameLevels[props.level]} state={props.state} dispatch={props.dispatch}/>
+    }
 
     function handleDelayChange(e) {
         setDelay(Number(e.target.value));
@@ -85,7 +94,15 @@ function Game() {
                 console.log(res.data)
                 dispatch({type: "gameSessionIdCreated", payload: res.data})
                 setUser(nickname);
-                setLoading(false)
+                axios.get('/game/config').then(res => {
+                    console.log("Config loaded")
+                    console.log(Object.keys(res.data.levelsAndFunctions))
+                    setGameLevels(res.data.levelsAndFunctions);
+                    setLoading(false)
+                }).catch(err => {
+                    console.log(err)
+                });
+
             }).catch(err => {
                 console.log(err)
             });
@@ -99,7 +116,7 @@ function Game() {
             return;
         }
         setLoading(true);
-        axios.post('/game/' + state.sessionID + '/level-' + state.currentLevelId + '/start').then(res => {
+        axios.post('/game/' + state.sessionID + '/' + gameLevels[Object.keys(gameLevels)[state.currentLevelId]] + '/start').then(res => {
             console.log(res.data)
             dispatch({type: "levelStartedTriggered", payload: res.data})
             setLoading(false)
@@ -191,7 +208,7 @@ function Game() {
                             )}
                             {state.sessionID && (
                                 <div className="Card">
-                                    {/*<h4>SessionId: {state.sessionID} </h4>*/}
+
                                     {!state.currentLevelStarted && (
                                         <>
                                             <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
@@ -199,37 +216,19 @@ function Game() {
                                         </>
                                     )}
 
-
+                                    {gameLevels && Object.keys(gameLevels).length > 0 && Object.keys(gameLevels)[state.currentLevelId] == "End" && (
+                                        <GameComplete state={state}/>
+                                    )
+                                    }
                                     {!state.currentLevelStarted && (
                                         <div>
                                             <Button main clickHandler={startLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Start Level ' + state.currentLevelId}</Button>
+                                                    disabled={loading}>{loading ? 'Loading...' : 'Start ' + Object.keys(gameLevels)[state.currentLevelId]}</Button>
                                         </div>
                                     )}
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 1 && (
+                                    {state.currentLevelStarted && !state.currentLevelCompleted && (
                                         <>
-
-                                            <Level1 state={state} dispatch={dispatch}/>
-                                        </>
-                                    )}
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 2 && (
-                                        <>
-
-                                            <Level2 state={state} dispatch={dispatch}/>
-                                        </>
-                                    )}
-
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 3 && (
-                                        <>
-
-                                            <Level3 state={state} dispatch={dispatch}/>
-                                        </>
-                                    )}
-
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && state.currentLevelId == 4 && (
-                                        <>
-
-                                            <Level4 state={state} dispatch={dispatch}/>
+                                            <DynamicLevel level={Object.keys(gameLevels)[state.currentLevelId]} state={state} dispatch={dispatch} />
                                         </>
                                     )}
 
