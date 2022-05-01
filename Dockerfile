@@ -13,8 +13,7 @@ COPY pom.xml target/lib* /opt/lib/
 # but at least this means we don't have to guess the name
 # we could do with a better way to know the name - or to always create an app.jar or something
 COPY target/*.jar /opt/app.jar
-COPY target/static/* /opt/static/
-COPY target/static/images/* /opt/static/images/
+COPY target/static/ /opt/static/
 
 WORKDIR /opt
 
