@@ -1,0 +1,16 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: game-score-trigger
+  namespace: default
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: GameScoreEvent
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: game-frontend
+    uri: /gamescores
