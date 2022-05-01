@@ -69,7 +69,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build container image
         run: |
-          chmod +x gradlew
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
       - name: OCI image vulnerability scanning
         uses: anchore/scan-action@v3
