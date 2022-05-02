@@ -48,7 +48,7 @@ public class GameController {
 
     @GetMapping("/config")
     public Mono<LevelsConfig> getConfiguredLevels() {
-        return Mono.just(new LevelsConfig(gameProperties.levelsAndFunctions()));
+        return Mono.just(new LevelsConfig(gameProperties.levels()));
     }
 
     @GetMapping("/leaderboard")

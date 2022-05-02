@@ -1,5 +1,6 @@
 package com.salaboy.conferences.game.config;
 
+import com.salaboy.conferences.game.model.LevelEntry;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.net.URI;
@@ -12,5 +13,5 @@ public record GameProperties(
         URI startGameUri,
         URI startLevelUri,
         URI leaderboardUri,
-        Map<String, String> levelsAndFunctions
+        List<LevelEntry> levels
 ){}

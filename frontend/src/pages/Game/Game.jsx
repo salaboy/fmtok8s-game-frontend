@@ -18,6 +18,7 @@ import Level2 from "../../components/Level2/Level2";
 import Level3 from "../../components/Level3/Level3";
 import Level4 from "../../components/Level4/Level4";
 import GameComplete from "../../components/GameComplete/GameComplete";
+import KubeconEULevel1 from "../../components/KubeconEULevel1/KubeconEULevel1";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -39,13 +40,15 @@ function Game() {
 
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
-
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["End", GameComplete]]);
+    // use lowercase on level keys to support env variables
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["end", GameComplete]]);
 
 
     function DynamicLevel(props) {
-        const SpecificLevel = levelsMap.get(props.level)
-        return <SpecificLevel levelName={props.level} functionName={gameLevels[props.level]} state={props.state} dispatch={props.dispatch}/>
+        console.log("Selected Level")
+        console.log(gameLevels[props.level])
+        const SpecificLevel = levelsMap.get(gameLevels[props.level].componentName)
+        return <SpecificLevel levelName={gameLevels[props.level].name} functionName={gameLevels[props.level].functionName} state={props.state} dispatch={props.dispatch}/>
     }
 
     function handleDelayChange(e) {
@@ -96,8 +99,8 @@ function Game() {
                 setUser(nickname);
                 axios.get('/game/config').then(res => {
                     console.log("Config loaded")
-                    console.log(Object.keys(res.data.levelsAndFunctions))
-                    setGameLevels(res.data.levelsAndFunctions);
+                    console.log(res.data.levels)
+                    setGameLevels(res.data.levels);
                     setLoading(false)
                 }).catch(err => {
                     console.log(err)
@@ -116,7 +119,7 @@ function Game() {
             return;
         }
         setLoading(true);
-        axios.post('/game/' + state.sessionID + '/' + gameLevels[Object.keys(gameLevels)[state.currentLevelId]] + '/start').then(res => {
+        axios.post('/game/' + state.sessionID + '/' + gameLevels[state.currentLevelId].functionName + '/start').then(res => {
             console.log(res.data)
             dispatch({type: "levelStartedTriggered", payload: res.data})
             setLoading(false)
@@ -216,19 +219,19 @@ function Game() {
                                         </>
                                     )}
 
-                                    {gameLevels && Object.keys(gameLevels).length > 0 && Object.keys(gameLevels)[state.currentLevelId] == "End" && (
+                                    {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
                                         <GameComplete state={state}/>
                                     )
                                     }
                                     {!state.currentLevelStarted && (
                                         <div>
                                             <Button main clickHandler={startLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Start ' + Object.keys(gameLevels)[state.currentLevelId]}</Button>
+                                                    disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
                                         </div>
                                     )}
                                     {state.currentLevelStarted && !state.currentLevelCompleted && (
                                         <>
-                                            <DynamicLevel level={Object.keys(gameLevels)[state.currentLevelId]} state={state} dispatch={dispatch} />
+                                            <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
                                         </>
                                     )}
 

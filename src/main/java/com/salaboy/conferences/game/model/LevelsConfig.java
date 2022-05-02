@@ -1,7 +1,7 @@
 package com.salaboy.conferences.game.model;
 
-import java.util.Map;
+import java.util.List;
 
 public record LevelsConfig (
-        Map<String, String> levelsAndFunctions
+        List<LevelEntry> levels
 ){}
