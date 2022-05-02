@@ -4,7 +4,7 @@ import cn from 'classnames';
 import Element from '../../components/Element/Element'
 
 
-function Leaderboard({leaderboard}) {
+function Leaderboard({leaderboard, nickname}) {
 
     function formatDate(time) {
         var currentDate = new Date(time)
@@ -25,7 +25,7 @@ function Leaderboard({leaderboard}) {
                     Object.entries(leaderboard.Sessions).map(([key, sessionScore]) => {
 
                       return (
-                        <div  className={cn({
+                        <div key={key} className={cn({
                             ["Leaderboard__Position"]: true,
                             ["Leaderboard__Position--first"]: key == 0,
                             ["Leaderboard__Position--second"]: key == 1,
