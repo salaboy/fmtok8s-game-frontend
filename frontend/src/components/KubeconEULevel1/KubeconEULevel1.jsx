@@ -6,7 +6,7 @@ import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
-function KubeconEULevel1({levelName, functionName, state, dispatch}) {
+function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}) {
     const [loading, setLoading] = useState(false);
     const [isSent, setIsSent] = useState(false);
 
@@ -87,7 +87,7 @@ function KubeconEULevel1({levelName, functionName, state, dispatch}) {
                     </div>
                     <div className="Question">
                         <div className="Question__Body">
-                            <div className="Question__Number">1</div>
+                            <div className="Question__Number">{levelNumber}</div>
                             How do you say beer in Spanish?
                         </div>
                         <div className="Answer">

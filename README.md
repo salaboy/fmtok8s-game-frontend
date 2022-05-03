@@ -59,3 +59,32 @@ Make sure that you have Knative Serving installed before running:
 ```
 kubectl apply -f config/
 ```
+
+## Configure Levels list
+
+Using Environment Variables in the deployment / Knative Service: 
+```
+         
+        - name: GAME_LEVELS_0_NAME
+          value: Start
+        - name: GAME_LEVELS_0_FUNCTIONNAME
+        - name: GAME_LEVELS_0_COMPONENTNAME
+        - name: GAME_LEVELS_1_NAME
+          value: Question 1
+        - name: GAME_LEVELS_1_FUNCTIONNAME
+          value: kubeconeu-question-1
+        - name: GAME_LEVELS_1_COMPONENTNAME
+          value: KubeconEULevel1
+        - name: GAME_LEVELS_2_NAME
+          value: Question 2
+        - name: GAME_LEVELS_2_FUNCTIONNAME
+          value: level-1
+        - name: GAME_LEVELS_2_COMPONENTNAME
+          value: Level1
+        - name: GAME_LEVELS_3_NAME
+          value: End
+        - name: GAME_LEVELS_3_FUNCTIONNAME
+        - name: GAME_LEVELS_3_COMPONENTNAME
+          value: GameComplete
+
+```

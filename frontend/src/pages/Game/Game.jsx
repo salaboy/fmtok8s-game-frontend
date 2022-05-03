@@ -19,6 +19,7 @@ import Level3 from "../../components/Level3/Level3";
 import Level4 from "../../components/Level4/Level4";
 import GameComplete from "../../components/GameComplete/GameComplete";
 import KubeconEULevel1 from "../../components/KubeconEULevel1/KubeconEULevel1";
+import KubeconEULevel2 from "../../components/KubeconEULevel2/KubeconEULevel2";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -41,14 +42,14 @@ function Game() {
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
     // use lowercase on level keys to support env variables
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["end", GameComplete]]);
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["KubeconEULevel2", KubeconEULevel2], ["end", GameComplete]]);
 
 
     function DynamicLevel(props) {
         console.log("Selected Level")
         console.log(gameLevels[props.level])
         const SpecificLevel = levelsMap.get(gameLevels[props.level].componentName)
-        return <SpecificLevel levelName={gameLevels[props.level].name} functionName={gameLevels[props.level].functionName} state={props.state} dispatch={props.dispatch}/>
+        return <SpecificLevel levelName={gameLevels[props.level].name} levelNumber={props.level} functionName={gameLevels[props.level].functionName} state={props.state} dispatch={props.dispatch}/>
     }
 
     function handleDelayChange(e) {
