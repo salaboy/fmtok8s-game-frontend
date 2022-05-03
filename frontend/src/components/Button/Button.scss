@@ -2,7 +2,7 @@
 .Button {
   display: inline-block;
   overflow: hidden;
-  border-radius: spacing(2,3);
+
   margin-left: - spacing(1);
 
    .__container, a{
@@ -12,15 +12,17 @@
 
      padding: 0 spacing(6);
      height: spacing(2, 10);
+     line-height: spacing(2, 9.5);
      position: relative;
      font-size: font-size();
-     line-height: spacing(2, 9.5);
+
      border-radius: spacing(2,2);
      font-family: font-family(display);
      color: color(white);
      cursor: pointer;
      text-decoration: none;
-     font-weight: 400;
+     font-weight: 500;
+     letter-spacing: 0.01em;
      transition: transition(slow);
 
 
@@ -73,27 +75,34 @@
        background-color: color(green);
        color: color(black);
      }
+     &.--block {
+       .__container, a{
+         text-align: center;
+       }
+     }
    }
    &.--disabled {
      .__container, a{
        background-color: color(white);
        pointer-events: none;
-       color: transparentize(color(black), .3);
+       color: transparentize(color(black), .7);
      }
    }
 
    &.--inverted {
+
      .__container, a{
-       background-color: color(black);
-       border: 2px solid color(white);
-       color: color(white);
+       background-color: color(white, light);
+        border: 2px solid color(black);
+       color: color(black);
        &:before {
-         content: '';
-         background-color: color(white);
+
+
        }
        &:hover {
          opacity: 1 !important;
          color: color(black);
+         background-color: color(violet, pale);
 
           &:before {
             width: 100%;

@@ -200,13 +200,19 @@ function Game() {
                         <div>
                             {!state.sessionID && (
                                 <div className="Card">
-
+                                  <div className="Card__Header">
+                                    Choose your nickname
+                                  </div>
+                                  <div className="Card__Body">
                                     <TextField inputProps={
                                         {readOnly: true,}
-                                    } label={"Enter your nickname:"} value={nickname}></TextField>
-                                    <Button clickHandler={generatePlayerName}>Generate Player Name</Button>
-                                    <Button clickHandler={newGame}
+                                    } label={""} placeholder="Click the button to generate a nickname" value={nickname}></TextField>
+                                    <Button inverted clickHandler={generatePlayerName}>Generate Player Name</Button>
+                                  </div>
+                                  <div className="Card__Actions">
+                                    <Button main block clickHandler={newGame}
                                             disabled={loading || notNickname()}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
+                                  </div>
                                 </div>
                             )}
                             {state.sessionID && (
