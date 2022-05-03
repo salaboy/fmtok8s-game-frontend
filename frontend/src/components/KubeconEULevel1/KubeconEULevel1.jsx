@@ -54,7 +54,7 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
         <div className={cn({
             ["Level"]: true,
         })}>
-            <h2>{levelName}</h2>
+              {/*  <h2>{levelName}</h2>*/}
             {isSent && !score && (
                 <>
                     <div className="Loader">

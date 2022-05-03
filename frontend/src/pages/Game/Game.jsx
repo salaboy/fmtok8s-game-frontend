@@ -227,7 +227,7 @@ function Game() {
                                       )}
                                       {state.currentLevelStarted && (
                                           <>
-                                            Level   {state.currentLevelId}
+                                             {gameLevels[state.currentLevelId].name}
 
                                           </>
                                       )}
@@ -240,7 +240,7 @@ function Game() {
                                       }
                                       {!state.currentLevelStarted && (
                                           <>
-                                            <strong> {state.nickname} </strong>  click the button when you are ready for the first level.
+                                            <strong> {state.nickname} </strong>  click the button when you are ready for the next level.
 
                                           </>
                                       )}
@@ -265,6 +265,14 @@ function Game() {
                                                       disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
                                           </>
                                       )}
+                                      {state.currentLevelStarted && !state.currentLevelCompleted && (
+                                        <>
+                                            Este boton solo deberia aparecer cuando terminas cada nivel
+                                            <Button block main clickHandler={moveToNextLevel}
+                                                    disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
+                                        </>
+                                      )}
+
                                     </div>
 
 
