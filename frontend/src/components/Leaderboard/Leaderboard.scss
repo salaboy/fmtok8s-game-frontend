@@ -3,7 +3,7 @@
   padding-bottom: spacing(2,10);
 
   .Leaderboard__List {
-    padding: 0 15vw;
+    padding: 0 5vw;
     position: relative;
     display: flex;
     @media only screen and (max-width: breakpoint(tabletHD)) {
@@ -135,8 +135,26 @@
           }
         }
         &.Leaderboard__Item-Container--selected{
+          position: relative;
+
+          &:before {
+            position: absolute;
+            content: "";
+            background-color: color(white);
+            width: calc(100% - 40px);
+            height: 80px;
+            left: 0px;
+            top: -12px;
+            border-radius: spacing(2,2);
+          }
+          .Leaderboard__Item__Meta {
+            color: color(black) !important;
+          }
+          .Leaderboard__Item__Score,   .Leaderboard__Item__Level  {
+            color: color(black) !important;
+          }
           .Leaderboard__Item__Player {
-            
+            color: color(black) !important;
             position: relative;
             &:after {
               content: "Your Score";
@@ -196,6 +214,7 @@
             color: color(white);
             min-width: spacing(2,20);
             text-align: right;
+            min-width: 100px;
 
             font-weight: 600;
             @media only screen and (max-width: breakpoint(tabletHD)) {
