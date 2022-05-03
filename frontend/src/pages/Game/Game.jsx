@@ -218,37 +218,61 @@ function Game() {
                             )}
                             {state.sessionID && (
                                 <div className="Card">
+                                    <div className="Card__Header">
+                                      {!state.currentLevelStarted && (
+                                          <>
+                                              Ready to play?
 
-                                    {!state.currentLevelStarted && (
-                                        <>
-                                            <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
-                                            <br/>
-                                        </>
-                                    )}
+                                          </>
+                                      )}
+                                      {state.currentLevelStarted && (
+                                          <>
+                                            Level   {state.currentLevelId}
 
-                                    {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                        <GameComplete state={state}/>
-                                    )
-                                    }
-                                    {!state.currentLevelStarted && (
-                                        <div>
-                                            <Button main clickHandler={startLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
-                                        </div>
-                                    )}
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && (
-                                        <>
-                                            <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
-                                        </>
-                                    )}
+                                          </>
+                                      )}
 
-                                    {state.currentLevelCompleted && (
-                                        <>
-                                            Congratulations you completed the level!
-                                            <Button main clickHandler={moveToNextLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                        </>
-                                    )}
+                                    </div>
+                                    <div className="Card__Body">
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                          <GameComplete state={state}/>
+                                      )
+                                      }
+                                      {!state.currentLevelStarted && (
+                                          <>
+                                            <strong> {state.nickname} </strong>  click the button when you are ready for the first level.
+
+                                          </>
+                                      )}
+                                      {state.currentLevelStarted && !state.currentLevelCompleted && (
+                                          <>
+                                              <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
+                                          </>
+                                      )}
+                                      {state.currentLevelCompleted && (
+                                          <>
+                                              Congratulations you completed the level!
+                                              <Button block main clickHandler={moveToNextLevel}
+                                                      disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
+                                          </>
+                                      )}
+
+                                    </div>
+                                    <div className="Card__Actions">
+                                      {!state.currentLevelStarted && (
+                                          <>
+                                              <Button block main clickHandler={startLevel}
+                                                      disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
+                                          </>
+                                      )}
+                                    </div>
+
+
+
+
+
+
+
 
 
                                 </div>
