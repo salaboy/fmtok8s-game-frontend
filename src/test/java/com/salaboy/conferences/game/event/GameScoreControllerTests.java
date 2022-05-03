@@ -27,7 +27,19 @@ class GameScoreControllerTests {
                 .bodyValue(gameScore)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(GameScore.class).isEqualTo(gameScore);
+                .expectBody().isEmpty();
+    }
+
+    @Test
+    void whenCloudEventPublishedWithWrongFormatThenThrow() {
+        var gameScore = new GameScore(UUID.randomUUID().toString(), Date.from(Instant.now()), "level-3", 42);
+        webTestClient
+                .post()
+                .uri("/gamescores")
+                .header("ce-id", UUID.randomUUID().toString())
+                .bodyValue(gameScore)
+                .exchange()
+                .expectStatus().is5xxServerError();
     }
 
 }
