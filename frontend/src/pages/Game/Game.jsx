@@ -12,6 +12,7 @@ import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/Form/TextField/TextField";
+import {Link} from "react-router-dom";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -219,8 +220,9 @@ function Game() {
                             {state.sessionID && (
                                 <div className="Card">
                                     <div className="Card__Header">
-                                      {!state.currentLevelStarted && (
+                                      {!state.currentLevelStarted  && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) && (
                                           <>
+
                                               Ready to play?
 
                                           </>
@@ -231,6 +233,10 @@ function Game() {
 
                                           </>
                                       )}
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                        <>Congratulations</>
+                                      )
+                                      }
 
                                     </div>
                                     <div className="Card__Body">
@@ -238,7 +244,7 @@ function Game() {
                                           <GameComplete state={state}/>
                                       )
                                       }
-                                      {!state.currentLevelStarted && (
+                                      {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) &&  (
                                           <>
                                             <strong> {state.nickname} </strong>  click the button when you are ready for the next level.
 
@@ -265,13 +271,19 @@ function Game() {
                                                       disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
                                           </>
                                       )}
-                                      {state.currentLevelStarted && !state.currentLevelCompleted && (
+                                      {state.currentLevelStarted && !state.currentLevelCompleted &&  (
                                         <>
                                             Este boton solo deberia aparecer cuando terminas cada nivel
                                             <Button block main clickHandler={moveToNextLevel}
                                                     disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                         </>
                                       )}
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                        <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>
+                                      )
+                                      }
+
+
 
                                     </div>
 
