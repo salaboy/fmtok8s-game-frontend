@@ -12,6 +12,7 @@ import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/Form/TextField/TextField";
+import {Link} from "react-router-dom";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -218,37 +219,80 @@ function Game() {
                             )}
                             {state.sessionID && (
                                 <div className="Card">
+                                    <div className="Card__Header">
+                                      {!state.currentLevelStarted  && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) && (
+                                          <>
 
-                                    {!state.currentLevelStarted && (
-                                        <>
-                                            <h4>Ready to play <strong> {state.nickname}</strong>? </h4>
-                                            <br/>
-                                        </>
-                                    )}
+                                              Ready to play?
 
-                                    {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                        <GameComplete state={state}/>
-                                    )
-                                    }
-                                    {!state.currentLevelStarted && (
-                                        <div>
-                                            <Button main clickHandler={startLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
-                                        </div>
-                                    )}
-                                    {state.currentLevelStarted && !state.currentLevelCompleted && (
-                                        <>
-                                            <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
-                                        </>
-                                    )}
+                                          </>
+                                      )}
+                                      {state.currentLevelStarted && (
+                                          <>
+                                             {gameLevels[state.currentLevelId].name}
 
-                                    {state.currentLevelCompleted && (
+                                          </>
+                                      )}
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                        <>Congratulations</>
+                                      )
+                                      }
+
+                                    </div>
+                                    <div className="Card__Body">
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                          <GameComplete state={state}/>
+                                      )
+                                      }
+                                      {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) &&  (
+                                          <>
+                                            <strong> {state.nickname} </strong>  click the button when you are ready for the next level.
+
+                                          </>
+                                      )}
+                                      {state.currentLevelStarted && !state.currentLevelCompleted && (
+                                          <>
+                                              <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
+                                          </>
+                                      )}
+                                      {state.currentLevelCompleted && (
+                                          <>
+                                              Congratulations you completed the level!
+                                              <Button block main clickHandler={moveToNextLevel}
+                                                      disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
+                                          </>
+                                      )}
+
+                                    </div>
+                                    <div className="Card__Actions">
+                                      {!state.currentLevelStarted && (
+                                          <>
+                                              <Button block main clickHandler={startLevel}
+                                                      disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
+                                          </>
+                                      )}
+                                      {state.currentLevelStarted && !state.currentLevelCompleted &&  (
                                         <>
-                                            Congratulations you completed the level!
-                                            <Button main clickHandler={moveToNextLevel}
+                                            Este boton solo deberia aparecer cuando terminas cada nivel
+                                            <Button block main clickHandler={moveToNextLevel}
                                                     disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                         </>
-                                    )}
+                                      )}
+                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                        <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>
+                                      )
+                                      }
+
+
+
+                                    </div>
+
+
+
+
+
+
+
 
 
                                 </div>

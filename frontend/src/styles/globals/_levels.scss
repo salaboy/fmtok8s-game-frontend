@@ -40,13 +40,14 @@
     text-align: left;
     .Timer {
       position: absolute;
-      top: 0 - spacing(2,4);
+      top: 0 - spacing(2,2);
       right: 0;
       font-family: font-family(display);
       font-size: font-size(s);
     }
     .Question {
       padding: spacing(2,2) 0;
+
       .Question__Number {
         font-size: font-size(xs);
         font-family: font-family(display);
@@ -67,6 +68,7 @@
         font-size: font-size(s);
         font-family: font-family(base);
         font-weight: 600;
+        max-width: 80%;
       }
     }
     .Answer {
