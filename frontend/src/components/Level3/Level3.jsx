@@ -19,9 +19,7 @@ function Level3({levelName, functionName, state, dispatch}) {
         setCounter(counter + 1)
     }
 
-    function nextLevel() {
-        dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
-    }
+
 
 //Send answer to a specific question/level
     function sendAnswer() {
@@ -44,6 +42,7 @@ function Level3({levelName, functionName, state, dispatch}) {
             console.log(res.data)
             setScore(res.data)
             setLoading(false);
+            dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
 
             console.log(err)
@@ -56,7 +55,6 @@ function Level3({levelName, functionName, state, dispatch}) {
         <div className={cn({
             ["Level"]: true,
         })}>
-            <h2>{levelName}</h2>
             {isSent && !score && (
                 <>
                     <div className="Loader">
@@ -64,19 +62,7 @@ function Level3({levelName, functionName, state, dispatch}) {
                     </div>
                 </>
             )}
-            {isSent && score && (
-                <>
-                    <div className="Scores">
 
-                        Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
-
-
-                    </div>
-                    <Button main clickHandler={nextLevel}>Play Next Level</Button>
-
-                </>
-
-            )}
             {!isSent && (
                 <div className="Questionnaire">
                     <div className="Timer">
