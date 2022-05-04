@@ -21,6 +21,7 @@ import Level4 from "../../components/Level4/Level4";
 import GameComplete from "../../components/GameComplete/GameComplete";
 import KubeconEULevel1 from "../../components/KubeconEULevel1/KubeconEULevel1";
 import KubeconEULevel2 from "../../components/KubeconEULevel2/KubeconEULevel2";
+import LevelScore from "../../components/LevelScore/LevelScore";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -43,7 +44,7 @@ function Game() {
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
     // use lowercase on level keys to support env variables
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["KubeconEULevel2", KubeconEULevel2], ["end", GameComplete]]);
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["KubeconEULevel2", KubeconEULevel2], ["End", GameComplete]]);
 
 
     function DynamicLevel(props) {
@@ -131,8 +132,8 @@ function Game() {
     }
 
     const moveToNextLevel = () => {
-        console.log("Checking if next level is available: " + state.nextLevelId)
-        dispatch({type: "nextLevelTriggered", payload: state.nextLevelId})
+        // console.log("Checking if next level is available: " + state.nextLevelId)
+        dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
     }
 
 
@@ -250,30 +251,29 @@ function Game() {
 
                                           </>
                                       )}
-                                      {state.currentLevelStarted && !state.currentLevelCompleted && (
+                                      { state.currentLevelStarted && !state.currentLevelCompleted && (
                                           <>
                                               <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
                                           </>
                                       )}
-                                      {state.currentLevelCompleted && (
-                                          <>
-                                              Congratulations you completed the level!
-                                              <Button block main clickHandler={moveToNextLevel}
-                                                      disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                          </>
-                                      )}
+
+                                        { state.currentLevelCompleted && (
+                                            <>
+                                                <LevelScore score={state.currentLevelScore} />
+                                            </>
+                                        )}
+
 
                                     </div>
                                     <div className="Card__Actions">
-                                      {!state.currentLevelStarted && (
+                                      {!state.currentLevelStarted && gameLevels && gameLevels[state.currentLevelId].name != "End" && (
                                           <>
                                               <Button block main clickHandler={startLevel}
                                                       disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
                                           </>
                                       )}
-                                      {state.currentLevelStarted && !state.currentLevelCompleted &&  (
+                                      {state.currentLevelCompleted && (
                                         <>
-                                            Este boton solo deberia aparecer cuando terminas cada nivel
                                             <Button block main clickHandler={moveToNextLevel}
                                                     disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                         </>

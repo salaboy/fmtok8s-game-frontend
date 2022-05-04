@@ -14,10 +14,6 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
     const [remainingTime, setRemainingTime] = useState(0)
     const [score, setScore] = useState()
 
-    function nextLevel(){
-        dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
-    }
-
     //Send answer to a specific question/level
     function sendAnswer(optionA, optionB, optionC, optionD) {
         if (loading) {
@@ -43,6 +39,7 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
             console.log(res.data)
             setScore(res.data)
             setLoading(false);
+            dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
             console.log(err)
             console.log(err.response.data.message)
@@ -61,14 +58,6 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
                         <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
                     </div>
                 </>
-            )}
-            {isSent && score && (
-              <>
-                <div className="Scores">
-                    Your Score for this level is: <span className="ScoreNumber"> {score.LevelScore}</span>
-                </div>
-                <Button main clickHandler={nextLevel}>Play Next Level</Button>
-              </>
             )}
             {!isSent && (
                 <div className="Questionnaire">

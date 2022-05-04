@@ -46,8 +46,8 @@ export const gameStateReducer = (currentState, action) => {
             nickname: currentState.nickname,
             currentLevelExists: currentState.currentLevelExists,
             currentLevelStarted: currentState.currentLevelStarted,
-            currentLevelCompleted: action.payload.completed,
-            nextLevelId: action.payload.nextLevelId
+            currentLevelCompleted: true,
+            currentLevelScore: action.payload.LevelScore
         }
     }
 
