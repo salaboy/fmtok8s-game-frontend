@@ -57,7 +57,6 @@ public class GameController {
             uri = new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(),
                     "nickname=" + nickname, uri.getFragment());
         }
-        System.out.println("URI to be called: " + uri.toString());
         return webClient
                 .get()
                 .uri(uri)

@@ -45,25 +45,6 @@ public class SessionScoreController {
                         .build());
     }
 
-    @MessageMapping("session-scores")
-    public Flux<CloudEvent> sessionScoresEvents() {
-        log.info("Received session-scores request.");
-        return Flux.interval(Duration.ofSeconds(1))
-                .map(index -> CloudEventBuilder.v1()
-                        .withId(UUID.randomUUID().toString())
-                        .withSource(URI.create("https://thomasvitale.com"))
-                        .withType("com.salaboy.game.SessionScore")
-                        .withData(wrapCloudEventData(new SessionScore(
-                                "game-" + index,
-                                String.valueOf(new Random().nextInt(100)),
-                                "iorek" + index,
-                                String.valueOf(new Random().nextInt(10)),
-                                true
-                        )))
-                        .build())
-                .log();
-    }
-
     private CloudEventData wrapCloudEventData(Object object) {
         try {
             var sessionScoreJson = objectMapper.writeValueAsString(object);

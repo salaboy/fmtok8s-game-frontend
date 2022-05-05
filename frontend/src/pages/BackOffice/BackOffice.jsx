@@ -11,6 +11,9 @@ import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
 import axios from "axios";
 import confetti from "canvas-confetti"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 import {
     RSocketClient,
     JsonSerializer,
@@ -23,31 +26,34 @@ function BackOffice() {
     let {nickname} = useParams();
     //scroll
     const {scroll} = useLocomotiveScroll();
-    var rsocketClient
-    const [score, setScore] = useState("")
+
+
+    let host = location.host;
+
+    const rsocketClient = new RSocketClient({
+        serializers: {
+            data: JsonSerializer,
+            metadata: IdentitySerializer
+        },
+        setup: {
+            keepAlive: 60000,
+            lifetime: 180000,
+            dataMimeType: 'application/json',
+            metadataMimeType: 'message/x.rsocket.routing.v0',
+        },
+        transport: new RSocketWebSocketClient({
+            url: 'ws://' + host +'/ws/'
+        }),
+    });
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
     }
 
-    function rsocketConnect() {
-        let host = location.host;
-        rsocketClient = new RSocketClient({
-            serializers: {
-                data: JsonSerializer,
-                metadata: IdentitySerializer
-            },
-            setup: {
-                keepAlive: 60000,
-                lifetime: 180000,
-                dataMimeType: 'application/json',
-                metadataMimeType: 'message/x.rsocket.routing.v0',
-            },
-            transport: new RSocketWebSocketClient({
-                url: 'ws://' + host +'/ws/'
-            }),
-        });
 
+    function rsocketConnect() {
+
+        console.log("Connecting to Rsocket stream on host: " + host)
         // Open an RSocket connection to the server
         rsocketClient.connect().subscribe({
             onComplete: socket => {
@@ -60,9 +66,17 @@ function BackOffice() {
                         console.log("Connection has been closed due to: " + error);
                     },
                     onNext: payload => {
-                        console.log(payload);
                         let cloudEvent = payload.data;
-                        setScore(score + "-> " + JSON.stringify(cloudEvent.data));
+                        console.log("Toasting CE: " + JSON.stringify(cloudEvent.data))
+                        toast("🥳 "+ JSON.stringify(cloudEvent.data), {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        })
                         confetti();
                     },
                     onSubscribe: subscription => {
@@ -74,11 +88,15 @@ function BackOffice() {
                 console.log("RSocket connection refused due to: " + error);
             },
             onSubscribe: cancel => {
+                console.log("Subscribe canceled")
                 /* call cancel() to abort */
             }
         });
     }
 
+    useEffect(() => {
+        rsocketConnect()
+    }, []);
 
     useEffect(() => {
         setCurrentSection("back-office");
@@ -107,10 +125,7 @@ function BackOffice() {
         if(nickname !== ""){
             url = url + "?nickname=" + nickname
         }
-        console.log("URL for leaderboard is: " + url)
         axios.get(url).then(res => {
-            console.log(" --- Leaderboard ---")
-            console.log(res.data)
             setLeaderboard(res.data);
         }).catch(err => {
             console.log(err)
@@ -125,9 +140,6 @@ function BackOffice() {
       setGameState("active")
     }
 
-    function confettiNow(){
-        confetti()
-    }
 
     return (
         <motion.div
@@ -156,18 +168,12 @@ function BackOffice() {
                 <section >
 
                     <div >
-
+                            <ToastContainer />
                             <div>
                                 {leaderboard && leaderboard.Sessions && ((
                                     <Leaderboard leaderboard={leaderboard}></Leaderboard>
                                 ))}
                             </div>
-
-                        <h3>Score Events</h3>
-                        <h4>{score}</h4>
-                        <button onClick={rsocketConnect}>Listen to score events</button>
-
-
                     </div>
                 </section>
 
