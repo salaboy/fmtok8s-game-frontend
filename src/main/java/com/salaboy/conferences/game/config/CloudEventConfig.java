@@ -1,5 +1,6 @@
 package com.salaboy.conferences.game.config;
 
+import com.salaboy.conferences.game.model.GameScore;
 import io.cloudevents.spring.codec.CloudEventDecoder;
 import io.cloudevents.spring.codec.CloudEventEncoder;
 import io.cloudevents.spring.webflux.CloudEventHttpMessageReader;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.codec.CodecConfigurer;
+import reactor.core.publisher.Sinks;
 
 @Configuration
 public class CloudEventConfig implements CodecCustomizer {
@@ -28,6 +30,11 @@ public class CloudEventConfig implements CodecCustomizer {
             strategies.encoder(new CloudEventEncoder());
             strategies.decoder(new CloudEventDecoder());
         };
+    }
+
+    @Bean
+    Sinks.Many<GameScore> gameScoreEmitter() {
+        return Sinks.many().multicast().onBackpressureBuffer();
     }
 
 }

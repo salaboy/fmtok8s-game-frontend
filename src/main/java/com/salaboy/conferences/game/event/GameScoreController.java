@@ -18,7 +18,11 @@ public class GameScoreController {
 
     private static final Logger log = LoggerFactory.getLogger(GameScoreController.class);
 
-    private final Sinks.Many<GameScore> gameScoreEmitter = Sinks.many().multicast().onBackpressureBuffer();
+    private final Sinks.Many<GameScore> gameScoreEmitter;
+
+    public GameScoreController(Sinks.Many<GameScore> gameScoreEmitter) {
+        this.gameScoreEmitter = gameScoreEmitter;
+    }
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     Flux<GameScore> getEvents() {

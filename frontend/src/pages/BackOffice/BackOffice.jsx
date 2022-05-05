@@ -53,7 +53,7 @@ function BackOffice() {
             onComplete: socket => {
                 socket
                     .requestStream({
-                        metadata: route('session-scores')
+                        metadata: route('game-scores')
                     }).subscribe({
                     onComplete: () => console.log('complete'),
                     onError: error => {
