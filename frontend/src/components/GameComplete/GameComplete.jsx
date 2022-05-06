@@ -5,6 +5,7 @@ import cn from 'classnames';
 import {Link} from "react-router-dom";
 import confetti from "canvas-confetti";
 import useInterval from "../../hooks/useInterval";
+import {TwitterShareButton} from "react-twitter-embed";
 
 function GameComplete({state}) {
 
@@ -21,10 +22,23 @@ function GameComplete({state}) {
         })}>
 
             <div className="GameOver">
-                 <p>
-                  <strong>{state.nickname}</strong> you finished the game!
-                  Check the leaderboard to see your final score.
-                 </p>
+                <p>
+                    <strong>{state.nickname}</strong> you finished the game!
+                    Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
+                    @TODO: add logo!
+                    You final score is: {state.accumulatedScore}
+                    <br/>
+                    <TwitterShareButton
+                        url={'https://knative.dev'}
+                        options={{
+                            text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #knative',
+                            via: 'KnativeProject',
+                            size: "large"
+                        }}
+                    />
+
+
+                </p>
 
             </div>
 

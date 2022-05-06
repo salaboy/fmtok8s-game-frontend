@@ -197,7 +197,8 @@ function Game() {
 
                 <section>
 
-                    <h1>Play with us!</h1>
+                    <h1>#Knative Functions</h1>
+                    <h2>Quiz Game</h2>
 
                     {state.landed && (
                         <div>
@@ -278,10 +279,10 @@ function Game() {
                                                     disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                         </>
                                       )}
-                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                        <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>
-                                      )
-                                      }
+                                      {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
+                                      {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
+                                      {/*)*/}
+                                      {/*}*/}
 
 
 

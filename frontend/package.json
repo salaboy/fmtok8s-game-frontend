@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-spinners": "0.11.0",
     "react-toastify": "^9.0.0",
+    "react-twitter-embed": "^4.0.4",
     "rsocket-websocket-client": "^0.0.27",
     "rxjs": "~7.5.0",
     "sass": "^1.50.0",

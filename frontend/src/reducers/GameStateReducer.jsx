@@ -7,7 +7,8 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: "",
             nickname: "",
             currentLevelId: 0,
-            currentLevelName: "Start"
+            currentLevelName: "Start",
+            accumulatedScore: 0
         }
     }
 
@@ -19,7 +20,8 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: action.payload.SessionId,
             currentLevelId: 1,
             nickname: action.payload.Player,
-            currentLevelStarted: false
+            currentLevelStarted: false,
+            accumulatedScore: 0
         }
     }
 
@@ -32,13 +34,15 @@ export const gameStateReducer = (currentState, action) => {
             currentLevelId: currentState.currentLevelId,
             currentLevelExists: currentState.currentLevelExists,
             nickname: currentState.nickname,
-            currentLevelStarted: true
+            currentLevelStarted: true,
+            accumulatedScore: currentState.accumulatedScore
         }
     }
 
     if (action.type === 'levelCompletedTriggered') {
 
         console.log("ACTION levelCompletedTriggered")
+
         return {
             landed: currentState.landed,
             sessionID: currentState.sessionID,
@@ -47,7 +51,8 @@ export const gameStateReducer = (currentState, action) => {
             currentLevelExists: currentState.currentLevelExists,
             currentLevelStarted: currentState.currentLevelStarted,
             currentLevelCompleted: true,
-            currentLevelScore: action.payload.LevelScore
+            currentLevelScore: action.payload.LevelScore,
+            accumulatedScore: parseInt(currentState.accumulatedScore) + parseInt(action.payload.LevelScore)
         }
     }
 
@@ -59,6 +64,7 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: currentState.sessionID,
             nickname: currentState.nickname,
             currentLevelId: action.payload,
+            accumulatedScore: currentState.accumulatedScore
         }
     }
 

@@ -19,9 +19,9 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
         if (loading) {
             return;
         }
-        console.log("Sending answers: [" + optionA + ", " + optionB + ", " + optionC + ", " + optionD + " ] with remaining time: " + remainingTime + "'s to level id: " + state.currentLevelId)
+        setIsSent(true);
         setLoading(true);
-        setIsSent(true)
+        //console.log("Sending answers: [" + optionA + ", " + optionB + ", " + optionC + ", " + optionD + " ] with remaining time: " + remainingTime + "'s to level id: " + state.currentLevelId)
         axios({
             method: "post",
             url: '/game/' + functionName + '/answer',
@@ -35,11 +35,10 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
             },
         }).then(res => {
             console.log("Answer response:")
-            console.log(res.headers)
             console.log(res.data)
+            dispatch({type: "levelCompletedTriggered", payload: res.data})
             setScore(res.data)
             setLoading(false);
-            dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
             console.log(err)
             console.log(err.response.data.message)
@@ -51,7 +50,6 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
         <div className={cn({
             ["Level"]: true,
         })}>
-              {/*  <h2>{levelName}</h2>*/}
             {isSent && !score && (
                 <>
                     <div className="Loader">
