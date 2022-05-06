@@ -22,6 +22,7 @@ import GameComplete from "../../components/GameComplete/GameComplete";
 import KubeconEULevel1 from "../../components/KubeconEULevel1/KubeconEULevel1";
 import KubeconEULevel2 from "../../components/KubeconEULevel2/KubeconEULevel2";
 import LevelScore from "../../components/LevelScore/LevelScore";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -44,14 +45,14 @@ function Game() {
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
     // use lowercase on level keys to support env variables
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1],["KubeconEULevel2", KubeconEULevel2], ["End", GameComplete]]);
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2], ["End", GameComplete]]);
 
 
     function DynamicLevel(props) {
-        console.log("Selected Level")
-        console.log(gameLevels[props.level])
         const SpecificLevel = levelsMap.get(gameLevels[props.level].componentName)
-        return <SpecificLevel levelName={gameLevels[props.level].name} levelNumber={props.level} functionName={gameLevels[props.level].functionName} state={props.state} dispatch={props.dispatch}/>
+        return <SpecificLevel levelName={gameLevels[props.level].name} levelNumber={props.level}
+                              functionName={gameLevels[props.level].functionName} state={props.state}
+                              dispatch={props.dispatch}/>
     }
 
     function handleDelayChange(e) {
@@ -204,96 +205,99 @@ function Game() {
                         <div>
                             {!state.sessionID && (
                                 <div className="Card">
-                                  <div className="Card__Header">
-                                    Choose your nickname
-                                  </div>
-                                  <div className="Card__Body">
-                                    <TextField inputProps={
-                                        {readOnly: true,}
-                                    } label={""} placeholder="Click the button to generate a nickname" value={nickname}></TextField>
-                                    <Button inverted clickHandler={generatePlayerName}>Generate Player Name</Button>
-                                  </div>
-                                  <div className="Card__Actions">
-                                    <Button main block clickHandler={newGame}
-                                            disabled={loading || notNickname()}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
-                                  </div>
+                                    <div className="Card__Header">
+                                        Generate your nickname to start
+                                    </div>
+                                    <div className="Card__Body">
+                                        <TextField inputProps={
+                                            {readOnly: true,}
+                                        } label={""} placeholder="Click the button to generate a nickname"
+                                                   value={nickname}></TextField>
+                                        <Button inverted clickHandler={generatePlayerName}>Generate Player Name</Button>
+                                    </div>
+                                    <div className="Card__Actions">
+                                        <Button main block clickHandler={newGame}
+                                                disabled={loading || notNickname()}>{loading ? 'Loading...' : 'Let\'s Play!'}</Button>
+                                    </div>
                                 </div>
                             )}
                             {state.sessionID && (
                                 <div className="Card">
                                     <div className="Card__Header">
-                                      {!state.currentLevelStarted  && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) && (
-                                          <>
+                                        {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
+                                            <>
 
-                                              Ready to play?
+                                                Ready to play?
 
-                                          </>
-                                      )}
-                                      {state.currentLevelStarted && (
-                                          <>
-                                             {gameLevels[state.currentLevelId].name}
+                                            </>
+                                        )}
+                                        {state.currentLevelStarted && (
+                                            <>
+                                                {gameLevels[state.currentLevelId].name}
 
-                                          </>
-                                      )}
-                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                        <>Congratulations</>
-                                      )
-                                      }
+                                            </>
+                                        )}
+                                        {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                            <>Congratulations</>
+                                        )
+                                        }
 
                                     </div>
                                     <div className="Card__Body">
-                                      {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                          <GameComplete state={state}/>
-                                      )
-                                      }
-                                      {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End" ) &&  (
-                                          <>
-                                            <strong> {state.nickname} </strong>  click the button when you are ready for the next level.
-
-                                          </>
-                                      )}
-                                      { state.currentLevelStarted && !state.currentLevelCompleted && (
-                                          <>
-                                              <DynamicLevel level={state.currentLevelId} state={state} dispatch={dispatch} />
-                                          </>
-                                      )}
-
-                                        { state.currentLevelCompleted && (
+                                        {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                            <GameComplete state={state}/>
+                                        )
+                                        }
+                                        {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-                                                <LevelScore score={state.currentLevelScore} />
+                                                <strong> {state.nickname} </strong> click the button when you are ready
+                                                for the next level.
+
+                                            </>
+                                        )}
+                                        {state.currentLevelStarted && !state.currentLevelLoading && !state.currentLevelCompleted && (
+                                            <>
+                                                <DynamicLevel level={state.currentLevelId} state={state}
+                                                              dispatch={dispatch}/>
+                                            </>
+                                        )}
+
+                                        {state.currentLevelLoading && !state.currentLevelCompleted && (
+                                            <>
+                                                <div className="Loader">
+                                                    <PacmanLoader color={"#1c0528"} loading={true} size={30}/>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {state.currentLevelCompleted && (
+                                            <>
+                                                <LevelScore score={state.currentLevelScore}/>
                                             </>
                                         )}
 
 
                                     </div>
                                     <div className="Card__Actions">
-                                      {!state.currentLevelStarted && gameLevels && gameLevels[state.currentLevelId].name != "End" && (
-                                          <>
-                                              <Button block main clickHandler={startLevel}
-                                                      disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
-                                          </>
-                                      )}
-                                      {state.currentLevelCompleted && (
-                                        <>
-                                            <Button block main clickHandler={moveToNextLevel}
-                                                    disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
-                                        </>
-                                      )}
-                                      {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
-                                      {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
-                                      {/*)*/}
-                                      {/*}*/}
-
+                                        {!state.currentLevelStarted && gameLevels && gameLevels[state.currentLevelId].name != "End" && (
+                                            <>
+                                                <Button block main clickHandler={startLevel}
+                                                        disabled={loading}>{loading ? 'Loading...' : 'Start ' + gameLevels[state.currentLevelId].name}</Button>
+                                            </>
+                                        )}
+                                        {state.currentLevelCompleted && (
+                                            <>
+                                                <Button block main clickHandler={moveToNextLevel}
+                                                        disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
+                                            </>
+                                        )}
+                                        {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
+                                        {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
+                                        {/*)*/}
+                                        {/*}*/}
 
 
                                     </div>
-
-
-
-
-
-
-
 
 
                                 </div>

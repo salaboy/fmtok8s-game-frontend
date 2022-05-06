@@ -33,6 +33,7 @@ export const gameStateReducer = (currentState, action) => {
             sessionID: currentState.sessionID,
             currentLevelId: currentState.currentLevelId,
             currentLevelExists: currentState.currentLevelExists,
+            currentLevelLoading: false,
             nickname: currentState.nickname,
             currentLevelStarted: true,
             accumulatedScore: currentState.accumulatedScore
@@ -50,6 +51,7 @@ export const gameStateReducer = (currentState, action) => {
             nickname: currentState.nickname,
             currentLevelExists: currentState.currentLevelExists,
             currentLevelStarted: currentState.currentLevelStarted,
+            currentLevelLoading: false,
             currentLevelCompleted: true,
             currentLevelScore: action.payload.LevelScore,
             accumulatedScore: parseInt(currentState.accumulatedScore) + parseInt(action.payload.LevelScore)

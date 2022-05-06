@@ -10,10 +10,9 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 
 function Level3({levelName, functionName, state, dispatch}) {
 
-    const [loading, setLoading] = useState(false);
     const [counter, setCounter] = useState(0);
-    const [isSent, setIsSent] = useState(false);
-    const [score, setScore] = useState()
+
+
 
     function clickMe() {
         setCounter(counter + 1)
@@ -23,11 +22,10 @@ function Level3({levelName, functionName, state, dispatch}) {
 
 //Send answer to a specific question/level
     function sendAnswer() {
-        if (loading) {
+        if (state.currentLevelLoading) {
             return;
         }
-        setLoading(true);
-        setIsSent(true);
+        state.currentLevelLoading = true
         console.log("Sending answers: [" + counter + " ] to level id: " + state.currentLevelId)
         axios({
             method: "post",
@@ -40,8 +38,6 @@ function Level3({levelName, functionName, state, dispatch}) {
             console.log("Answer response:")
             console.log(res.headers)
             console.log(res.data)
-            setScore(res.data)
-            setLoading(false);
             dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
 
@@ -55,21 +51,14 @@ function Level3({levelName, functionName, state, dispatch}) {
         <div className={cn({
             ["Level"]: true,
         })}>
-            {isSent && !score && (
-                <>
-                    <div className="Loader">
-                        <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
-                    </div>
-                </>
-            )}
 
-            {!isSent && (
+            {!state.currentLevelLoading && (
                 <div className="Questionnaire">
                     <div className="Timer">
                         <CountdownCircleTimer
                             onComplete={sendAnswer}
 
-                            isPlaying={!isSent}
+                            isPlaying={!state.currentLevelLoading}
                             duration={10}
                             colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
                             colorsTime={[7, 5, 2, 0]}

@@ -7,25 +7,15 @@ import {CountdownCircleTimer} from "react-countdown-circle-timer";
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}) {
-    const [loading, setLoading] = useState(false);
-    const [isSent, setIsSent] = useState(false);
-
 
     const [remainingTime, setRemainingTime] = useState(0)
-    const [score, setScore] = useState()
-
-    function nextLevel(){
-        dispatch({type: "nextLevelTriggered", payload: state.currentLevelId + 1})
-    }
 
     //Send answer to a specific question/level
     function sendAnswer(optionA, optionB, optionC, optionD) {
-        if (loading) {
+        if (state.currentLevelLoading) {
             return;
         }
-        console.log("Sending answers: [" + optionA + ", " + optionB + ", " + optionC + ", " + optionD + " ] with remaining time: " + remainingTime + "'s to level id: " + state.currentLevelId)
-        setLoading(true);
-        setIsSent(true)
+        state.currentLevelLoading = true
         axios({
             method: "post",
             url: '/game/' + functionName + '/answer',
@@ -41,8 +31,6 @@ function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}
             console.log("Answer response:")
             console.log(res.headers)
             console.log(res.data)
-            setScore(res.data)
-            setLoading(false);
             dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
             console.log(err)
@@ -55,21 +43,15 @@ function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}
         <div className={cn({
             ["Level"]: true,
         })}>
-            {/*  <h2>{levelName}</h2>*/}
-            {isSent && !score && (
-                <>
-                    <div className="Loader">
-                        <PacmanLoader color={"#1c0528"} loading={loading} size={30}/>
-                    </div>
-                </>
-            )}
-            {!isSent && (
+
+
+            {!state.currentLevelLoading && (
                 <div className="Questionnaire">
                     <div className="Timer">
                       <CountdownCircleTimer
                           onComplete={sendAnswer}
                           onUpdate={remainingTime => setRemainingTime(remainingTime)}
-                          isPlaying={!isSent}
+                          isPlaying={!state.currentLevelLoading}
                           duration={10}
                           colors={['#ce5fff', '#FFC17D', '#FFDA7D', '#FF907D']}
                           colorsTime={[7, 5, 2, 0]}
