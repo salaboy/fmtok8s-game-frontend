@@ -7,6 +7,8 @@ import java.util.Date;
 public record GameScore(
         @JsonProperty("SessionId")
         String sessionId,
+        @JsonProperty("Player")
+        String player,
         @JsonProperty("Time")
         Date gameTime,
         @JsonProperty("Level")

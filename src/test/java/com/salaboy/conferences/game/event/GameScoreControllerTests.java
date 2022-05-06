@@ -21,7 +21,7 @@ class GameScoreControllerTests {
 
     @Test
     void whenCloudEventPublishedThenConsumed() {
-        var gameScore = new GameScore(UUID.randomUUID().toString(), Date.from(Instant.now()), "level-3", 42);
+        var gameScore = new GameScore(UUID.randomUUID().toString(),"salaboy", Date.from(Instant.now()), "level-3", 42);
         webTestClient
                 .post()
                 .uri("/gamescores")
@@ -35,7 +35,7 @@ class GameScoreControllerTests {
 
     @Test
     void whenCloudEventPublishedWithWrongFormatThenThrow() {
-        var gameScore = new GameScore(UUID.randomUUID().toString(), Date.from(Instant.now()), "level-3", 42);
+        var gameScore = new GameScore(UUID.randomUUID().toString(),"salaboy", Date.from(Instant.now()), "level-3", 42);
         webTestClient
                 .post()
                 .uri("/gamescores")

@@ -4,7 +4,6 @@ import cn from 'classnames';
 import axios from "axios";
 import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-import PacmanLoader from "react-spinners/PacmanLoader";
 
 function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}) {
 
@@ -20,6 +19,7 @@ function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}
             method: "post",
             url: '/game/' + functionName + '/answer',
             data: {
+                player: state.nickname,
                 sessionId: state.sessionID,
                 optionA: optionA,
                 optionB: optionB,

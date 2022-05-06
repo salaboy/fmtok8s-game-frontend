@@ -19,6 +19,7 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
             method: "post",
             url: '/game/' + functionName + '/answer',
             data: {
+                player: state.nickname,
                 sessionId: state.sessionID,
                 optionA: optionA,
                 optionB: optionB,

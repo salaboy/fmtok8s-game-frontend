@@ -9,7 +9,7 @@ public record Answers (
     int counter,
     int remainingTime,
     String sessionId,
-    String nickname
+    String player
 ){
 
 }

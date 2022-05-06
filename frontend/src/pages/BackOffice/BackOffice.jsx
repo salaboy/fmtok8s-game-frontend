@@ -66,9 +66,11 @@ function BackOffice() {
                         console.log("Connection has been closed due to: " + error);
                     },
                     onNext: payload => {
+                        console.log("Toasting CE payload: " + JSON.stringify(payload))
                         let cloudEvent = payload.data;
-                        console.log("Toasting CE: " + JSON.stringify(cloudEvent.data))
-                        toast("🥳 "+ JSON.stringify(cloudEvent.data), {
+                        console.log("Toasting CE DATA: " + JSON.stringify(cloudEvent.data))
+                        console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
+                        toast("🥳 "+ cloudEvent.data.node.Player  + " just scored " + cloudEvent.data.node.LevelScore + " points in level " + cloudEvent.data.node.Level + " !", {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
