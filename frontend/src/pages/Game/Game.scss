@@ -7,6 +7,9 @@
 
 .page.game {
   @media only screen and (max-width: breakpoint(tabletHD)) {
-    padding-top: spacing(2,10);
+    padding-top: spacing(2,2);
+    h2 {
+      text-align: center;
+    }
   }
 }

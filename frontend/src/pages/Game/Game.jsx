@@ -159,8 +159,8 @@ function Game() {
 
                 <section>
 
-                    <h1>#Knative Functions</h1>
-                    <h2>Quiz Game</h2>
+                    <h2 className="mainH1">#Knative Functions <br/> Quiz Game</h2>
+
 
                     {state.landed && (
                         <div>
