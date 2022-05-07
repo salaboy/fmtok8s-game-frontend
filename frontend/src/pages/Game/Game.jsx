@@ -187,7 +187,7 @@ function Game() {
                                     <div className="Card__Header">
                                         {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-
+                                                {state.nickname} <br/>
                                                 Ready to play?
 
                                             </>
@@ -211,8 +211,7 @@ function Game() {
                                         }
                                         {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-                                                <strong> {state.nickname} </strong> click the button when you are ready
-                                                for the next level.
+                                                When you click start you will have 10 seconds to answer. Hurry up, as the time you save gives you points!
 
                                             </>
                                         )}

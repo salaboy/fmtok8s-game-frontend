@@ -15,7 +15,9 @@ function LevelScore({score}) {
         })}>
 
             <div className="Scores">
-                Your Score for this level is: <span className="ScoreNumber"> {score}</span>
+                <span className="ScoreNumber"> +{score}</span>
+                <br/>
+                Your Score for this level is: {score}
             </div>
 
         </div>

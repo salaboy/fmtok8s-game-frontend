@@ -1,4 +1,58 @@
 @import '../../styles/_foundations.scss';
-.Level1 {
-  
+.LevelScore {
+  .Scores {
+    padding:  spacing(2,2) 0 spacing(2,6);
+    font-size: font-size(s);
+    text-align: center;
+    .ScoreNumber {
+
+      &:before {
+        content: '';
+        width: spacing(2,14);
+        height: spacing(2,14);
+        background-color: color(yellow);
+        border-radius: spacing(2,7);
+        display: inline-block;
+        position: absolute;
+        z-index: -1;
+        left: calc(50% - 42px);
+        transform: scale(1);
+	animation: pulse 2s infinite;
+      }
+      position: relative;
+      width: spacing(2,6);
+      height: spacing(2,6);
+      padding: spacing(2,2) spacing(2,2);
+
+      font-family: font-family(display);
+      font-size: heading-font-size(h1);
+      text-align: center;
+      line-height: heading-font-size(h1);
+      font-weight: bold;
+      z-index: 10;
+
+    }
+  }
+  @media only screen and (max-width: breakpoint(tabletHD)) {
+    .Scores {
+      text-align: center;
+    }
+  }
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.5);
+		box-shadow: 0 0 0 0 color(yellow);
+	}
+
+	70% {
+		transform: scale(1.2);
+		box-shadow: 0 0 0 10px color(yellow);
+	}
+
+	100% {
+		transform: scale(0.5);
+		box-shadow: 0 0 0 0 color(yellow);
+	}
 }
