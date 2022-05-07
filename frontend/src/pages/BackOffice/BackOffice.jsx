@@ -90,7 +90,6 @@ function BackOffice() {
                 console.log("RSocket connection refused due to: " + error);
             },
             onSubscribe: cancel => {
-                console.log("Subscribe canceled")
                 /* call cancel() to abort */
             }
         });

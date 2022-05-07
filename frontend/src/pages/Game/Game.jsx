@@ -25,6 +25,7 @@ import LevelScore from "../../components/LevelScore/LevelScore";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import KubeconEULevel3 from "../../components/KubeconEULevel3/KubeconEULevel3";
 import KubeconEULevel4 from "../../components/KubeconEULevel4/KubeconEULevel4";
+import KubeconEULevel5 from "../../components/KubeconEULevel5/KubeconEULevel5";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -49,7 +50,7 @@ function Game() {
     // use lowercase on level keys to support env variables
     const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3],
         ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
-        ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["End", GameComplete]]);
+        ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5], ["End", GameComplete]]);
 
 
     function DynamicLevel(props) {
