@@ -1,4 +1,11 @@
 @import '../../styles/_foundations.scss';
-.Level1 {
-  
+.GameComplete {
+  .GameOver {
+    position: relative;
+    .GameOver__Image {
+      position: absolute;
+      left: 0;
+      top: -70px;
+    }
+  }
 }

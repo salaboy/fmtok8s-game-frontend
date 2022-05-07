@@ -1,5 +1,15 @@
 @import '../../styles/_foundations.scss';
 .LevelScore {
+  &.LevelScore__final {
+    .Scores {
+      .ScoreNumber {
+        &:before {
+          background-color: color(red);
+          animation: pulsefinal 2s infinite;
+        }
+      }
+    }
+  }
   .Scores {
     padding:  spacing(2,2) 0 spacing(2,6);
     font-size: font-size(s);
@@ -46,9 +56,26 @@
 		box-shadow: 0 0 0 0 color(yellow);
 	}
 
-	70% {
+	50% {
 		transform: scale(1.2);
 		box-shadow: 0 0 0 10px color(yellow);
+	}
+
+	100% {
+		transform: scale(0.5);
+		box-shadow: 0 0 0 0 color(yellow);
+	}
+}
+
+@keyframes pulsefinal {
+	0% {
+		transform: scale(0.5);
+		box-shadow: 0 0 0 0 color(yellow);
+	}
+
+	50% {
+		transform: scale(1.5);
+		box-shadow: 0 0 0 10px color(red);
 	}
 
 	100% {

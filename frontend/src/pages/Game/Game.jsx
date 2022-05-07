@@ -12,7 +12,7 @@ import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/Form/TextField/TextField";
-
+import {TwitterShareButton} from "react-twitter-embed";
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -201,14 +201,14 @@ function Game() {
                                         )}
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
                                             <>
-                                              {state.nickname} <br/>
-                                              Congratulations
+                                              {state.nickname} Congratulations!
                                             </>
                                         )
                                         }
 
                                     </div>
                                     <div className="Card__Body">
+
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
                                             <GameComplete state={state}/>
                                         )
@@ -257,15 +257,40 @@ function Game() {
                                         )}
 
                                         {state.currentLevelLoading && !state.currentLevelCompleted && (
-                                            <>
-                                              Loading, please wait
-                                            </>
+                                          <>
+                                              <Button block main disabled={true}>Loading...</Button>
+                                          </>
                                         )}
 
                                         {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
                                         {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
                                         {/*)*/}
                                         {/*}*/}
+
+                                        {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
+                                            <>
+                                              <p className="p-s">
+
+                                                  Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
+
+
+                                                  <br/><br/>
+                                                  <TwitterShareButton
+                                                      url={'https://knative.dev'}
+                                                      options={{
+                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #knative',
+                                                          via: 'KnativeProject',
+                                                          size: "large",
+                                                          height: 80
+                                                      }}
+                                                  />
+
+
+                                              </p>
+                                            </>
+                                        )
+                                        }
+
 
 
                                     </div>

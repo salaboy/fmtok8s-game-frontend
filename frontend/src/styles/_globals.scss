@@ -70,6 +70,14 @@ section {
     font-size: font-size(s);
     line-height: line-height(s);
     min-height: 200px;
+    .Loader {
+      min-height: spacing(2,20);
+      text-align: center;
+      padding-top: spacing(2,4);
+      & > span {
+        left: -60px;
+      }
+    }
   }
   .Card__Header {
     padding: spacing(2,5) spacing(2,3);
@@ -83,6 +91,7 @@ section {
   .Card__Actions {
     padding: spacing(2,3) spacing(2,3);
     background-color: color(white);
+    text-align: center;
   }
 
   @media only screen and (max-width: breakpoint(tabletHD)) {

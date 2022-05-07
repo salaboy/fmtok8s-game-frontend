@@ -1,11 +1,12 @@
 import "./GameComplete.scss";
 import React, {useState} from "react";
 import cn from 'classnames';
-
+import LevelScore from "../../components/LevelScore/LevelScore";
 import {Link} from "react-router-dom";
 import confetti from "canvas-confetti";
 import useInterval from "../../hooks/useInterval";
-import {TwitterShareButton} from "react-twitter-embed";
+
+import knativeLogo from "../../images/knative.png"
 
 function GameComplete({state}) {
 
@@ -22,24 +23,12 @@ function GameComplete({state}) {
         })}>
 
             <div className="GameOver">
-                <h3>Tweet your score</h3>
-                <p>
-                    <strong>{state.nickname}</strong> you finished the game!
-                    Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
-                    @TODO: add logo!
-                    You final score is: {state.accumulatedScore}
-                    <br/>
-                    <TwitterShareButton
-                        url={'https://knative.dev'}
-                        options={{
-                            text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #knative',
-                            via: 'KnativeProject',
-                            size: "large"
-                        }}
-                    />
+                <div className="GameOver__Image">
+                  <img src={knativeLogo} alt="Knative" width="100"/>
+                </div>
 
+                <LevelScore final score={state.accumulatedScore}/>
 
-                </p>
 
             </div>
 
