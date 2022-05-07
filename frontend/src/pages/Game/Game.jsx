@@ -199,7 +199,10 @@ function Game() {
                                             </>
                                         )}
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                            <>Congratulations</>
+                                            <>
+                                              {state.nickname} <br/>
+                                              Congratulations
+                                            </>
                                         )
                                         }
 
@@ -251,6 +254,13 @@ function Game() {
                                                         disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                             </>
                                         )}
+
+                                        {state.currentLevelLoading && !state.currentLevelCompleted && (
+                                            <>
+                                              Loading, please wait
+                                            </>
+                                        )}
+
                                         {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
                                         {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
                                         {/*)*/}
