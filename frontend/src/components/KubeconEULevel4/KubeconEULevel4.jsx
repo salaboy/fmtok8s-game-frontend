@@ -66,10 +66,10 @@ function KubeconEULevel4({levelNumber, levelName, functionName, state, dispatch}
                             What is the “Camino de Santiago”?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Secret underground tunnels that wealthy only get to use</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Large network of ancient pilgrim routes in Europe</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Ancient ruins built out of old Spanish gold</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> A CICD pipeline running on a compromised public runner</Button>
+                        <Button small large block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Secret underground tunnels that wealthy only get to use</Button>
+                        <Button small large block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Large network of ancient pilgrim routes in Europe</Button>
+                        <Button small large block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Ancient ruins built out of old Spanish gold</Button>
+                        <Button small large block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> A CICD pipeline running on a compromised public runner</Button>
                         </div>
 
                     </div>

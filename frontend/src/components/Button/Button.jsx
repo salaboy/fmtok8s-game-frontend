@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { NavLink} from 'react-router-dom'
 
 
-function Button({children, link, inline, clickHandler, small, main, disabled, inverted, state, block}) {
+function Button({children, link, inline, clickHandler, small, main, disabled, inverted, state, block, large}) {
 
     var buttonElement;
     if(link){
@@ -24,6 +24,7 @@ function Button({children, link, inline, clickHandler, small, main, disabled, in
           ["--inline"]: inline,
           ["--block"]: block,
           ["--small"]: small,
+          ["--large"]: large,
           ["--main"]: main,
           ["--disabled"]: disabled,
           ["--inverted"]: inverted,
