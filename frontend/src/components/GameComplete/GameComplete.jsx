@@ -22,6 +22,7 @@ function GameComplete({state}) {
         })}>
 
             <div className="GameOver">
+                <h3>Tweet your score</h3>
                 <p>
                     <strong>{state.nickname}</strong> you finished the game!
                     Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
