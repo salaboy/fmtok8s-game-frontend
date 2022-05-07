@@ -8,7 +8,8 @@
     text-align: left;
   }
   .Loader {
-    min-height: spacing(2,10);
+    min-height: spacing(2,15);
+    text-align: center;
   }
   .Scores {
     padding:  spacing(2,2) 0 spacing(2,6);
@@ -46,7 +47,7 @@
       font-size: font-size(s);
     }
     .Question {
-      padding: spacing(2,2) 0;
+      padding: spacing(2) 0 spacing(2,2) ;
 
       .Question__Number {
         font-size: font-size(xs);
@@ -62,6 +63,9 @@
         position: relative;
         top: - spacing(1);
         margin-right: spacing(2);
+        position: absolute;
+        left: 0;
+        top: spacing(1,1);
 
       }
       .Question__Body {
@@ -69,6 +73,7 @@
         font-family: font-family(base);
         font-weight: 600;
         max-width: 80%;
+        padding-left: spacing(2,6);
       }
     }
     .Answer {

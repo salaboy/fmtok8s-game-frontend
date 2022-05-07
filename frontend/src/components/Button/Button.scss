@@ -70,6 +70,15 @@
        display: block;
      }
    }
+   &.--large {
+
+     .__container, a{
+       display: block;
+       height: auto !important;
+       line-height: 1.2em !important;
+       padding: spacing(2,2) spacing(6) !important;
+     }
+   }
    &.--main {
      .__container, a{
        background-color: color(green);

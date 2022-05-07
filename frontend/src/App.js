@@ -39,7 +39,7 @@ function App() {
                 <div className={cn({
                     ["App"]: true,
                 })}>
-                    <Nav/>
+                    
                     <main data-scroll-container ref={containerRef}>
                         <AnimatePresence exitBeforeEnter>
                             <Switch location={location} key={location.pathname}>

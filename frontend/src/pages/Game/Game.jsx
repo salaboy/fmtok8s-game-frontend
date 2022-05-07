@@ -160,8 +160,8 @@ function Game() {
 
                 <section>
 
-                    <h1>#Knative Functions</h1>
-                    <h2>Quiz Game</h2>
+                    <h2 className="mainH1">#Knative Functions <br/> Quiz Game</h2>
+
 
                     {state.landed && (
                         <div>
@@ -188,7 +188,7 @@ function Game() {
                                     <div className="Card__Header">
                                         {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-
+                                                {state.nickname} <br/>
                                                 Ready to play?
 
                                             </>
@@ -200,7 +200,10 @@ function Game() {
                                             </>
                                         )}
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
-                                            <>Congratulations</>
+                                            <>
+                                              {state.nickname} <br/>
+                                              Congratulations
+                                            </>
                                         )
                                         }
 
@@ -212,8 +215,7 @@ function Game() {
                                         }
                                         {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-                                                <strong> {state.nickname} </strong> click the button when you are ready
-                                                for the next level.
+                                                When you click start you will have 10 seconds to answer. Hurry up, as the time you save gives you points!
 
                                             </>
                                         )}
@@ -253,6 +255,13 @@ function Game() {
                                                         disabled={loading}>{loading ? 'Loading...' : 'Next Level'}</Button>
                                             </>
                                         )}
+
+                                        {state.currentLevelLoading && !state.currentLevelCompleted && (
+                                            <>
+                                              Loading, please wait
+                                            </>
+                                        )}
+
                                         {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
                                         {/*  <Button main block link={`back-office/${state.nickname}`}>Go to the Leaderboard</Button>*/}
                                         {/*)*/}

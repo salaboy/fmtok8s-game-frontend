@@ -67,6 +67,9 @@ section {
 
   .Card__Body {
     padding: spacing(2,5) spacing(2,3);
+    font-size: font-size(s);
+    line-height: line-height(s);
+    min-height: 200px;
   }
   .Card__Header {
     padding: spacing(2,5) spacing(2,3);
@@ -74,8 +77,8 @@ section {
     color: color(white);
     font-family: font-family(display);
     font-weight: 500;
-    font-size: heading-font-size(h3);
-    
+    font-size: font-size();
+
   }
   .Card__Actions {
     padding: spacing(2,3) spacing(2,3);
