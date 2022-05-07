@@ -4,7 +4,7 @@ import {motion} from "framer-motion"
 import {useLocomotiveScroll} from 'react-locomotive-scroll';
 import AppContext from '../../contexts/AppContext';
 import cn from 'classnames';
-import {CloudEvent, HTTP} from "cloudevents";
+
 import axios from "axios";
 
 import dockerNames from "docker-names"
@@ -12,7 +12,7 @@ import {gameStateReducer} from "../../reducers/GameStateReducer";
 import GameContext from "../../contexts/GameContext";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/Form/TextField/TextField";
-import {Link} from "react-router-dom";
+
 
 import Level1 from "../../components/Level1/Level1";
 import Level2 from "../../components/Level2/Level2";
@@ -23,6 +23,8 @@ import KubeconEULevel1 from "../../components/KubeconEULevel1/KubeconEULevel1";
 import KubeconEULevel2 from "../../components/KubeconEULevel2/KubeconEULevel2";
 import LevelScore from "../../components/LevelScore/LevelScore";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import KubeconEULevel3 from "../../components/KubeconEULevel3/KubeconEULevel3";
+import KubeconEULevel4 from "../../components/KubeconEULevel4/KubeconEULevel4";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -45,7 +47,9 @@ function Game() {
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
     // use lowercase on level keys to support env variables
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2], ["End", GameComplete]]);
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3],
+        ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
+        ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["End", GameComplete]]);
 
 
     function DynamicLevel(props) {
@@ -119,17 +123,7 @@ function Game() {
 
 
     const startLevel = () => {
-        if (loading) {
-            return;
-        }
-        setLoading(true);
-        axios.post('/game/' + state.sessionID + '/' + gameLevels[state.currentLevelId].functionName + '/start').then(res => {
-            console.log(res.data)
-            dispatch({type: "levelStartedTriggered", payload: res.data})
-            setLoading(false)
-        }).catch(err => {
-            console.log(err)
-        });
+        dispatch({type: "levelStartedTriggered", payload: {}})
     }
 
     const moveToNextLevel = () => {
@@ -142,39 +136,6 @@ function Game() {
         setNickname(dockerNames.getRandomName(true))
     }
 
-
-    function emitCloudEvent(button) {
-        console.log("Button: " + button + " pressed! ")
-        const cloudEvent = new CloudEvent({
-            id: createMyGuid(),
-            type: "GameEvent",
-            source: "website",
-            subject: "gameevent",
-            data: {
-                button: String(button),
-                timestamp: Date.now().toString(),
-                sessionId: state.sessionID
-            },
-        });
-        console.log(" --- Cloud Event Data Sent ---")
-        console.log(cloudEvent.data)
-
-        const message = HTTP.binary(cloudEvent);
-        //console.log("Sending Post to func!")
-        // This needs to send to broker which needs to send to the right function level, based on the level which the user is
-        axios.post('/default', message.body, {headers: message.headers}).then(res => {
-            console.log("Broker response")
-            console.log(res.headers)
-            console.log(res.data)
-
-        }).catch(err => {
-
-            console.log(err)
-            console.log(err.response.data.message)
-            console.log(err.response.data)
-        });
-
-    }
 
     function notNickname() {
         return nickname == "";

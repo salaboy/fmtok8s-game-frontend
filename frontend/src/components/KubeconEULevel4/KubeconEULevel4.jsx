@@ -1,11 +1,11 @@
-import "./KubeconEULevel3.scss";
+import "./KubeconEULevel4.scss";
 import React, {useState} from "react";
 import cn from 'classnames';
 import axios from "axios";
 import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 
-function KubeconEULevel3({levelNumber, levelName, functionName, state, dispatch}) {
+function KubeconEULevel4({levelNumber, levelName, functionName, state, dispatch}) {
 
     const [remainingTime, setRemainingTime] = useState(0)
 
@@ -63,13 +63,13 @@ function KubeconEULevel3({levelNumber, levelName, functionName, state, dispatch}
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How do you say octopus in Spanish?
+                            What is the “Camino de Santiago”?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Ostion</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Pulpo</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Informer</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Almeja</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Secret underground tunnels that wealthy only get to use</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Large network of ancient pilgrim routes in Europe</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Ancient ruins built out of old Spanish gold</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> A CICD pipeline running on a compromised public runner</Button>
                         </div>
 
                     </div>
@@ -82,4 +82,4 @@ function KubeconEULevel3({levelNumber, levelName, functionName, state, dispatch}
 
 }
 
-export default KubeconEULevel3;
+export default KubeconEULevel4;

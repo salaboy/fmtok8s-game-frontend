@@ -75,23 +75,6 @@ public class GameUIServiceTests {
 				.expectBody(String.class).isEqualTo(expectedResult);
 	}
 
-	@Test
-	public void whenNewLevelStartedThenSomethingReturned() {
-		var sessionId = "game-" + UUID.randomUUID();
-		var levelName = "level-394";
-		var expectedResult = "something"; // Update after making start-level work
-
-		var mockResponse = new MockResponse()
-				.setBody(expectedResult);
-		mockWebServer.enqueue(mockResponse);
-
-		webTestClient
-				.post()
-				.uri("/game/" + sessionId + "/" + levelName + "/start")
-				.exchange()
-				.expectStatus().is2xxSuccessful()
-				.expectBody(String.class).isEqualTo(expectedResult);
-	}
 
 	@Test
 	public void whenGetLeaderboardThenReturn() throws JsonProcessingException {

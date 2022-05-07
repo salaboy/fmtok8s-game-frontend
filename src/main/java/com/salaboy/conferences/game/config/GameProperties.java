@@ -11,7 +11,6 @@ import java.util.Map;
 public record GameProperties(
         String indexPagePath,
         URI startGameUri,
-        URI startLevelUri,
         URI leaderboardUri,
         List<LevelEntry> levels
 ){}

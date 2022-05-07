@@ -17,7 +17,6 @@ game:
   index-page-path: "file:static/index.html"
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
   start-game-uri: http://start-game.default.svc.cluster.local
-  start-level-uri: http://start-level.default.svc.cluster.local
   levels:
   - name: "Start"
     functionName: ""
@@ -27,6 +26,12 @@ game:
   - name: "Question 2"
     functionName: "kubeconeu-question-2"
     componentName: "KubeconEULevel2"
+  - name: "Question 3"
+    functionName: "kubeconeu-question-3"
+    componentName: "KubeconEULevel3"
+  - name: "Question 4"
+    functionName: "kubeconeu-question-4"
+    componentName: "KubeconEULevel4"
   - name: "End"
     functionName: ""
     componentName: "GameComplete"

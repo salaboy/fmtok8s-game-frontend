@@ -31,19 +31,6 @@ public class GameController {
                 .bodyToMono(String.class);
     }
 
-    @PostMapping("/{sessionId}/{levelName}/start")
-    public Mono<String> startLevel(@PathVariable String sessionId, @PathVariable String levelName) {
-        StartLevel startLevel = new StartLevel();
-        startLevel.setSessionId(sessionId);
-        startLevel.setLevel(levelName);
-
-        return webClient
-                .post()
-                .uri(gameProperties.startLevelUri())
-                .bodyValue(startLevel)
-                .retrieve()
-                .bodyToMono(String.class);
-    }
 
     @GetMapping("/config")
     public Mono<LevelsConfig> getConfiguredLevels() {
