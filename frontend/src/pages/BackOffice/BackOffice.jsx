@@ -51,6 +51,22 @@ function BackOffice() {
     }
 
 
+    function toastHardcoded(){
+        toast(<div>
+            🥳 <strong>amazing_snyder7</strong> <br/>
+            Scored 14 points <br/>
+            in level kubeconeu-question-3 !
+        </div>,  {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+    }
+
     function rsocketConnect() {
 
         console.log("Connecting to Rsocket stream on host: " + host)
@@ -173,6 +189,7 @@ function BackOffice() {
 
                     <div >
                             <ToastContainer />
+                            {/*<Button main clickHandler={toastHardcoded}> Toast</Button>*/}
                             <div>
                                 {leaderboard && leaderboard.Sessions && ((
                                     <Leaderboard leaderboard={leaderboard}></Leaderboard>
