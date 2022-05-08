@@ -61,16 +61,19 @@ function BackOffice() {
                     .requestStream({
                         metadata: route('game-scores')
                     }).subscribe({
-                    onComplete: () => console.log('complete'),
+                    onComplete: (response) => console.log('complete: '+response),
                     onError: error => {
                         console.log("Connection has been closed due to: " + error);
                     },
                     onNext: payload => {
-                        console.log("Toasting CE payload: " + JSON.stringify(payload))
                         let cloudEvent = payload.data;
-                        console.log("Toasting CE DATA: " + JSON.stringify(cloudEvent.data))
+
                         console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
-                        toast("🥳 "+ cloudEvent.data.node.Player  + " just scored " + cloudEvent.data.node.LevelScore + " points in level " + cloudEvent.data.node.Level + " !", {
+                        toast(<div>
+                                🥳 <strong>{cloudEvent.data.node.Player}</strong> <br/>
+                                Scored {cloudEvent.data.node.LevelScore} points <br/>
+                                in level {cloudEvent.data.node.Level} !
+                              </div>,  {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -159,12 +162,12 @@ function BackOffice() {
             >
                 
                 <SectionHero title="Leaderboard" center>
-                  {gameState === "active" && (
-                    <Button main clickHandler={freeze}> Freeze</Button>
-                  )}
-                  {gameState === "freeze" && (
-                    <Button  clickHandler={restart}> Restart</Button>
-                  )}
+                  {/*{gameState === "active" && (*/}
+                  {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
+                  {/*)}*/}
+                  {/*{gameState === "freeze" && (*/}
+                  {/*  <Button  clickHandler={restart}> Restart</Button>*/}
+                  {/*)}*/}
                 </SectionHero>
                 <section >
 
