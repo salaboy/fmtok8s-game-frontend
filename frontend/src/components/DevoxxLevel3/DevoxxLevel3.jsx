@@ -60,13 +60,13 @@ function DevoxxLevel3({levelNumber, levelName, functionName, state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            Devoxx Question 4?
+                            How can you interact with a Spring Cloud Function?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> A4</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> B4</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> C4</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> D4</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Remote Method Invocation</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> JNDI</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> HTTP</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> NFTs</Button>
                         </div>
 
                     </div>
