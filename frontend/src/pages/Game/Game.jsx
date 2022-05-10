@@ -32,6 +32,7 @@ import DevoxxLevel3 from "../../components/DevoxxLevel3/DevoxxLevel3";
 import DevoxxLevel4 from "../../components/DevoxxLevel4/DevoxxLevel4";
 import DevoxxLevel5 from "../../components/DevoxxLevel5/DevoxxLevel5";
 import DemoLevel1 from "../../components/DemoLevel1/DemoLevel1";
+import DemoLevel2 from "../../components/DemoLevel2/DemoLevel2";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -58,7 +59,7 @@ function Game() {
         ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
         ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5],
         ["DevoxxLevel1", DevoxxLevel1], ["DevoxxLevel2", DevoxxLevel2], ["DevoxxLevel3", DevoxxLevel3],
-        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1],
+        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1],["DemoLevel2", DemoLevel2],
         ["End", GameComplete]]);
 
 
