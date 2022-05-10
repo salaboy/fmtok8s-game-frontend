@@ -26,6 +26,11 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import KubeconEULevel3 from "../../components/KubeconEULevel3/KubeconEULevel3";
 import KubeconEULevel4 from "../../components/KubeconEULevel4/KubeconEULevel4";
 import KubeconEULevel5 from "../../components/KubeconEULevel5/KubeconEULevel5";
+import DevoxxLevel1 from "../../components/DevoxxLevel1/DevoxxLevel1";
+import DevoxxLevel2 from "../../components/DevoxxLevel2/DevoxxLevel2";
+import DevoxxLevel3 from "../../components/DevoxxLevel3/DevoxxLevel3";
+import DevoxxLevel4 from "../../components/DevoxxLevel4/DevoxxLevel4";
+import DevoxxLevel5 from "../../components/DevoxxLevel5/DevoxxLevel5";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -50,7 +55,10 @@ function Game() {
     // use lowercase on level keys to support env variables
     const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3],
         ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
-        ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5], ["End", GameComplete]]);
+        ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5],
+        ["DevoxxLevel1", DevoxxLevel1], ["DevoxxLevel2", DevoxxLevel2], ["DevoxxLevel3", DevoxxLevel3],
+        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5],
+        ["End", GameComplete]]);
 
 
     function DynamicLevel(props) {
