@@ -59,7 +59,7 @@ function Game() {
         ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
         ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5],
         ["DevoxxLevel1", DevoxxLevel1], ["DevoxxLevel2", DevoxxLevel2], ["DevoxxLevel3", DevoxxLevel3],
-        ["DevoxxLevel4", DevoxxLevel3], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1],["DemoLevel2", DemoLevel2],
+        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1],["DemoLevel2", DemoLevel2],
         ["End", GameComplete]]);
 
 
