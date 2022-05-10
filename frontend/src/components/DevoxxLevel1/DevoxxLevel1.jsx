@@ -60,13 +60,13 @@ function DevoxxLevel1({levelNumber, levelName, functionName, state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How do you say beer in Spanish?
+                            Devoxx Question 1?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Birra</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Cerveza</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Sangria</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> crashloopbackoff</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> A1</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> B2</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> C3</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> D4</Button>
                         </div>
 
                     </div>

@@ -9,6 +9,13 @@ function DevoxxLevel2({levelNumber, levelName, functionName, state, dispatch}) {
 
     const [remainingTime, setRemainingTime] = useState(0)
 
+    const [counter, setCounter] = useState(0);
+
+    function clickMe() {
+        setCounter(counter + 1)
+    }
+
+
     function sendAnswer(optionA, optionB, optionC, optionD) {
         if (state.currentLevelLoading) {
             return;
@@ -20,11 +27,8 @@ function DevoxxLevel2({levelNumber, levelName, functionName, state, dispatch}) {
             data: {
                 player: state.nickname,
                 sessionId: state.sessionID,
-                optionA: optionA,
-                optionB: optionB,
-                optionC: optionC,
-                optionD: optionD,
-                remainingTime: remainingTime,
+                counter: counter,
+
             },
         }).then(res => {
             dispatch({type: "levelCompletedTriggered", payload: res.data})
@@ -60,13 +64,11 @@ function DevoxxLevel2({levelNumber, levelName, functionName, state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How do you say beer in Spanish?
+                            How many times can you click/tap the button in 10 seconds?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Birra</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Cerveza</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Sangria</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> crashloopbackoff</Button>
+                            <Button inline clickHandler={clickMe}>Click Me!</Button>
+                            <div className="Counter">{counter}</div>
                         </div>
 
                     </div>

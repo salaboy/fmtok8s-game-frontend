@@ -4,12 +4,13 @@ import cn from 'classnames';
 import axios from "axios";
 import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
+import TextField from "../Form/TextField/TextField";
 
 function DevoxxLevel3({levelNumber, levelName, functionName, state, dispatch}) {
-
     const [remainingTime, setRemainingTime] = useState(0)
+    const [passcode, setPasscode] = useState("")
 
-    function sendAnswer(optionA, optionB, optionC, optionD) {
+    function sendAnswer(passcode) {
         if (state.currentLevelLoading) {
             return;
         }
@@ -20,10 +21,7 @@ function DevoxxLevel3({levelNumber, levelName, functionName, state, dispatch}) {
             data: {
                 player: state.nickname,
                 sessionId: state.sessionID,
-                optionA: optionA,
-                optionB: optionB,
-                optionC: optionC,
-                optionD: optionD,
+                textual: passcode,
                 remainingTime: remainingTime,
             },
         }).then(res => {
@@ -35,7 +33,6 @@ function DevoxxLevel3({levelNumber, levelName, functionName, state, dispatch}) {
         });
 
     }
-
 
     return (
         <div className={cn({
@@ -60,13 +57,17 @@ function DevoxxLevel3({levelNumber, levelName, functionName, state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How do you say beer in Spanish?
+                            Type "0011223344556677889900x00998877665544332211" and "Send Answer"
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Birra</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Cerveza</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Sangria</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> crashloopbackoff</Button>
+                            <TextField onPaste={(e)=>{
+                                e.preventDefault()
+                                return false;
+                            }} onCopy={(e)=>{
+                                e.preventDefault()
+                                return false;
+                            }} changeHandler={e => setPasscode(e.target.value)}></TextField>
+                            <Button small inline clickHandler={e => sendAnswer(passcode)}>Send Answer</Button>
                         </div>
 
                     </div>
