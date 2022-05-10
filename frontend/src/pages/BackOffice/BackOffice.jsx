@@ -176,8 +176,8 @@ function BackOffice() {
                 ["back-office--freeze"]: gameState != "active"
             })}
             >
-                
-                <SectionHero title="Leaderboard" center>
+
+                <SectionHero smaller title="Leaderboard" center>
                   {/*{gameState === "active" && (*/}
                   {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
                   {/*)}*/}
@@ -185,7 +185,7 @@ function BackOffice() {
                   {/*  <Button  clickHandler={restart}> Restart</Button>*/}
                   {/*)}*/}
                 </SectionHero>
-                <section >
+                <section className="--small">
 
                     <div >
                             <ToastContainer />

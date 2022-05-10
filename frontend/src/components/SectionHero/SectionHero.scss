@@ -52,6 +52,15 @@
       }
     }
   }
+  &.--smaller {
+    padding-top: spacing(2,10);
+    section {
+      padding: spacing(2,6) spacing(2);
+      .SectionHero__title {
+        min-height: 0;
+      }
+    }
+  }
   &.--center {
     section {
 

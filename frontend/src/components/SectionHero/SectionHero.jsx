@@ -3,7 +3,7 @@ import React from "react";
 import Element from '../../components/Element/Element'
 import cn from 'classnames';
 
-function SectionHero({title, small, center, children}) {
+function SectionHero({title, small, center, children, smaller}) {
 
     var titleElement;
     if(small){
@@ -24,6 +24,7 @@ function SectionHero({title, small, center, children}) {
       <div className={  cn({
           ["SectionHero"]: true,
           ["--small"]: small === true,
+          ["--smaller"]: smaller === true,
           ["--center"]: center === true,
         })}>
         <section>

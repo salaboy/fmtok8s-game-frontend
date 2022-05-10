@@ -29,6 +29,9 @@ body, html {
 
 section {
   padding: spacing(2,16) spacing(2,20);
+  &.--small {
+    padding: spacing(2,8) spacing(2,20);
+  }
   @media only screen and (max-width: breakpoint(tabletHD)) {
 
   padding: spacing(2,3) spacing(2,2);
