@@ -10,7 +10,7 @@ function DevoxxLevel4({levelNumber, levelName, functionName, state, dispatch}) {
     const [remainingTime, setRemainingTime] = useState(0)
     const [passcode, setPasscode] = useState("")
 
-    function sendAnswer(passcode) {
+    function sendAnswer() {
         if (state.currentLevelLoading) {
             return;
         }
@@ -57,7 +57,11 @@ function DevoxxLevel4({levelNumber, levelName, functionName, state, dispatch}) {
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            Type "0011223344556677889900x00998877665544332211" and "Send Answer"
+                            Type
+                            <br/>
+                            "0011223344556677889900x00998877665544332211"
+                            <br/>
+                            and "Send Answer"
                         </div>
                         <div className="Answer">
                             <TextField onPaste={(e)=>{
