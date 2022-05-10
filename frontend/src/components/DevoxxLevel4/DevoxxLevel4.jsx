@@ -58,9 +58,9 @@ function DevoxxLevel4({levelNumber, levelName, functionName, state, dispatch}) {
                             <div className="Question__Number">{levelNumber}</div>
                             Type
                             <br/>
-                            <strong>0011223344556677889900</strong><br/>
+                            <strong>00112233445566778899</strong><br/>
                             <strong>x</strong><br/>
-                            <strong>00998877665544332211"</strong>
+                            <strong>99887766554433221100</strong>
                             <br/>
                             in the following text box.
                         </div>
