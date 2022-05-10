@@ -32,7 +32,7 @@ function DemoLevel2({levelNumber, levelName, functionName, state, dispatch}) {
     }
 
 
-    function sendAnswer(optionA, optionB, optionC, optionD) {
+    function sendAnswer() {
         if (state.currentLevelLoading) {
             return;
         }
