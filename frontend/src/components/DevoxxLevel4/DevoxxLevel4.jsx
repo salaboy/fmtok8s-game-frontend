@@ -22,7 +22,6 @@ function DevoxxLevel4({levelNumber, levelName, functionName, state, dispatch}) {
                 player: state.nickname,
                 sessionId: state.sessionID,
                 textual: passcode,
-                remainingTime: remainingTime,
             },
         }).then(res => {
             dispatch({type: "levelCompletedTriggered", payload: res.data})
