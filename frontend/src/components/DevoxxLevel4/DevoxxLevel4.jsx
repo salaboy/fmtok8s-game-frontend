@@ -58,9 +58,11 @@ function DevoxxLevel4({levelNumber, levelName, functionName, state, dispatch}) {
                             <div className="Question__Number">{levelNumber}</div>
                             Type
                             <br/>
-                            "0011223344556677889900x00998877665544332211"
+                            <strong>0011223344556677889900</strong><br/>
+                            <strong>x</strong><br/>
+                            <strong>00998877665544332211"</strong>
                             <br/>
-                            and "Send Answer"
+                            in the following text box.
                         </div>
                         <div className="Answer">
                             <TextField onPaste={(e)=>{
