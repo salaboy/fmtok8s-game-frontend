@@ -37,7 +37,7 @@ public class GameController {
         return Mono.just(new LevelsConfig(gameProperties.levels()));
     }
 
-    @GetMapping("/leaderboard")
+    @GetMapping("/scores")
     public Mono<Leaderboard> getLeaderboard(@RequestParam(required = false) String nickname) throws URISyntaxException {
         URI uri = gameProperties.leaderboardUri();
         if (nickname != null && !nickname.isBlank()) {

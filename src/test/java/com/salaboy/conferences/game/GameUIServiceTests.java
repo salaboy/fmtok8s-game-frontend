@@ -94,7 +94,7 @@ public class GameUIServiceTests {
 
 		webTestClient
 				.get()
-				.uri("/game/leaderboard")
+				.uri("/game/scores")
 				.exchange()
 				.expectStatus().is2xxSuccessful()
 				.expectBody(Leaderboard.class).isEqualTo(expectedLeaderboard);

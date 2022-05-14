@@ -141,7 +141,7 @@ function BackOffice() {
     const [leaderboard, setLeaderboard] = useState([]);
 
     useInterval(() => {
-        let url = '/game/leaderboard/'
+        let url = '/game/scores/'
         if(nickname !== ""){
             url = url + "?nickname=" + nickname
         }
@@ -172,7 +172,7 @@ function BackOffice() {
         >
             <div className={cn({
                 ["page"]: true,
-                ["back-office"]: true,
+                ["leaderboard"]: true,
                 ["back-office--freeze"]: gameState != "active"
             })}
             >
