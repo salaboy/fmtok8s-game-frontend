@@ -47,10 +47,10 @@ function App() {
                                 <Route path="/" exact>
                                     <Game/>
                                 </Route>
-                                <Route path="/back-office/:nickname">
+                                <Route path="/leaderboard/:nickname">
                                     <BackOffice/>
                                 </Route>
-                                <Route path="/back-office" exact>
+                                <Route path="/leaderboard" exact>
                                     <BackOffice/>
                                 </Route>
 

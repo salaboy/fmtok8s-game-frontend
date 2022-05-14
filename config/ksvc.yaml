@@ -11,6 +11,46 @@ spec:
       containers:
         - image: salaboy/fmtok8s-game-frontend:0.1.0
           imagePullPolicy: Always
+          env:
+            - name: GAME_LEVELS_0_NAME
+              value: Start
+            - name: GAME_LEVELS_0_FUNCTIONNAME
+            - name: GAME_LEVELS_0_COMPONENTNAME
+            - name: GAME_LEVELS_1_NAME
+              value: Question 1
+            - name: GAME_LEVELS_1_FUNCTIONNAME
+              value: kubeconeu-question-1
+            - name: GAME_LEVELS_1_COMPONENTNAME
+              value: KubeconEULevel1
+            - name: GAME_LEVELS_2_NAME
+              value: Question 2
+            - name: GAME_LEVELS_2_FUNCTIONNAME
+              value: kubeconeu-question-2
+            - name: GAME_LEVELS_2_COMPONENTNAME
+              value: KubeconEULevel2
+            - name: GAME_LEVELS_3_NAME
+              value: Question 3
+            - name: GAME_LEVELS_3_FUNCTIONNAME
+              value: kubeconeu-question-3
+            - name: GAME_LEVELS_3_COMPONENTNAME
+              value: KubeconEULevel3
+            - name: GAME_LEVELS_4_NAME
+              value: Question 4
+            - name: GAME_LEVELS_4_FUNCTIONNAME
+              value: kubeconeu-question-4
+            - name: GAME_LEVELS_4_COMPONENTNAME
+              value: KubeconEULevel4
+            - name: GAME_LEVELS_5_NAME
+              value: Question 5
+            - name: GAME_LEVELS_5_FUNCTIONNAME
+              value: kubeconeu-question-5
+            - name: GAME_LEVELS_5_COMPONENTNAME
+              value: KubeconEULevel5
+            - name: GAME_LEVELS_6_NAME
+              value: End
+            - name: GAME_LEVELS_6_FUNCTIONNAME
+            - name: GAME_LEVELS_6_COMPONENTNAME
+              value: GameComplete
           livenessProbe:
             httpGet:
               path: /actuator/health

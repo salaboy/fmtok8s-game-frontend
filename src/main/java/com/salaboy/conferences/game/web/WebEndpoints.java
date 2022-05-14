@@ -26,9 +26,9 @@ public class WebEndpoints {
     @Bean
     public RouterFunction<ServerResponse> indexRouter() {
         return route()
-                .GET("/back-office", request ->
+                .GET("/leaderboard", request ->
                     ServerResponse.ok().contentType(MediaType.TEXT_HTML).bodyValue(getIndexPage()))
-                .GET("/back-office/{username}", request ->
+                .GET("/leaderboard/{username}", request ->
                         ServerResponse.ok().contentType(MediaType.TEXT_HTML).bodyValue(getIndexPage()))
                 .build();
     }

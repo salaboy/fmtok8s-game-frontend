@@ -13,19 +13,19 @@ function Nav() {
     return (
       <div className={  cn({
           ["Nav"]: true,
-          ["--backoffice"]: currentSection === "back-office",
+          ["--leaderboard"]: currentSection === "back-leaderboard",
         })}>
         <div className="Nav__container">
-          {user && currentSection !== "back-office" && (
+          {user && currentSection !== "leaderboard" && (
             <div className="Nav__user">{user.charAt(0)}</div>
           )}
           <div className="Nav__back-office">
-            {currentSection !== "back-office" && (
+            {currentSection !== "leaderboard" && (
               <span>
-                <NavLink activeClassName='--active' to='/back-office' exact> -> </NavLink>
+                <NavLink activeClassName='--active' to='/leaderboard' exact> -> </NavLink>
               </span>
             )}
-            {currentSection === "back-office" && (
+            {currentSection === "leaderboard" && (
               <span>
                 <NavLink activeClassName='--active' to='/' exact> {'<-'} </NavLink>
               </span>

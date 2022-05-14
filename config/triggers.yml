@@ -14,3 +14,21 @@ spec:
       kind: Service
       name: game-frontend
     uri: /gamescores
+
+---
+
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: sockeye-trigger
+  namespace: default
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: GameScoreEvent
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: sockeye

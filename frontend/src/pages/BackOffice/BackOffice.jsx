@@ -119,7 +119,7 @@ function BackOffice() {
     }, []);
 
     useEffect(() => {
-        setCurrentSection("back-office");
+        setCurrentSection("leaderboard");
         if (scroll) {
             scroll.destroy();
             scroll.init();

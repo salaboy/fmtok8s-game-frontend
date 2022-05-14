@@ -10,7 +10,7 @@ function Footer() {
     return (
       <div className={  cn({
           ["Footer"]: true,
-          ["--backoffice"]: currentSection === "back-office",
+          ["--leaderboard"]: currentSection === "leaderboard",
         })}>
         <div className="Footer__text">
           <Element>

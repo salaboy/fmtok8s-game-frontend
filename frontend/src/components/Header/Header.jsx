@@ -14,15 +14,15 @@ function Header() {
       <div className={  cn({
           ["Header"]: true,
           ["--home"]: currentSection === "home",
-          ["--backoffice"]: currentSection === "back-office",
+          ["--leaderboard"]: currentSection === "back-leaderboard",
         })}>
         <div className="Header__logo">
           <Element>
-            {currentSection !== "back-office" && (
-              <NavLink  to='/' exact> <img src={Logo} alt="Cloud Conf 2025"/></NavLink>
+            {currentSection !== "leaderboard" && (
+              <NavLink  to='/' exact> <img src={Logo} alt="KubeCon/KnativeCon 2022"/></NavLink>
             )}
-            {currentSection === "back-office" && (
-              <NavLink  to='/' exact> <img src={LogoWhite} alt="Cloud Conf 2025"/></NavLink>
+            {currentSection === "leaderboard" && (
+              <NavLink  to='/' exact> <img src={LogoWhite} alt="KubeCon/KnativeCon 2022"/></NavLink>
             )}
           </Element>
         </div>

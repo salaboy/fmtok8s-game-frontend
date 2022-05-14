@@ -13,7 +13,7 @@ function BackOfficeNav({currentSubSection}) {
     return (
         <div className={cn({
             ["BackOfficeNav"]: true,
-            ["--backoffice"]: currentSection === "back-office",
+            ["--leaderboard"]: currentSection === "leaderboard",
         })}>
             <div className="BackOfficeNav__container">
                 <div>
@@ -21,7 +21,7 @@ function BackOfficeNav({currentSubSection}) {
                         className={cn({
                             ["--default"]: !currentSubSection,
                         })}
-                        activeClassName='--active' to='/back-office/features' exact> Features
+                        activeClassName='--active' to='/leaderboard/features' exact> Features
                     </NavLink>
                 </div>
                 {/*{c4pEnabled && (*/}
