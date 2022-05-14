@@ -18,7 +18,7 @@ class WebEndpointsTests {
     private WebTestClient webTestClient;
 
     @ParameterizedTest
-    @ValueSource(strings = {"/back-office", "/back-office/thomas"})
+    @ValueSource(strings = {"/leaderboard", "/leaderboard/thomas"})
     void whenBackOfficeThenReturnIndexPage(String endpoint) {
         webTestClient
                 .get()
