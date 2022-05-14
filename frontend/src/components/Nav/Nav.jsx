@@ -19,7 +19,7 @@ function Nav() {
           {user && currentSection !== "leaderboard" && (
             <div className="Nav__user">{user.charAt(0)}</div>
           )}
-          <div className="Nav__back-office">
+          <div className="Nav__leaderboard">
             {currentSection !== "leaderboard" && (
               <span>
                 <NavLink activeClassName='--active' to='/leaderboard' exact> -> </NavLink>

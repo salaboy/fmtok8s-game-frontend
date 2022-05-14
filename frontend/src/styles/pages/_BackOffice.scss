@@ -1,22 +1,22 @@
 @import '../_foundations.scss';
-.back-office {
+.leaderboard {
   background: linear-gradient(180deg, color(black) 0px, color(black) 100vh);
   transition: transition();
   color: color(white);
-  &.back-office--freeze {
+  &.leaderboard--freeze {
     background: linear-gradient(180deg, color(red) 0px, color(black) 100vh);
   }
   a {
     color: color(red);
   }
-  .back-office__Layout {
+  .leaderboard__Layout {
     display: flex;
     min-height: 100vh;
-    .back-office__Layout__Nav {
+    .leaderboard__Layout__Nav {
       width: spacing(2,50);
 
     }
-    .back-office__Layout__Content {
+    .leaderboard__Layout__Content {
       border-left: 2px solid color(white);
       padding-left: spacing(2,10);
       padding-bottom: spacing(2,10);

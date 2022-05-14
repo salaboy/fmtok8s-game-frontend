@@ -10,7 +10,7 @@
   z-index: 120;
   &.--backoffice {
     .Nav__container {
-      .Nav__back-office{
+      .Nav__leaderboard{
 
         background-color: color(white);
         color: color(black);
@@ -38,7 +38,7 @@
         margin: 0 spacing(2);
       }
     }
-    .Nav__back-office{
+    .Nav__leaderboard{
       padding: 0 0 0 spacing(4);
       background-color: color(black);
       color: color(white);

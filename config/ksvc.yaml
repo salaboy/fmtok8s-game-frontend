@@ -9,7 +9,7 @@ spec:
         autoscaling.knative.dev/minScale: "1"
     spec:
       containers:
-        - image: salaboy/fmtok8s-game-frontend:0.1.0
+        - image: ghcr.io/salaboy/fmtok8s-game-frontend:latestgi
           imagePullPolicy: Always
           env:
             - name: GAME_LEVELS_0_NAME

@@ -173,7 +173,7 @@ function BackOffice() {
             <div className={cn({
                 ["page"]: true,
                 ["leaderboard"]: true,
-                ["back-office--freeze"]: gameState != "active"
+                ["leaderboard--freeze"]: gameState != "active"
             })}
             >
 
