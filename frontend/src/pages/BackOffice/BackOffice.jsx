@@ -69,11 +69,10 @@ function BackOffice() {
 
     function rsocketConnect() {
         console.log("Connecting to Rsocket stream on host: " + host)
-        setOnline(true)
         // Open an RSocket connection to the server
         rsocketClient.connect().subscribe({
             onComplete: socket => {
-
+                setOnline(true)
                 socket
                     .requestStream({
                         metadata: route('game-scores')
