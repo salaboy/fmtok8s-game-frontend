@@ -55,7 +55,7 @@ public class GameController {
     public Mono<GameScore> answer(@PathVariable String levelId, @RequestBody Answers answers) {
         return webClient
                 .post()
-                .uri("http://" + levelId + ".default.svc.cluster.local")
+                .uri("http://" + levelId + "." + gameProperties.namespace() + ".svc.cluster.local")
                 .bodyValue(answers)
                 .retrieve()
                 .bodyToMono(GameScore.class)

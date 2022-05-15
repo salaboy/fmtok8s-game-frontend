@@ -9,6 +9,7 @@ import java.util.Map;
 
 @ConfigurationProperties(prefix = "game")
 public record GameProperties(
+        String namespace,
         String indexPagePath,
         URI startGameUri,
         URI leaderboardUri,

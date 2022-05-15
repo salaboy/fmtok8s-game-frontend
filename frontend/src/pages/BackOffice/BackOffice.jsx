@@ -108,7 +108,6 @@ function BackOffice() {
                         subscription.request(2147483646);
                     },
                 });
-
             },
             onError: error => {
                 console.log("RSocket connection refused due to: " + error);

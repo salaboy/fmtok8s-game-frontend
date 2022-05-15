@@ -17,6 +17,7 @@ game:
   index-page-path: "file:static/index.html"
   leaderboard-uri: http://get-leaderboard.default.svc.cluster.local
   start-game-uri: http://start-game.default.svc.cluster.local
+  namespace: default
   levels:
   - name: "Start"
     functionName: ""
