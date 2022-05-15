@@ -108,6 +108,11 @@ function BackOffice() {
                         subscription.request(2147483646);
                     },
                 });
+                console.log('RSocket completed');
+
+                rsocketClient.connectionStatus().subscribe(status => {
+                    console.log('Connection status:', status);
+                });
             },
             onError: error => {
                 console.log("RSocket connection refused due to: " + error);
@@ -116,13 +121,10 @@ function BackOffice() {
             onSubscribe: cancel => {
                 /* call cancel() to abort */
             }
+
         });
 
-        console.log('RSocket completed');
 
-        rsocketClient.connectionStatus().subscribe(status => {
-            console.log('Connection status:', status);
-        });
     }
 
     useEffect(() => {
