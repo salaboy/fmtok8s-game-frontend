@@ -105,7 +105,7 @@ function BackOffice() {
                         confetti();
                     },
                     onSubscribe: subscription => {
-                        subscription.request(Number.MAX_SAFE_INTEGER);
+                        subscription.request(2147483646);
                     },
                 });
             },
