@@ -11,7 +11,7 @@ module.exports = {
         proxy: {
             '/game': {
                 //fmtok8s-game-controller mvn spring-boot:start
-                target: 'http://34.118.84.94/',
+                target: 'http://game-frontend.default.34.116.208.197.sslip.io',
                 //pathRewrite: { "^/game": "" },
                 changeOrigin: true
             },

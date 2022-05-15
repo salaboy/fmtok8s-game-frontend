@@ -27,7 +27,7 @@ function BackOffice() {
     //scroll
     const {scroll} = useLocomotiveScroll();
 
-
+    const [online, setOnline] = useState(false)
     let host = location.host;
 
     const rsocketClient = new RSocketClient({
@@ -68,18 +68,23 @@ function BackOffice() {
     }
 
     function rsocketConnect() {
-
         console.log("Connecting to Rsocket stream on host: " + host)
+        setOnline(true)
         // Open an RSocket connection to the server
         rsocketClient.connect().subscribe({
             onComplete: socket => {
+
                 socket
                     .requestStream({
                         metadata: route('game-scores')
                     }).subscribe({
-                    onComplete: (response) => console.log('complete: '+response),
+                    onComplete: (response) => {
+                        console.log('complete: '+response)
+                        setOnline(false)
+                    },
                     onError: error => {
                         console.log("Connection has been closed due to: " + error);
+                        setOnline(false)
                     },
                     onNext: payload => {
                         let cloudEvent = payload.data;
@@ -107,6 +112,7 @@ function BackOffice() {
             },
             onError: error => {
                 console.log("RSocket connection refused due to: " + error);
+                setOnline(false)
             },
             onSubscribe: cancel => {
                 /* call cancel() to abort */
@@ -115,8 +121,10 @@ function BackOffice() {
     }
 
     useEffect(() => {
-        rsocketConnect()
-    }, []);
+        if(!online) {
+            rsocketConnect()
+        }
+    }, [online]);
 
     useEffect(() => {
         setCurrentSection("leaderboard");
@@ -142,7 +150,7 @@ function BackOffice() {
 
     useInterval(() => {
         let url = '/game/scores/'
-        if(nickname !== ""){
+        if(nickname && nickname !== ""){
             url = url + "?nickname=" + nickname
         }
         axios.get(url).then(res => {
@@ -178,6 +186,12 @@ function BackOffice() {
             >
 
                 <SectionHero smaller title="Leaderboard" center>
+                    {online && (
+                        <h3>Online</h3>
+                    )}
+                    {!online && (
+                        <h3>Offline</h3>
+                    )}
                   {/*{gameState === "active" && (*/}
                   {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
                   {/*)}*/}
