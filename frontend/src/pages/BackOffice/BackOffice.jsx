@@ -36,8 +36,8 @@ function BackOffice() {
             metadata: IdentitySerializer
         },
         setup: {
-            keepAlive: 1000000,
-            lifetime: 1000000,
+            keepAlive: 5000,
+            lifetime: 360000,
             dataMimeType: 'application/json',
             metadataMimeType: 'message/x.rsocket.routing.v0',
         },
