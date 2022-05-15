@@ -36,8 +36,8 @@ function BackOffice() {
             metadata: IdentitySerializer
         },
         setup: {
-            keepAlive: 60000,
-            lifetime: 180000,
+            keepAlive: 1000000,
+            lifetime: 1000000,
             dataMimeType: 'application/json',
             metadataMimeType: 'message/x.rsocket.routing.v0',
         },
@@ -105,7 +105,7 @@ function BackOffice() {
                         confetti();
                     },
                     onSubscribe: subscription => {
-                        subscription.request(1000000);
+                        subscription.request(Number.MAX_SAFE_INTEGER);
                     },
                 });
             },
@@ -116,6 +116,12 @@ function BackOffice() {
             onSubscribe: cancel => {
                 /* call cancel() to abort */
             }
+        });
+
+        console.log('RSocket completed');
+
+        rsocketClient.connectionStatus().subscribe(status => {
+            console.log('Connection status:', status);
         });
     }
 
