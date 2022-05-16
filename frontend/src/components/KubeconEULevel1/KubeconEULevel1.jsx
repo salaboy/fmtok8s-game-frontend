@@ -4,7 +4,6 @@ import cn from 'classnames';
 import axios from "axios";
 import Button from "../../components/Button/Button";
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
-import PacmanLoader from "react-spinners/PacmanLoader";
 
 function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}) {
 
@@ -34,14 +33,13 @@ function KubeconEULevel1({levelNumber, levelName, functionName, state, dispatch}
             console.log(err.response.data.message)
             console.log(err.response.data)
         });
-
     }
-
 
     return (
         <div className={cn({
             ["Level"]: true,
         })}>
+
 
             {!state.currentLevelLoading && (
                 <div className="Questionnaire">

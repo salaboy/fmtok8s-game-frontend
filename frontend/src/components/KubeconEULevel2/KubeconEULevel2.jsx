@@ -28,9 +28,6 @@ function KubeconEULevel2({levelNumber, levelName, functionName, state, dispatch}
                 remainingTime: remainingTime,
             },
         }).then(res => {
-            console.log("Answer response:")
-            console.log(res.headers)
-            console.log(res.data)
             dispatch({type: "levelCompletedTriggered", payload: res.data})
         }).catch(err => {
             console.log(err)
