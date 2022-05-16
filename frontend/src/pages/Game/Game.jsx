@@ -288,7 +288,7 @@ function Game() {
                                                   <TwitterShareButton
                                                       url={'https://knative.dev'}
                                                       options={{
-                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #devoxxuk #knative  #bringbackthefunc',
+                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #knativecon #knativequiz #valencia',
                                                           via: 'KnativeProject',
                                                           size: "large",
                                                           height: 80
