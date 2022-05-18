@@ -189,10 +189,10 @@ function BackOffice() {
 
                 <SectionHero smaller title="Leaderboard" center>
                     {online && (
-                        <h3>Online</h3>
+                        <h5>Online</h5>
                     )}
                     {!online && (
-                        <h3>Offline</h3>
+                        <h5>Offline</h5>
                     )}
                   {/*{gameState === "active" && (*/}
                   {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}

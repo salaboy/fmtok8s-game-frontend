@@ -283,12 +283,11 @@ function Game() {
 
                                                   Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
 
-
                                                   <br/><br/>
                                                   <TwitterShareButton
                                                       url={'https://knative.dev'}
                                                       options={{
-                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #maintainers #knativequiz #valencia',
+                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #maintainers #valencia, you can also play here https://bit.ly/kubecon-knative',
                                                           via: 'KnativeProject',
                                                           size: "large",
                                                           height: 80
