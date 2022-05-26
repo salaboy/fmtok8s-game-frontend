@@ -63,7 +63,7 @@ function BackOffice() {
                 }).subscribe({
                 onComplete: (response) => {
                     console.log('complete: ' + response)
-                    rsocketClientInstance.connect()
+                    setConnected(false)
                 },
                 onError: error => {
                     console.log("Connection has been closed due to: " + error);
@@ -103,7 +103,7 @@ function BackOffice() {
         }else{
             console.log("rsocket is still null")
         }
-    }, rsocketClientInstance.socket);
+    }, [rsocketClientInstance.socket, connected]);
 
     useEffect(() => {
         setCurrentSection("leaderboard");
