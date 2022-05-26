@@ -33,6 +33,9 @@ import DevoxxLevel3 from "../../components/DevoxxLevel3/DevoxxLevel3";
 import DevoxxLevel5 from "../../components/DevoxxLevel5/DevoxxLevel5";
 import DemoLevel1 from "../../components/DemoLevel1/DemoLevel1";
 import DemoLevel2 from "../../components/DemoLevel2/DemoLevel2";
+import SpringIOLevel5 from "../../components/SpringIOLevel5/SpringIOLevel5";
+import SpringIOLevel3 from "../../components/SpringIOLevel3/SpringIOLevel3";
+import SpringIOLevel1 from "../../components/SpringIOLevel1/SpringIOLevel1";
 
 // Short logic description
 // 1) Create a game session: call POST /game/ to create a new session
@@ -55,11 +58,12 @@ function Game() {
     const [nickname, setNickname] = useState("")
     const [gameLevels, setGameLevels] = useState()
     // use lowercase on level keys to support env variables
-    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3],
+    const levelsMap = new Map([["Level1", Level1], ["Level2", Level2], ["Level3", Level3], ["SpringIOLevel1", SpringIOLevel1],
+        ["SpringIOLevel3", SpringIOLevel3], ["SpringIOLevel5", SpringIOLevel5],
         ["Level4", Level4], ["KubeconEULevel1", KubeconEULevel1], ["KubeconEULevel2", KubeconEULevel2],
         ["KubeconEULevel3", KubeconEULevel3], ["KubeconEULevel4", KubeconEULevel4], ["KubeconEULevel5", KubeconEULevel5],
         ["DevoxxLevel1", DevoxxLevel1], ["DevoxxLevel2", DevoxxLevel2], ["DevoxxLevel3", DevoxxLevel3],
-        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1],["DemoLevel2", DemoLevel2],
+        ["DevoxxLevel4", DevoxxLevel4], ["DevoxxLevel5", DevoxxLevel5], ["DemoLevel1", DemoLevel1], ["DemoLevel2", DemoLevel2],
         ["End", GameComplete]]);
 
 
@@ -211,7 +215,7 @@ function Game() {
                                         )}
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
                                             <>
-                                              {state.nickname} Congratulations!
+                                                {state.nickname} Congratulations!
                                             </>
                                         )
                                         }
@@ -225,7 +229,8 @@ function Game() {
                                         }
                                         {!state.currentLevelStarted && (gameLevels && gameLevels[state.currentLevelId].name != "End") && (
                                             <>
-                                                When you click start you will have 10 seconds to answer. Hurry up, as the time you save gives you points!
+                                                When you click start you will have 10 seconds to answer. Hurry up, as
+                                                the time you save gives you points!
 
                                             </>
                                         )}
@@ -267,9 +272,9 @@ function Game() {
                                         )}
 
                                         {state.currentLevelLoading && !state.currentLevelCompleted && (
-                                          <>
-                                              <Button block main disabled={true}>Loading...</Button>
-                                          </>
+                                            <>
+                                                <Button block main disabled={true}>Loading...</Button>
+                                            </>
                                         )}
 
                                         {/*{gameLevels && gameLevels[state.currentLevelId].name == "End" && (*/}
@@ -279,27 +284,27 @@ function Game() {
 
                                         {gameLevels && gameLevels[state.currentLevelId].name == "End" && (
                                             <>
-                                              <p className="p-s">
+                                                <p className="p-s">
 
-                                                  Tweet your score to participate on the <strong>#Knative</strong> raffle for some swag and books!
+                                                    Tweet your score to participate on
+                                                    the <strong>#Knative</strong> raffle for some swag and books!
 
-                                                  <br/><br/>
-                                                  <TwitterShareButton
-                                                      url={'https://knative.dev'}
-                                                      options={{
-                                                          text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #bringbackthefunc #valencia, you can also play here https://tinyurl.com/knative-func',
-                                                          via: 'KnativeProject',
-                                                          size: "large",
-                                                          height: 80
-                                                      }}
-                                                  />
+                                                    <br/><br/>
+                                                    <TwitterShareButton
+                                                        url={'https://knative.dev'}
+                                                        options={{
+                                                            text: 'My Quiz Game Score (as ' + state.nickname + ') was ' + state.accumulatedScore + ' 🥳 #kubecon #bringbackthefunc #valencia, you can also play here https://tinyurl.com/knative-func',
+                                                            via: 'KnativeProject',
+                                                            size: "large",
+                                                            height: 80
+                                                        }}
+                                                    />
 
 
-                                              </p>
+                                                </p>
                                             </>
                                         )
                                         }
-
 
 
                                     </div>

@@ -60,13 +60,13 @@ function SpringIOLevel5({levelNumber, levelName, functionName, state, dispatch})
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How can you run a function in Kubernetes?
+                            What's the codename of the project introducing virtual threads?
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> func deploy</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> func run</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> func exec</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> func sorry</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> Valhalla</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> Loom</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> Amber</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> Some weird name that I can't remember</Button>
                         </div>
 
                     </div>

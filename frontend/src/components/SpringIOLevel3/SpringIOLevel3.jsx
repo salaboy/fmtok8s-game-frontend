@@ -60,13 +60,13 @@ function SpringIOLevel3({levelNumber, levelName, functionName, state, dispatch})
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            How can you run a function in Kubernetes?
+                            What's the base JVM version supported in spring boot 3
                         </div>
                         <div className="Answer">
-                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> func deploy</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> func run</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> func exec</Button>
-                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> func sorry</Button>
+                        <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> 11</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, true, false, false)}><span className="option">B.</span> 17</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, true, false)}><span className="option">C.</span> 19</Button>
+                        <Button small block clickHandler={e => sendAnswer(false, false, false, true)}><span className="option">D.</span> 8 (shame on you)</Button>
                         </div>
 
                     </div>
