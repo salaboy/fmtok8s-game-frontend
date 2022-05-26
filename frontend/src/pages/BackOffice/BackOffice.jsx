@@ -63,6 +63,7 @@ function BackOffice() {
                 }).subscribe({
                 onComplete: (response) => {
                     console.log('complete: ' + response)
+                    rsocketClientInstance.connect()
                 },
                 onError: error => {
                     console.log("Connection has been closed due to: " + error);
