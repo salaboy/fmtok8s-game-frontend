@@ -79,11 +79,9 @@ function BackOffice() {
                     }).subscribe({
                     onComplete: (response) => {
                         console.log('complete: '+response)
-                        setOnline(false)
                     },
                     onError: error => {
                         console.log("Connection has been closed due to: " + error);
-                        setOnline(false)
                     },
                     onNext: payload => {
                         let cloudEvent = payload.data;
