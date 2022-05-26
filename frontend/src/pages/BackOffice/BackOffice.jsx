@@ -10,9 +10,9 @@ import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
 import axios from "axios";
 import confetti from "canvas-confetti"
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import {rsocketClient} from '../../hooks/rsocket'
+import {rsocketClientInstance} from "../../hooks/rsocket";
 
 
 function BackOffice() {
@@ -22,19 +22,22 @@ function BackOffice() {
     const {scroll} = useLocomotiveScroll();
 
     const [online, setOnline] = useState(false)
+    const [connected, setConnected] = useState(false)
+
     let host = location.host;
+    // let host = "game-frontend.default.34.116.208.197.sslip.io"
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
     }
 
 
-    function toastHardcoded(){
+    function toastHardcoded() {
         toast(<div>
             🥳 <strong>amazing_snyder7</strong> <br/>
             Scored 14 points <br/>
             in level kubeconeu-question-3 !
-        </div>,  {
+        </div>, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -44,63 +47,61 @@ function BackOffice() {
             progress: undefined,
         })
     }
+
+
     function rsocketConnect() {
-        console.log("Connecting to Rsocket stream on host: " + host)
-        // Open an RSocket connection to the server
-        rsocketClient.connect().subscribe({
-            onComplete: socket => {
-                setOnline(true)
-                socket
-                    .requestStream({
-                        metadata: route('game-scores'),
-                        data: null
-                    }).subscribe({
-                    onComplete: (response) => {
-                        console.log('complete: '+response)
-                    },
-                    onError: error => {
-                        console.log("Connection has been closed due to: " + error);
-                    },
-                    onNext: payload => {
-                        let cloudEvent = payload.data;
+        console.log("Connected: " + connected)
+        if(!connected) {
+            console.log("Connecting to Rsocket stream on host: " + host)
+            // Open an RSocket connection to the server
 
-                        console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
-                        toast(<div>
-                                🥳 <strong>{cloudEvent.data.node.Player}</strong> <br/>
-                                Scored {cloudEvent.data.node.LevelScore} points <br/>
-                                in level {cloudEvent.data.node.Level} !
-                              </div>,  {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        })
-                        confetti();
-                    },
-                    onSubscribe: subscription => {
-                        subscription.request(2147483646);
-                    },
-                });
-            },
-            onError: error => {
-                console.log("RSocket connection refused due to: " + error);
+            setConnected(true)
+            rsocketClientInstance.socket
+                .requestStream({
+                    metadata: route('game-scores')
+                }).subscribe({
+                onComplete: (response) => {
+                    console.log('complete: ' + response)
+                },
+                onError: error => {
+                    console.log("Connection has been closed due to: " + error);
+                },
+                onNext: payload => {
+                    let cloudEvent = payload.data;
 
-            },
-            onSubscribe: cancel => {
-                /* call cancel() to abort */
-            }
+                    console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
+                    toast(<div>
+                        🥳 <strong>{cloudEvent.data.node.Player}</strong> <br/>
+                        Scored {cloudEvent.data.node.LevelScore} points <br/>
+                        in level {cloudEvent.data.node.Level} !
+                    </div>, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    })
+                    confetti();
+                },
+                onSubscribe: subscription => {
+                    subscription.request(2147483646);
+                },
+            });
 
-        });
-
-
+        }
     }
 
     useEffect(() => {
-        rsocketConnect()
-    });
+        console.log("socket = " + rsocketClientInstance.socket)
+        if (rsocketClientInstance.socket) {
+            setOnline(true)
+            rsocketConnect()
+        }else{
+            console.log("rsocket is still null")
+        }
+    }, rsocketClientInstance.socket);
 
     useEffect(() => {
         setCurrentSection("leaderboard");
@@ -126,7 +127,7 @@ function BackOffice() {
 
     useInterval(() => {
         let url = '/game/scores/'
-        if(nickname && nickname !== ""){
+        if (nickname && nickname !== "") {
             url = url + "?nickname=" + nickname
         }
         axios.get(url).then(res => {
@@ -138,10 +139,11 @@ function BackOffice() {
 
 
     function freeze() {
-      setGameState("freeze")
+        setGameState("freeze")
     }
+
     function restart() {
-      setGameState("active")
+        setGameState("active")
     }
 
 
@@ -168,23 +170,23 @@ function BackOffice() {
                     {!online && (
                         <h5>Offline</h5>
                     )}
-                  {/*{gameState === "active" && (*/}
-                  {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
-                  {/*)}*/}
-                  {/*{gameState === "freeze" && (*/}
-                  {/*  <Button  clickHandler={restart}> Restart</Button>*/}
-                  {/*)}*/}
+                    {/*{gameState === "active" && (*/}
+                    {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
+                    {/*)}*/}
+                    {/*{gameState === "freeze" && (*/}
+                    {/*  <Button  clickHandler={restart}> Restart</Button>*/}
+                    {/*)}*/}
                 </SectionHero>
                 <section className="--small">
 
-                    <div >
-                            <ToastContainer />
-                            {/*<Button main clickHandler={toastHardcoded}> Toast</Button>*/}
-                            <div>
-                                {leaderboard && leaderboard.Sessions && ((
-                                    <Leaderboard leaderboard={leaderboard}></Leaderboard>
-                                ))}
-                            </div>
+                    <div>
+                        <ToastContainer/>
+                        {/*<Button main clickHandler={toastHardcoded}> Toast</Button>*/}
+                        <div>
+                            {leaderboard && leaderboard.Sessions && ((
+                                <Leaderboard leaderboard={leaderboard}></Leaderboard>
+                            ))}
+                        </div>
                     </div>
                 </section>
 

@@ -8,6 +8,7 @@ import Nav from './components/Nav/Nav';
 import AppContext from './contexts/AppContext';
 import cn from 'classnames';
 
+
 function App() {
     const location = useLocation();
     const containerRef = useRef(null);
@@ -16,6 +17,7 @@ function App() {
     const [currentSection, setCurrentSection] = useState("home");
     const [user, setUser] = useState(null);
     const [gameState, setGameState] = useState("active");
+
     //
     return (
 
