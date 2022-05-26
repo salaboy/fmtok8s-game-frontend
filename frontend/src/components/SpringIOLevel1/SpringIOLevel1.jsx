@@ -60,7 +60,7 @@ function SpringIOLevel1({levelNumber, levelName, functionName, state, dispatch})
                     <div className="Question">
                         <div className="Question__Body">
                             <div className="Question__Number">{levelNumber}</div>
-                            What's Josh's Long second favourite place in the internet?
+                            What's Josh Long's second favourite place in the internet?
                         </div>
                         <div className="Answer">
                         <Button small block clickHandler={e => sendAnswer(true, false, false, false)}><span className="option">A.</span> start.spring.io</Button>
