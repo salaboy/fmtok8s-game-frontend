@@ -1,4 +1,3 @@
-
 import {
     RSocketClient,
     JsonSerializer,
@@ -21,24 +20,34 @@ export const rsocketClient = new RSocketClient({
         metadataMimeType: 'message/x.rsocket.routing.v0',
     },
     transport: new RSocketWebSocketClient({
-        url: 'ws://' + host +'/ws/'
+        url: 'ws://' + host + '/ws/'
     }),
 });
 
 class MyRSocketClient {
 
-    constructor(){
+    constructor() {
         console.log("constructor")
         this.connect()
     }
+
     socket = null;
-    connect(){
+
+    connect() {
         rsocketClient.connect().subscribe({
             onComplete: socket => {
                 this.socket = socket
                 console.log("connection established: " + socket)
+                socket.connectionStatus().subscribe(event => {
+                    if (event.kind !== 'CONNECTED') {
+                        this.socket = null;
+                        this.connect();
+                    }
+                });
             },
             onError: error => {
+                reject(error);
+                this.connect();
                 console.log("RSocket connection refused due to: " + error);
             },
             onSubscribe: cancel => {
@@ -46,6 +55,7 @@ class MyRSocketClient {
             }
 
         });
+
     }
 
 }

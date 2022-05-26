@@ -25,7 +25,7 @@ function BackOffice() {
     const [connected, setConnected] = useState(false)
 
     let host = location.host;
-    // let host = "game-frontend.default.34.116.208.197.sslip.io"
+     //let host = "game-frontend.default.34.116.208.197.sslip.io"
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
@@ -58,7 +58,8 @@ function BackOffice() {
             setConnected(true)
             rsocketClientInstance.socket
                 .requestStream({
-                    metadata: route('game-scores')
+                    metadata: route('game-scores'),
+                    data: null
                 }).subscribe({
                 onComplete: (response) => {
                     console.log('complete: ' + response)
