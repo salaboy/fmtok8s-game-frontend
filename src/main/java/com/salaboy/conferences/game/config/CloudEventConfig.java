@@ -34,7 +34,7 @@ public class CloudEventConfig implements CodecCustomizer {
 
     @Bean
     Sinks.Many<GameScore> gameScoreEmitter() {
-        return Sinks.many().multicast().onBackpressureBuffer();
+        return Sinks.many().multicast().onBackpressureBuffer(10, false);
     }
 
 }
