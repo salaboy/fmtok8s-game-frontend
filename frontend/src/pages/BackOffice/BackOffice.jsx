@@ -4,7 +4,6 @@ import {useLocomotiveScroll} from 'react-locomotive-scroll';
 import AppContext from '../../contexts/AppContext';
 import Footer from '../../components/Footer/Footer'
 import cn from 'classnames';
-import Button from "../../components/Button/Button";
 import SectionHero from '../../components/SectionHero/SectionHero'
 import {useParams} from "react-router-dom";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
@@ -13,13 +12,8 @@ import axios from "axios";
 import confetti from "canvas-confetti"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import {rsocketClient} from '../../hooks/rsocket'
 
-import {
-    RSocketClient,
-    JsonSerializer,
-    IdentitySerializer
-} from 'rsocket-core';
-import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 function BackOffice() {
     const {currentSection, setCurrentSection, gameState, setGameState} = useContext(AppContext);
@@ -29,22 +23,6 @@ function BackOffice() {
 
     const [online, setOnline] = useState(false)
     let host = location.host;
-
-    const rsocketClient = new RSocketClient({
-        serializers: {
-            data: JsonSerializer,
-            metadata: IdentitySerializer
-        },
-        setup: {
-            keepAlive: 5000,
-            lifetime: 360000,
-            dataMimeType: 'application/json',
-            metadataMimeType: 'message/x.rsocket.routing.v0',
-        },
-        transport: new RSocketWebSocketClient({
-            url: 'ws://' + host +'/ws/'
-        }),
-    });
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
@@ -66,7 +44,6 @@ function BackOffice() {
             progress: undefined,
         })
     }
-
     function rsocketConnect() {
         console.log("Connecting to Rsocket stream on host: " + host)
         // Open an RSocket connection to the server
@@ -75,7 +52,8 @@ function BackOffice() {
                 setOnline(true)
                 socket
                     .requestStream({
-                        metadata: route('game-scores')
+                        metadata: route('game-scores'),
+                        data: null
                     }).subscribe({
                     onComplete: (response) => {
                         console.log('complete: '+response)
@@ -109,7 +87,7 @@ function BackOffice() {
             },
             onError: error => {
                 console.log("RSocket connection refused due to: " + error);
-                setOnline(false)
+
             },
             onSubscribe: cancel => {
                 /* call cancel() to abort */
@@ -121,10 +99,8 @@ function BackOffice() {
     }
 
     useEffect(() => {
-        if(!online) {
-            rsocketConnect()
-        }
-    }, [online]);
+        rsocketConnect()
+    });
 
     useEffect(() => {
         setCurrentSection("leaderboard");
