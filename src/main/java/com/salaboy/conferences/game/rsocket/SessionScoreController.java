@@ -36,9 +36,8 @@ public class SessionScoreController {
     @MessageMapping("game-scores")
     public Flux<CloudEvent> gameScoresEvents() {
         log.info("Received game-scores request.");
-        return gameScoreEmitter.asFlux().doOnComplete(() -> {
-            log.info("Calling on complete!");
-        }).map(gameScore -> CloudEventBuilder.v1()
+        return gameScoreEmitter.asFlux()
+                .map(gameScore -> CloudEventBuilder.v1()
                         .withId(UUID.randomUUID().toString())
                         .withSource(URI.create("game-frontend.default.svc.cluster.local"))
                         .withType("GameScoreEvent")

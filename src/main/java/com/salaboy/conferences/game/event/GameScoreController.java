@@ -26,7 +26,6 @@ public class GameScoreController {
 
     @GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     Flux<GameScore> getEvents() {
-
         return gameScoreEmitter.asFlux();
     }
 
