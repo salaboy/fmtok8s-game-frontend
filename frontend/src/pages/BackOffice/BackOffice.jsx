@@ -4,16 +4,22 @@ import {useLocomotiveScroll} from 'react-locomotive-scroll';
 import AppContext from '../../contexts/AppContext';
 import Footer from '../../components/Footer/Footer'
 import cn from 'classnames';
+import Button from "../../components/Button/Button";
 import SectionHero from '../../components/SectionHero/SectionHero'
 import {useParams} from "react-router-dom";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import useInterval from "../../hooks/useInterval";
 import axios from "axios";
 import confetti from "canvas-confetti"
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import {rsocketClientInstance} from "../../hooks/rsocket";
 
+import {
+    RSocketClient,
+    JsonSerializer,
+    IdentitySerializer
+} from 'rsocket-core';
+import RSocketWebSocketClient from 'rsocket-websocket-client';
 
 function BackOffice() {
     const {currentSection, setCurrentSection, gameState, setGameState} = useContext(AppContext);
@@ -22,22 +28,35 @@ function BackOffice() {
     const {scroll} = useLocomotiveScroll();
 
     const [online, setOnline] = useState(false)
-    const [connected, setConnected] = useState(false)
-
     let host = location.host;
-     //let host = "game-frontend.default.34.116.208.197.sslip.io"
+
+    const rsocketClient = new RSocketClient({
+        serializers: {
+            data: JsonSerializer,
+            metadata: IdentitySerializer
+        },
+        setup: {
+            keepAlive: 5000,
+            lifetime: 360000,
+            dataMimeType: 'application/json',
+            metadataMimeType: 'message/x.rsocket.routing.v0',
+        },
+        transport: new RSocketWebSocketClient({
+            url: 'ws://' + host +'/ws/'
+        }),
+    });
 
     function route(value) {
         return String.fromCharCode(value.length) + value;
     }
 
 
-    function toastHardcoded() {
+    function toastHardcoded(){
         toast(<div>
             🥳 <strong>amazing_snyder7</strong> <br/>
             Scored 14 points <br/>
             in level kubeconeu-question-3 !
-        </div>, {
+        </div>,  {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -48,62 +67,67 @@ function BackOffice() {
         })
     }
 
-
     function rsocketConnect() {
-        console.log("Connected: " + connected)
-        if(!connected) {
-            console.log("Connecting to Rsocket stream on host: " + host)
-            // Open an RSocket connection to the server
+        console.log("Connecting to Rsocket stream on host: " + host)
+        // Open an RSocket connection to the server
+        rsocketClient.connect().subscribe({
+            onComplete: socket => {
+                setOnline(true)
+                socket
+                    .requestStream({
+                        metadata: route('game-scores'),
+                        data: null
+                    }).subscribe({
+                    onComplete: (response) => {
+                        console.log('complete: '+response)
+                        setOnline(false)
+                    },
+                    onError: error => {
+                        console.log("Connection has been closed due to: " + error);
+                        setOnline(false)
+                    },
+                    onNext: payload => {
+                        let cloudEvent = payload.data;
 
-            setConnected(true)
-            rsocketClientInstance.socket
-                .requestStream({
-                    metadata: route('game-scores'),
-                    data: null
-                }).subscribe({
-                onComplete: (response) => {
-                    console.log('complete: ' + response)
-                    setConnected(false)
-                },
-                onError: error => {
-                    console.log("Connection has been closed due to: " + error);
-                },
-                onNext: payload => {
-                    let cloudEvent = payload.data;
+                        console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
+                        toast(<div>
+                            🥳 <strong>{cloudEvent.data.node.Player}</strong> <br/>
+                            Scored {cloudEvent.data.node.LevelScore} points <br/>
+                            in level {cloudEvent.data.node.Level} !
+                        </div>,  {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        })
+                        confetti();
+                    },
+                    onSubscribe: subscription => {
+                        subscription.request(2147483646);
+                    },
+                });
+            },
+            onError: error => {
+                console.log("RSocket connection refused due to: " + error);
+                setOnline(false)
+            },
+            onSubscribe: cancel => {
+                /* call cancel() to abort */
+            }
 
-                    console.log("Toasting CE NODE: " + JSON.stringify(cloudEvent.data.node))
-                    toast(<div>
-                        🥳 <strong>{cloudEvent.data.node.Player}</strong> <br/>
-                        Scored {cloudEvent.data.node.LevelScore} points <br/>
-                        in level {cloudEvent.data.node.Level} !
-                    </div>, {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    })
-                    confetti();
-                },
-                onSubscribe: subscription => {
-                    subscription.request(2147483646);
-                },
-            });
+        });
 
-        }
+
     }
 
     useEffect(() => {
-        console.log("socket = " + rsocketClientInstance.socket)
-        if (rsocketClientInstance.socket) {
-            setOnline(true)
+        if(!online) {
             rsocketConnect()
-        }else{
-            console.log("rsocket is still null")
         }
-    }, [rsocketClientInstance.socket, connected]);
+    }, [online]);
 
     useEffect(() => {
         setCurrentSection("leaderboard");
@@ -129,7 +153,7 @@ function BackOffice() {
 
     useInterval(() => {
         let url = '/game/scores/'
-        if (nickname && nickname !== "") {
+        if(nickname && nickname !== ""){
             url = url + "?nickname=" + nickname
         }
         axios.get(url).then(res => {
@@ -143,7 +167,6 @@ function BackOffice() {
     function freeze() {
         setGameState("freeze")
     }
-
     function restart() {
         setGameState("active")
     }
@@ -167,10 +190,10 @@ function BackOffice() {
 
                 <SectionHero smaller title="Leaderboard" center>
                     {online && (
-                        <h5>Online</h5>
+                        <h3>Online</h3>
                     )}
                     {!online && (
-                        <h5>Offline</h5>
+                        <h3>Offline</h3>
                     )}
                     {/*{gameState === "active" && (*/}
                     {/*  <Button main clickHandler={freeze}> Freeze</Button>*/}
@@ -181,8 +204,8 @@ function BackOffice() {
                 </SectionHero>
                 <section className="--small">
 
-                    <div>
-                        <ToastContainer/>
+                    <div >
+                        <ToastContainer />
                         {/*<Button main clickHandler={toastHardcoded}> Toast</Button>*/}
                         <div>
                             {leaderboard && leaderboard.Sessions && ((
